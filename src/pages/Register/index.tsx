@@ -2,13 +2,16 @@ import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
 import { ContactFormData } from './interface'
 import Select, { SingleValue } from 'react-select'
 import {
+  BackLink,
   Button,
   Form,
   FormWrapper,
   Input,
   Label,
+  Spacer,
   TextArea,
   Title,
+  TopBar,
 } from './styles'
 
 export function Register() {
@@ -79,6 +82,11 @@ export function Register() {
 
   return (
     <FormWrapper>
+      <TopBar>
+        <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
+        <BackLink href="/">Página de Listagem</BackLink>
+      </TopBar>
+
       <Title>Registro</Title>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor="name">Nome:</Label>

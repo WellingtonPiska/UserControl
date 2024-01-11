@@ -54,3 +54,31 @@ export const ErrorMsg = styled.p`
   text-align: center;
   margin-top: 10px;
 `
+
+export const BackLink = styled.a`
+  display: inline-block;
+  margin-bottom: 20;
+  text-decoration: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px 6px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+export const Spacer = styled.div`
+  flex: 1;
+`
+
+export const TopBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; // Espaço entre a barra superior e o título
+`
