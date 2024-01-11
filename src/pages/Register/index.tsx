@@ -21,6 +21,7 @@ export function Register() {
   }
 
   const [formData, setFormData] = useState<ContactFormData>(initialFormData)
+  const [formDataList, setFormDataList] = useState<ContactFormData[]>([]) // Adicione formDataList ao estado
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
@@ -65,11 +66,15 @@ export function Register() {
 
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
-    // Aqui você pode adicionar a lógica para enviar os dados do formulário para onde quiser.
-    console.log(formData)
-    // Limpar o localStorage após o envio (opcional)
+
+    // Adicione o novo registro a formDataList
+    const updatedFormDataList = [...formDataList, formData]
+    localStorage.setItem('formDataList', JSON.stringify(updatedFormDataList))
+
+    // Limpar o localStorage do registro atual
     localStorage.removeItem('formData')
     setFormData(initialFormData)
+    setFormDataList(updatedFormDataList)
   }
 
   return (
