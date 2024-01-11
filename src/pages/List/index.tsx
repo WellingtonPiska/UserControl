@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
+
+import { MdDeleteForever } from 'react-icons/md'
+import { RxUpdate } from 'react-icons/rx'
+
 import { ContactFormData } from './interface'
+
 import {
+  ActionsHeader,
   BackLink,
+  IconContainer,
   ListContainer,
   ListTitle,
   Spacer,
@@ -22,6 +29,12 @@ export function List() {
     }
   }, [])
 
+  const handleDelete = (index: number) => {
+    const newFormDataList = formDataList.filter((_, i) => i !== index)
+    setFormDataList(newFormDataList)
+    localStorage.setItem('formDataList', JSON.stringify(newFormDataList))
+  }
+
   return (
     <ListContainer>
       <TopBar>
@@ -39,6 +52,7 @@ export function List() {
             <TableHeaderCell>Usuário</TableHeaderCell>
             <TableHeaderCell>Sexo</TableHeaderCell>
             <TableHeaderCell>Mensagem</TableHeaderCell>
+            <ActionsHeader>Ações</ActionsHeader>
           </TableRow>
         </thead>
         <tbody>
@@ -49,6 +63,12 @@ export function List() {
               <TableCell>{formData.username}</TableCell>
               <TableCell>{formData.gender}</TableCell>
               <TableCell>{formData.message}</TableCell>
+              <TableCell>
+                <IconContainer>
+                  <RxUpdate />
+                  <MdDeleteForever onClick={() => handleDelete(index)} />
+                </IconContainer>
+              </TableCell>
             </TableRow>
           ))}
         </tbody>

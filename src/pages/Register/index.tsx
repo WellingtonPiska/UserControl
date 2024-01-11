@@ -24,6 +24,7 @@ export function Register() {
   }
 
   const [formData, setFormData] = useState<ContactFormData>(initialFormData)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([]) // Adicione formDataList ao estado
 
   const genderOptions = [
@@ -70,14 +71,22 @@ export function Register() {
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
 
-    // Adicione o novo registro a formDataList
-    const updatedFormDataList = [...formDataList, formData]
-    localStorage.setItem('formDataList', JSON.stringify(updatedFormDataList))
+    // Buscar dados antigos
+    const savedFormDataList = localStorage.getItem('formDataList')
+    const formDataListArray = savedFormDataList
+      ? JSON.parse(savedFormDataList)
+      : []
 
-    // Limpar o localStorage do registro atual
+    // Adicionar novo registro ao array
+    formDataListArray.push(formData)
+
+    // Salvar o array atualizado no localStorage
+    localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
+
+    // Limpar o localStorage do registro atual e o estado
     localStorage.removeItem('formData')
     setFormData(initialFormData)
-    setFormDataList(updatedFormDataList)
+    setFormDataList(formDataListArray)
   }
 
   return (

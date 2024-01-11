@@ -1,16 +1,5 @@
 import { styled } from 'styled-components'
 
-// export const ListContainer = styled.div`
-//   width: 80%;
-//   margin: 0 auto;
-//   padding: 20px;
-//   background-color: #f5f5f5;
-//   border: 1px solid #ddd;
-//   border-radius: 5px;
-//   max-width: 720px;
-//   overflow-x: auto; /* Adicionando scroll horizontal se necessário */
-// `
-
 export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,4 +74,49 @@ export const BackLink = styled.a`
   &:hover {
     background-color: #0056b3;
   }
+`
+
+export const ActionsHeader = styled.th`
+  width: 40px; // Largura fixa para acomodar ambos os botões
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #007bff;
+  color: #fff;
+`
+
+export const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; // Espaçamento entre os ícones
+
+  svg {
+    width: 24px; // Tamanho do ícone
+    height: 24px; // Tamanho do ícone
+    cursor: pointer; // Muda o cursor para indicar que é clicável
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1); // Efeito de zoom ao passar o mouse
+    }
+  }
+`
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const ModalContainer = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
 `
