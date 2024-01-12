@@ -1,4 +1,4 @@
-import { styled } from 'styled-components'
+import { createGlobalStyle, styled } from 'styled-components'
 
 export const ListContainer = styled.div`
   display: flex;
@@ -103,20 +103,8 @@ export const IconContainer = styled.div`
   }
 `
 
-export const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-export const ModalContainer = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
+export const ToastContainer = createGlobalStyle`
+  .Toastify__toast-container {
+    z-index: 9999;
+  }
 `

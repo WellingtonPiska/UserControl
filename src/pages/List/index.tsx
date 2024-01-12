@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { MdDeleteForever } from 'react-icons/md'
+import { toast } from 'react-toastify'
 import { RxUpdate } from 'react-icons/rx'
 
 import { ContactFormData } from './interface'
@@ -18,9 +19,17 @@ import {
   TableRow,
   TopBar,
 } from './styles'
+import ModalDelete from '../../components/ModalDelete'
+import {
+  ButtonContainer,
+  ModalButton,
+} from '../../components/ModalDelete/styles'
 
 export function List() {
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([])
+  // estados para controlar os modais do deletar
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [itemToDelete, setItemToDelete] = useState<number | null>(null)
 
   useEffect(() => {
     const savedFormData = localStorage.getItem('formDataList')
@@ -29,10 +38,32 @@ export function List() {
     }
   }, [])
 
-  const handleDelete = (index: number) => {
-    const newFormDataList = formDataList.filter((_, i) => i !== index)
-    setFormDataList(newFormDataList)
-    localStorage.setItem('formDataList', JSON.stringify(newFormDataList))
+  const openDeleteModal = (index: number) => {
+    setItemToDelete(index)
+    setIsModalOpen(true)
+  }
+
+  const handleDelete = () => {
+    if (itemToDelete !== null) {
+      const newFormDataList = formDataList.filter(
+        (_item, currentIndex) => currentIndex !== itemToDelete,
+      )
+      setFormDataList(newFormDataList)
+      localStorage.setItem('formDataList', JSON.stringify(newFormDataList))
+
+      toast.success('Excluido com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+    }
+    setIsModalOpen(false)
+    setItemToDelete(null)
   }
 
   return (
@@ -66,13 +97,23 @@ export function List() {
               <TableCell>
                 <IconContainer>
                   <RxUpdate />
-                  <MdDeleteForever onClick={() => handleDelete(index)} />
+                  <MdDeleteForever onClick={() => openDeleteModal(index)} />
                 </IconContainer>
               </TableCell>
             </TableRow>
           ))}
         </tbody>
       </Table>
+
+      {isModalOpen && (
+        <ModalDelete onClose={() => setIsModalOpen(false)}>
+          <p>Tem certeza de que deseja excluir este registro?</p>
+          <ButtonContainer>
+            <ModalButton onClick={handleDelete}>Sim</ModalButton>
+            <ModalButton onClick={() => setIsModalOpen(false)}>Não</ModalButton>
+          </ButtonContainer>
+        </ModalDelete>
+      )}
     </ListContainer>
   )
 }

@@ -13,6 +13,7 @@ import {
   Title,
   TopBar,
 } from './styles'
+import { toast } from 'react-toastify'
 
 export function Register() {
   const initialFormData: ContactFormData = {
@@ -65,11 +66,23 @@ export function Register() {
   }
 
   useEffect(() => {
+    // setItem foi usado aqui para armazenar os dados dentro do formData, que é um estado que contém todos os cadastros
     localStorage.setItem('formData', JSON.stringify(formData))
   }, [formData])
 
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
+
+    toast.success('Formulário criado com sucesso!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    })
 
     // Buscar dados antigos
     const savedFormDataList = localStorage.getItem('formDataList')
