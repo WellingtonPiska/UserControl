@@ -24,46 +24,65 @@ import {
   ButtonContainer,
   ModalButton,
 } from '../../components/ModalDelete/styles'
+import { useNavigate } from 'react-router'
 
 export function List() {
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([])
   // estados para controlar os modais do deletar
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [itemToDelete, setItemToDelete] = useState<number | null>(null)
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null)
+  const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
+
+  console.log(isModalOpen, 'modal open')
 
   useEffect(() => {
-    const savedFormData = localStorage.getItem('formDataList')
-    if (savedFormData) {
-      setFormDataList(JSON.parse(savedFormData))
+    const jsonFormDataList = localStorage.getItem('formDataList')
+
+    if (jsonFormDataList) {
+      setFormDataList(JSON.parse(jsonFormDataList))
     }
   }, [])
 
-  const openDeleteModal = (index: number) => {
-    setItemToDelete(index)
+  const openDeleteModal = (id: string) => {
+    setItemToDelete(id)
     setIsModalOpen(true)
+  }
+
+  const handleUpdate = (id: string) => {
+    if (id !== null) {
+      // Redireciona para a página de edição com o ID do registro (index)
+      navigate(`/update/${id}`)
+    }
   }
 
   const handleDelete = () => {
     if (itemToDelete !== null) {
-      const newFormDataList = formDataList.filter(
-        (_item, currentIndex) => currentIndex !== itemToDelete,
-      )
-      setFormDataList(newFormDataList)
-      localStorage.setItem('formDataList', JSON.stringify(newFormDataList))
+      const jsonFormDataList = localStorage.getItem('formDataList')
 
-      toast.success('Excluido com sucesso!', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      })
+      if (jsonFormDataList) {
+        const formDataListArray = jsonFormDataList
+          ? (JSON.parse(jsonFormDataList) as ContactFormData[])
+          : ([] as ContactFormData[])
+        const newFormDataList = formDataListArray.filter(
+          (item) => item.id !== itemToDelete,
+        )
+        setFormDataList(newFormDataList)
+        localStorage.setItem('formDataList', JSON.stringify(newFormDataList))
+
+        toast.success('Excluido com sucesso!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        })
+      }
+      setIsModalOpen(false)
+      setItemToDelete(null)
     }
-    setIsModalOpen(false)
-    setItemToDelete(null)
   }
 
   return (
@@ -96,8 +115,10 @@ export function List() {
               <TableCell>{formData.message}</TableCell>
               <TableCell>
                 <IconContainer>
-                  <RxUpdate />
-                  <MdDeleteForever onClick={() => openDeleteModal(index)} />
+                  <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                  <MdDeleteForever
+                    onClick={() => openDeleteModal(formData.id)}
+                  />
                 </IconContainer>
               </TableCell>
             </TableRow>

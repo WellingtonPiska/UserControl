@@ -1,48 +1,76 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
 import { ContactFormData } from './interface'
-import Select, { SingleValue } from 'react-select'
-import { v4 as uuidv4 } from 'uuid'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   BackLink,
-  Button,
   Form,
   FormWrapper,
   Input,
   Label,
   Spacer,
-  TextArea,
   Title,
   TopBar,
+  TextArea,
+  Button,
 } from './styles'
+import Select, { SingleValue } from 'react-select'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router'
 
-export function Register() {
-  const initialFormData: ContactFormData = {
-    name: '',
-    email: '',
-    username: '',
-    message: '',
-    gender: '',
+export function Update() {
+  const { id } = useParams() // Obtenha o ID do item a ser atualizado
+  const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
+
+  const getInitialFormData = () => {
+    const savedFormData = localStorage.getItem(`formData_${id}`)
+    return savedFormData
+      ? JSON.parse(savedFormData)
+      : {
+          name: '',
+          email: '',
+          username: '',
+          message: '',
+          gender: '',
+        }
   }
 
-  const navigate = useNavigate()
+  const [formData, setFormData] = useState<ContactFormData>(getInitialFormData)
 
-  const [formData, setFormData] = useState<ContactFormData>(initialFormData)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  useEffect(() => {
+    const jsonFormDataList = localStorage.getItem(`formDataList`)
+    if (jsonFormDataList && id !== undefined) {
+      const parsedFormData = JSON.parse(jsonFormDataList)
+
+      const itemById = parsedFormData.find(
+        (item: ContactFormData) => item.id === id,
+      )
+
+      if (itemById) {
+        setFormData(itemById)
+      } else {
+        toast.error('Nenhum item encontrado com o id: ' + id, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        })
+
+        navigate('/')
+      }
+
+      console.log(itemById)
+      console.log(id)
+    }
+  }, [id])
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
     { value: 'female', label: 'Feminino' },
   ]
-
-  useEffect(() => {
-    const savedFormData = localStorage.getItem('formData')
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData))
-    }
-  }, [])
 
   const handleChange = (
     inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -69,15 +97,14 @@ export function Register() {
     }
   }
 
-  useEffect(() => {
-    // setItem foi usado aqui para armazenar os dados dentro do formData, que é um estado que contém todos os cadastros
-    localStorage.setItem('formData', JSON.stringify(formData))
-  }, [formData])
-
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
+    localStorage.setItem(`formData_${id}`, JSON.stringify(formData))
+    navigate('/') // redirecionamento
 
-    toast.success('Formulário criado com sucesso!', {
+    console.log(handleSubmit)
+
+    toast.success('Formulário alterado com sucesso!', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -87,34 +114,16 @@ export function Register() {
       progress: undefined,
       theme: 'light',
     })
-
-    // Buscar dados antigos
-    const jsonFormDataList = localStorage.getItem('formDataList')
-    const formDataListArray = jsonFormDataList
-      ? JSON.parse(jsonFormDataList)
-      : []
-
-    // Adicionar um UUID ao formData
-    const formDataWithId = { ...formData, id: uuidv4() }
-
-    // Adicionar novo registro ao array
-    formDataListArray.push(formDataWithId)
-
-    // Salvar o array atualizado no localStorage
-    localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
-
-    setFormData(initialFormData)
-    navigate('/')
   }
 
   return (
     <FormWrapper>
       <TopBar>
-        <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
+        <Spacer />
         <BackLink href="/">Página de Listagem</BackLink>
       </TopBar>
 
-      <Title>Registro</Title>
+      <Title>Edição</Title>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor="name">Nome:</Label>
         <Input
@@ -162,7 +171,9 @@ export function Register() {
           value={formData.message}
           onChange={handleChange}
         />
-        <Button type="submit">Enviar</Button>
+        <Button onSubmit={handleSubmit} type="submit">
+          Salvar
+        </Button>
       </Form>
     </FormWrapper>
   )
