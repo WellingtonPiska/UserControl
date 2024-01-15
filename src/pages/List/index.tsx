@@ -33,8 +33,6 @@ export function List() {
   const [itemToDelete, setItemToDelete] = useState<string | null>(null)
   const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
 
-  console.log(isModalOpen, 'modal open')
-
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem('formDataList')
 

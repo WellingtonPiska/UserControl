@@ -23,6 +23,7 @@ export function Update() {
 
   const getInitialFormData = () => {
     const savedFormData = localStorage.getItem(`formData_${id}`)
+
     return savedFormData
       ? JSON.parse(savedFormData)
       : {
@@ -38,6 +39,9 @@ export function Update() {
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem(`formDataList`)
+
+    // console.log(jsonFormDataList)
+
     if (jsonFormDataList && id !== undefined) {
       const parsedFormData = JSON.parse(jsonFormDataList)
 
@@ -61,11 +65,48 @@ export function Update() {
 
         navigate('/')
       }
-
-      console.log(itemById)
-      console.log(id)
     }
   }, [id])
+
+  // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
+
+  // Pegando a lista do storage em JSON
+  const listStorage = localStorage.getItem('formDataList')
+
+  if (listStorage) {
+    const parsedListStorage = JSON.parse(listStorage)
+
+    const index = parsedListStorage.findIndex(
+      (item: ContactFormData) => item.id === id,
+    )
+
+    if (index !== -1) {
+      // obtenha o objeto encontrado
+      const foundItem = parsedListStorage[index]
+
+      // atualizar o objeto com os novos dados
+      const updatedItem = { ...foundItem, ...formData }
+
+      // substituir o objeto no array original
+      parsedListStorage[index] = updatedItem
+
+      // fazer a atualização do localStorage com a lista atualizada
+      localStorage.setItem('formDataList', JSON.stringify(parsedListStorage))
+
+      console.log(foundItem, 'foundItem')
+    } else {
+      toast.error('Não foi possível fazer a edição', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+    }
+  }
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
@@ -101,8 +142,6 @@ export function Update() {
     formEvent.preventDefault()
     localStorage.setItem(`formData_${id}`, JSON.stringify(formData))
     navigate('/') // redirecionamento
-
-    console.log(handleSubmit)
 
     toast.success('Formulário alterado com sucesso!', {
       position: 'top-right',
