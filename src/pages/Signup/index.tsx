@@ -62,7 +62,7 @@ export function Signup() {
         <C.LabelSignin>
           Já tem uma conta?
           <Strong>
-            <Link to="/signup">&nbsp;Entre</Link>
+            <Link to="/signin">&nbsp;Entre</Link>
           </Strong>
         </C.LabelSignin>
       </Content>
