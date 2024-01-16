@@ -104,14 +104,14 @@ export function Register() {
     localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
 
     setFormData(initialFormData)
-    navigate('/')
+    navigate('/list')
   }
 
   return (
     <FormWrapper>
       <TopBar>
         <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
-        <BackLink href="/">Página de Listagem</BackLink>
+        <BackLink href="/list">Página de Listagem</BackLink>
       </TopBar>
 
       <Title>Registro</Title>

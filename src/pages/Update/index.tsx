@@ -63,7 +63,7 @@ export function Update() {
           theme: 'light',
         })
 
-        navigate('/')
+        navigate('/list')
       }
     }
   }, [id])
@@ -141,7 +141,7 @@ export function Update() {
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
     localStorage.setItem(`formData_${id}`, JSON.stringify(formData))
-    navigate('/') // redirecionamento
+    navigate('/list') // redirecionamento
 
     toast.success('Formulário alterado com sucesso!', {
       position: 'top-right',
@@ -159,7 +159,7 @@ export function Update() {
     <FormWrapper>
       <TopBar>
         <Spacer />
-        <BackLink href="/">Página de Listagem</BackLink>
+        <BackLink href="/list">Página de Listagem</BackLink>
       </TopBar>
 
       <Title>Edição</Title>
