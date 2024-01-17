@@ -23,7 +23,6 @@ export function Update() {
 
   const getInitialFormData = () => {
     const savedFormData = localStorage.getItem(`formData_${id}`)
-
     return savedFormData
       ? JSON.parse(savedFormData)
       : {
@@ -39,9 +38,6 @@ export function Update() {
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem(`formDataList`)
-
-    // console.log(jsonFormDataList)
-
     if (jsonFormDataList && id !== undefined) {
       const parsedFormData = JSON.parse(jsonFormDataList)
 
@@ -67,6 +63,36 @@ export function Update() {
       }
     }
   }, [id])
+
+  const genderOptions = [
+    { value: 'male', label: 'Masculino' },
+    { value: 'female', label: 'Feminino' },
+  ]
+
+  const handleChange = (
+    inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = inputChangeEvent.target
+
+    const newValue = name === 'username' ? value.toLowerCase() : value
+
+    setFormData({
+      ...formData,
+      [name]: newValue,
+    })
+  }
+
+  const handleSelectChange = (
+    selectedOption: SingleValue<{ value: string; label: string }>,
+  ) => {
+    if (selectedOption) {
+      // Verifica se selectedOption não é null
+      setFormData({
+        ...formData,
+        gender: selectedOption.value,
+      })
+    }
+  }
 
   // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
 
@@ -108,40 +134,12 @@ export function Update() {
     }
   }
 
-  const genderOptions = [
-    { value: 'male', label: 'Masculino' },
-    { value: 'female', label: 'Feminino' },
-  ]
-
-  const handleChange = (
-    inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = inputChangeEvent.target
-
-    const newValue = name === 'username' ? value.toLowerCase() : value
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-    })
-  }
-
-  const handleSelectChange = (
-    selectedOption: SingleValue<{ value: string; label: string }>,
-  ) => {
-    if (selectedOption) {
-      // Verifica se selectedOption não é null
-      setFormData({
-        ...formData,
-        gender: selectedOption.value,
-      })
-    }
-  }
-
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()
     localStorage.setItem(`formData_${id}`, JSON.stringify(formData))
     navigate('/list') // redirecionamento
+
+    console.log(handleSubmit)
 
     toast.success('Formulário alterado com sucesso!', {
       position: 'top-right',

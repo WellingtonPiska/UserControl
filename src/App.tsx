@@ -6,12 +6,12 @@ import { AuthProvider } from './context/auth'
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ToastContainer />
+    <BrowserRouter>
+      <ToastContainer />
+      <AuthProvider>
         <Router />
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 

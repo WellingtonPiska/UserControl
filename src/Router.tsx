@@ -22,6 +22,9 @@ export function Router() {
       <Routes>
         <Route path="/list" element={<Private Item={List} />} />
         <Route path="/register" element={<Private Item={Register} />} />
+
+        {/* <Route path="/register" element={<Register />} />
+        <Route path="/list" element={<List />} /> */}
         <Route path="/update/:id" element={<Private Item={Update} />} />
         <Route path="/" element={<Signin />} />
         <Route path="/error404" element={<Error404 />} />

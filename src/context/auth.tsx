@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       )
 
       // eslint-disable-next-line no-undef
-      if (hasUser) setUser(hasUser[0])
+      if (hasUser) setUser(hasUser)
     }
   }, [])
 
