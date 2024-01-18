@@ -88,6 +88,7 @@ export const TopBar = styled.div`
 
 export const ErrorMessage = styled.p<ErrorMessageProps>`
   color: red;
+  font-size: 13px;
   height: 16px; // Altura fixa para a mensagem de erro
   margin-top: 2px; // Espaço pequeno acima da mensagem
   margin-bottom: ${(props) =>
