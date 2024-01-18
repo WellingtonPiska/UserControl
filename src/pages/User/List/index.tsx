@@ -4,8 +4,6 @@ import { MdDeleteForever } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { RxUpdate } from 'react-icons/rx'
 
-import { ContactFormData } from './interface'
-
 import {
   ActionsHeader,
   BackLink,
@@ -19,12 +17,14 @@ import {
   TableRow,
   TopBar,
 } from './styles'
-import ModalDelete from '../../components/ModalDelete'
+
+import { useNavigate } from 'react-router'
+import ModalDelete from '../../../components/ModalDelete'
 import {
   ButtonContainer,
   ModalButton,
-} from '../../components/ModalDelete/styles'
-import { useNavigate } from 'react-router'
+} from '../../../components/ModalDelete/styles'
+import { ContactFormData } from '../interface'
 
 export function List() {
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([])

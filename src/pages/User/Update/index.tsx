@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
-import { ContactFormData } from './interface'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import {
@@ -16,6 +15,7 @@ import {
 } from './styles'
 import Select, { SingleValue } from 'react-select'
 import { toast } from 'react-toastify'
+import { ContactFormData } from '../interface'
 
 export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado

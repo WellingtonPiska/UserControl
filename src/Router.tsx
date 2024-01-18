@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 import { Fragment } from 'react'
-import { Register } from './pages/Register'
-import { List } from './pages/List'
-import { Update } from './pages/Update'
 import { Signin } from './pages/Signin'
 import useAuth from './hooks/useAuth'
 import { Signup } from './pages/Signup'
 import { Error404 } from './pages/Error404'
+import { Register } from './pages/User/Register'
+import { List } from './pages/User/List'
+import { Update } from './pages/User/Update'
 
 const Private = ({ Item }: { Item: React.ComponentType }) => {
   const auth = useAuth()

@@ -1,5 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
-import { ContactFormData } from './interface'
+import { useState, ChangeEvent } from 'react'
 import Select, { SingleValue } from 'react-select'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -17,9 +16,11 @@ import {
 } from './styles'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { ContactFormDataRegister } from '../interface'
 
 export function Register() {
-  const initialFormData: ContactFormData = {
+  const initialFormData: ContactFormDataRegister = {
     name: '',
     email: '',
     username: '',
@@ -28,8 +29,10 @@ export function Register() {
   }
 
   const navigate = useNavigate()
+  const { handleSubmit } = useForm<ContactFormDataRegister>()
 
-  const [formData, setFormData] = useState<ContactFormData>(initialFormData)
+  const [formData, setFormData] =
+    useState<ContactFormDataRegister>(initialFormData)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   const genderOptions = [
@@ -62,8 +65,12 @@ export function Register() {
     }
   }
 
-  const handleSubmit = (formEvent: FormEvent) => {
-    formEvent.preventDefault()
+  const onSubmit: SubmitHandler<ContactFormDataRegister> = (
+    data: ContactFormDataRegister,
+  ) => {
+    // formEvent.preventDefault()
+
+    console.log(data)
 
     toast.success('Formulário criado com sucesso!', {
       position: 'top-right',
@@ -103,7 +110,7 @@ export function Register() {
       </TopBar>
 
       <Title>Registro</Title>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Nome:</Label>
         <Input
           type="text"
