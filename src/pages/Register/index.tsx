@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { ContactFormData } from './interface'
 import Select, { SingleValue } from 'react-select'
 import { v4 as uuidv4 } from 'uuid'
@@ -37,13 +37,6 @@ export function Register() {
     { value: 'female', label: 'Feminino' },
   ]
 
-  useEffect(() => {
-    const savedFormData = localStorage.getItem('formData')
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData))
-    }
-  }, [])
-
   const handleChange = (
     inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -68,11 +61,6 @@ export function Register() {
       })
     }
   }
-
-  useEffect(() => {
-    // setItem foi usado aqui para armazenar os dados dentro do formData, que é um estado que contém todos os cadastros
-    localStorage.setItem('formData', JSON.stringify(formData))
-  }, [formData])
 
   const handleSubmit = (formEvent: FormEvent) => {
     formEvent.preventDefault()

@@ -21,20 +21,7 @@ export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado
   const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
 
-  const getInitialFormData = () => {
-    const savedFormData = localStorage.getItem(`formData_${id}`)
-    return savedFormData
-      ? JSON.parse(savedFormData)
-      : {
-          name: '',
-          email: '',
-          username: '',
-          message: '',
-          gender: '',
-        }
-  }
-
-  const [formData, setFormData] = useState<ContactFormData>(getInitialFormData)
+  const [formData, setFormData] = useState<ContactFormData>()
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem(`formDataList`)
@@ -75,11 +62,12 @@ export function Update() {
     const { name, value } = inputChangeEvent.target
 
     const newValue = name === 'username' ? value.toLowerCase() : value
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-    })
+    if (formData) {
+      setFormData({
+        ...formData,
+        [name]: newValue,
+      })
+    }
   }
 
   const handleSelectChange = (
@@ -87,10 +75,12 @@ export function Update() {
   ) => {
     if (selectedOption) {
       // Verifica se selectedOption não é null
-      setFormData({
-        ...formData,
-        gender: selectedOption.value,
-      })
+      if (formData) {
+        setFormData({
+          ...formData,
+          gender: selectedOption.value,
+        })
+      }
     }
   }
 
@@ -167,7 +157,7 @@ export function Update() {
           type="text"
           id="name"
           name="name"
-          value={formData.name}
+          value={formData?.name}
           onChange={handleChange}
         />
 
@@ -176,7 +166,7 @@ export function Update() {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
+          value={formData?.email}
           onChange={handleChange}
         />
 
@@ -185,7 +175,7 @@ export function Update() {
           type="username"
           id="username"
           name="username"
-          value={formData.username}
+          value={formData?.username}
           onChange={handleChange}
         />
 
@@ -195,7 +185,7 @@ export function Update() {
           options={genderOptions}
           onChange={handleSelectChange}
           value={genderOptions.find(
-            (option) => option.value === formData.gender,
+            (option) => option.value === formData?.gender,
           )}
           styles={{ container: (base) => ({ ...base, marginBottom: '16px' }) }}
         />
@@ -205,7 +195,7 @@ export function Update() {
           id="message"
           name="message"
           rows={4}
-          value={formData.message}
+          value={formData?.message}
           onChange={handleChange}
         />
         <Button onSubmit={handleSubmit} type="submit">
