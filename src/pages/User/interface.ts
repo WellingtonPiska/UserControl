@@ -19,3 +19,7 @@ export interface GenderOption {
   value: string
   label: string
 }
+
+export interface ErrorMessageProps {
+  hasError: boolean
+}

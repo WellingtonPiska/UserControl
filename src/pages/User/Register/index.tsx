@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   BackLink,
   Button,
+  ErrorMessage,
   Form,
   FormWrapper,
   Input,
@@ -29,7 +30,11 @@ export function Register() {
   }
 
   const navigate = useNavigate()
-  const { handleSubmit } = useForm<ContactFormDataRegister>()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ContactFormDataRegister>()
 
   const [formData, setFormData] =
     useState<ContactFormDataRegister>(initialFormData)
@@ -115,28 +120,33 @@ export function Register() {
         <Input
           type="text"
           id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
+          {...register('name', { required: 'Nome é obrigatório' })}
         />
+        <ErrorMessage hasError={!!errors.name}>
+          {errors.name && errors.name.message}
+        </ErrorMessage>
 
         <Label htmlFor="email">E-mail:</Label>
         <Input
           type="email"
           id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
+          {...register('email', { required: 'Email é obrigatório' })}
         />
+        <ErrorMessage hasError={!!errors.email}>
+          {errors.email && errors.email.message}
+        </ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
         <Input
           type="username"
           id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
+          {...register('username', {
+            required: 'Nome de Usuário é obrigatório',
+          })}
         />
+        <ErrorMessage hasError={!!errors.username}>
+          {errors.username && errors.username.message}
+        </ErrorMessage>
 
         <Label htmlFor="gender">Sexo:</Label>
         <Select
