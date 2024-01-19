@@ -1,5 +1,4 @@
 import { styled } from 'styled-components'
-import { ErrorMessageProps } from '../interface'
 
 export const FormWrapper = styled.div`
   max-width: 720px;
@@ -86,15 +85,14 @@ export const TopBar = styled.div`
 
 // MENSAGEM DE ERRO
 
-export const ErrorMessage = styled.p<ErrorMessageProps>`
+export const StyledErrorMessage = styled.p`
   color: red;
   font-size: 13px;
-  height: 16px; // Altura fixa para a mensagem de erro
-  margin-top: 2px; // Espaço pequeno acima da mensagem
-  margin-bottom: ${(props) =>
-    props.hasError ? '10px' : '0'}; // Espaço maior se houver erro
+  height: 16px;
+  margin-top: 2px;
   padding: 0;
   display: flex;
   align-items: center;
-  visibility: ${(props) => (props.hasError ? 'visible' : 'hidden')};
+  visibility: hidden; // Invisível por padrão
+  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
 `

@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   BackLink,
   Button,
-  ErrorMessage,
   Form,
   FormWrapper,
   Input,
   Label,
   Spacer,
+  StyledErrorMessage,
   TextArea,
   Title,
   TopBar,
@@ -32,6 +32,18 @@ export function Register() {
     { value: 'male', label: 'Masculino' },
     { value: 'female', label: 'Feminino' },
   ]
+
+  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
+    return (
+      <StyledErrorMessage
+        style={{ visibility: children ? 'visible' : 'hidden' }}
+      >
+        {children}
+      </StyledErrorMessage>
+    )
+  }
 
   const onSubmit: SubmitHandler<ContactFormDataRegister> = async (
     data: ContactFormDataRegister,
@@ -82,9 +94,7 @@ export function Register() {
           id="name"
           {...register('name', { required: 'Nome é obrigatório' })}
         />
-        <ErrorMessage hasError={!!errors.name}>
-          {errors.name && errors.name.message}
-        </ErrorMessage>
+        <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
 
         <Label htmlFor="email">E-mail:</Label>
         <Input
@@ -92,9 +102,7 @@ export function Register() {
           id="email"
           {...register('email', { required: 'Email é obrigatório' })}
         />
-        <ErrorMessage hasError={!!errors.email}>
-          {errors.email && errors.email.message}
-        </ErrorMessage>
+        <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
         <Input
@@ -104,7 +112,7 @@ export function Register() {
             required: 'Nome de Usuário é obrigatório',
           })}
         />
-        <ErrorMessage hasError={!!errors.username}>
+        <ErrorMessage>
           {errors.username && errors.username.message}
         </ErrorMessage>
 

@@ -17,7 +17,7 @@ import Select from 'react-select'
 import { toast } from 'react-toastify'
 import { ContactFormData } from '../interface'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { ErrorMessage } from '../Register/styles'
+import { StyledErrorMessage } from '../Register/styles'
 
 export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado
@@ -30,6 +30,17 @@ export function Update() {
     formState: { errors },
   } = useForm<ContactFormData>()
 
+  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
+    return (
+      <StyledErrorMessage
+        style={{ visibility: children ? 'visible' : 'hidden' }}
+      >
+        {children}
+      </StyledErrorMessage>
+    )
+  }
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem(`formDataList`)
     if (jsonFormDataList && id !== undefined) {
@@ -127,6 +138,7 @@ export function Update() {
           id="name"
           {...register('name', { required: 'Nome é obrigatório' })}
         />
+        <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
 
         <Label htmlFor="email">E-mail:</Label>
         <Input
@@ -134,9 +146,7 @@ export function Update() {
           id="email"
           {...register('email', { required: 'Email é obrigatório' })}
         />
-        <ErrorMessage hasError={!!errors.name}>
-          {errors.name && errors.name.message}
-        </ErrorMessage>
+        <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
         <Input
@@ -146,8 +156,8 @@ export function Update() {
             required: 'Nome de Usuário é obrigatório',
           })}
         />
-        <ErrorMessage hasError={!!errors.email}>
-          {errors.email && errors.email.message}
+        <ErrorMessage>
+          {errors.username && errors.username.message}
         </ErrorMessage>
 
         <Label htmlFor="gender">Sexo:</Label>
