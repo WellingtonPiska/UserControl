@@ -1,31 +1,31 @@
 import { useNavigate, Link } from 'react-router-dom'
-import React, { useState } from 'react'
 import * as C from './styles'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import Input from '../../components/Input'
-import Button from '../../components/Button'
 import useAuth from '../../hooks/useAuth'
+import { LoginFormFields } from './interface'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { validationSignin } from './schema'
 
 export function Signin() {
   const auth = useAuth() // Armazenando o contexto em uma variável
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormFields>({
+    resolver: yupResolver(validationSignin),
+  })
 
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-
-  const handleLogin = () => {
-    if (!email || !password) {
-      setError('Preencha todos os campos')
-      return // Adicionando um retorno aqui para evitar execução adicional quando houver erro
-    }
+  const handleLogin: SubmitHandler<LoginFormFields> = async (data) => {
+    const { email, password } = data
 
     if (auth) {
       const res = auth.signin(email, password)
 
       if (res) {
-        setError(res)
         return
       }
 
@@ -37,20 +37,27 @@ export function Signin() {
     <C.Container>
       <C.Label>SISTEMA DE LOGIN</C.Label>
       <C.Content>
-        <Input
-          type="email"
-          placeholder="Digite o seu E-mail"
-          value={email}
-          onChange={(event) => [setEmail(event.target.value), setError('')]}
-        />
-        <Input
-          type="password"
-          placeholder="Digite a sua Senha"
-          value={password}
-          onChange={(event) => [setPassword(event.target.value), setError('')]}
-        />
-        <C.labelError>{error}</C.labelError>
-        <Button Text="Entrar" onClick={handleLogin} />
+        <form onSubmit={handleSubmit(handleLogin)}>
+          {' '}
+          {/* Adicionando a tag form aqui */}
+          <C.Input
+            type="email"
+            placeholder="Digite o seu E-mail"
+            {...register('email')}
+          />
+          {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          <C.Input
+            type="password"
+            placeholder="Digite a sua Senha"
+            {...register('password')}
+          />
+          {errors.password && (
+            <C.labelError>{errors.password.message}</C.labelError>
+          )}
+          <C.Button type="submit">Entrar</C.Button>{' '}
+          {/* Mudança para type="submit" */}
+        </form>{' '}
+        {/* Fechando a tag form */}
         <C.LabelSignup>
           Não tem uma conta?
           <C.Strong>
