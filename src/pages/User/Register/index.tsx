@@ -1,5 +1,4 @@
-import { useState, ChangeEvent } from 'react'
-import Select, { SingleValue } from 'react-select'
+import Select from 'react-select'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -17,66 +16,46 @@ import {
 } from './styles'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ContactFormDataRegister } from '../interface'
 
 export function Register() {
-  const initialFormData: ContactFormDataRegister = {
-    name: '',
-    email: '',
-    username: '',
-    message: '',
-    gender: '',
-  }
-
   const navigate = useNavigate()
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
   } = useForm<ContactFormDataRegister>()
-
-  const [formData, setFormData] =
-    useState<ContactFormDataRegister>(initialFormData)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
     { value: 'female', label: 'Feminino' },
   ]
 
-  const handleChange = (
-    inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = inputChangeEvent.target
-
-    const newValue = name === 'username' ? value.toLowerCase() : value
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-    })
-  }
-
-  const handleSelectChange = (
-    selectedOption: SingleValue<{ value: string; label: string }>,
-  ) => {
-    if (selectedOption) {
-      // Verifica se selectedOption não é null
-      setFormData({
-        ...formData,
-        gender: selectedOption.value,
-      })
-    }
-  }
-
-  const onSubmit: SubmitHandler<ContactFormDataRegister> = (
+  const onSubmit: SubmitHandler<ContactFormDataRegister> = async (
     data: ContactFormDataRegister,
   ) => {
-    // formEvent.preventDefault()
-
+    // Exibir os dados do formulário no console
     console.log(data)
 
+    // Lógica para processar os dados, como enviar para o servidor ou realizar outras ações necessárias.
+    // Aqui você pode adicionar a lógica de envio para o servidor, validação, etc.
+
+    // Verificar se já existem dados no localStorage
+    const existingData = localStorage.getItem('formDataList')
+    const formDataListArray = existingData ? JSON.parse(existingData) : []
+
+    // Adicionar um UUID ao formData
+    const formDataWithId = { ...data, id: uuidv4() }
+
+    // Adicionar o novo registro à lista de dados
+    formDataListArray.push(formDataWithId)
+
+    // Salvar a lista atualizada no localStorage
+    localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
+
+    // Exibir mensagem de sucesso para o usuário
     toast.success('Formulário criado com sucesso!', {
       position: 'top-right',
       autoClose: 5000,
@@ -88,22 +67,7 @@ export function Register() {
       theme: 'light',
     })
 
-    // Buscar dados antigos
-    const jsonFormDataList = localStorage.getItem('formDataList')
-    const formDataListArray = jsonFormDataList
-      ? JSON.parse(jsonFormDataList)
-      : []
-
-    // Adicionar um UUID ao formData
-    const formDataWithId = { ...formData, id: uuidv4() }
-
-    // Adicionar novo registro ao array
-    formDataListArray.push(formDataWithId)
-
-    // Salvar o array atualizado no localStorage
-    localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
-
-    setFormData(initialFormData)
+    // Redirecionar o usuário para a página de listagem após o registro bem-sucedido
     navigate('/list')
   }
 
@@ -149,24 +113,27 @@ export function Register() {
         </ErrorMessage>
 
         <Label htmlFor="gender">Sexo:</Label>
-        <Select
-          id="gender"
-          options={genderOptions}
-          onChange={handleSelectChange}
-          value={genderOptions.find(
-            (option) => option.value === formData.gender,
+
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={genderOptions}
+              styles={{
+                container: (base) => ({ ...base, marginBottom: '16px' }),
+              }}
+              value={genderOptions.find(
+                (option) => option.value === field.value,
+              )}
+              onChange={(val) => field.onChange(val ? val.value : '')} // ajuste aqui
+            />
           )}
-          styles={{ container: (base) => ({ ...base, marginBottom: '16px' }) }}
         />
 
         <Label htmlFor="message">Mensagem:</Label>
-        <TextArea
-          id="message"
-          name="message"
-          rows={4}
-          value={formData.message}
-          onChange={handleChange}
-        />
+        <TextArea id="message" rows={4} {...register('message')} />
         <Button type="submit">Enviar</Button>
       </Form>
     </FormWrapper>
