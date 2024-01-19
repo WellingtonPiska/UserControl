@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import {
@@ -13,86 +13,60 @@ import {
   TextArea,
   Button,
 } from './styles'
-import Select, { SingleValue } from 'react-select'
+import Select from 'react-select'
 import { toast } from 'react-toastify'
 import { ContactFormData } from '../interface'
+import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import { ErrorMessage } from '../Register/styles'
 
 export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado
   const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
-
-  const [formData, setFormData] = useState<ContactFormData>({
-    id: '',
-    name: '',
-    email: '',
-    username: '',
-    gender: '',
-    message: '',
-  })
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>()
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem(`formDataList`)
     if (jsonFormDataList && id !== undefined) {
       const parsedFormData = JSON.parse(jsonFormDataList)
-
       const itemById = parsedFormData.find(
         (item: ContactFormData) => item.id === id,
       )
 
       if (itemById) {
-        setFormData(itemById)
+        reset(itemById) // Carregar os dados iniciais no formulário
       } else {
-        toast.error('Nenhum item encontrado com o id: ' + id, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        })
-
+        toast.error(
+          'Erro ao carregar os dados do formulário. Por favor, tente novamente.',
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          },
+        )
         navigate('/list')
       }
     }
-  }, [id])
+  }, [id, reset])
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
     { value: 'female', label: 'Feminino' },
   ]
 
-  const handleChange = (
-    inputChangeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  const onSubmit: SubmitHandler<ContactFormData> = async (
+    data: ContactFormData,
   ) => {
-    const { name, value } = inputChangeEvent.target
-
-    const newValue = name === 'username' ? value.toLowerCase() : value
-    if (formData) {
-      setFormData({
-        ...formData,
-        [name]: newValue,
-      })
-    }
-  }
-
-  const handleSelectChange = (
-    selectedOption: SingleValue<{ value: string; label: string }>,
-  ) => {
-    if (selectedOption) {
-      // Verifica se selectedOption não é null
-      if (formData) {
-        setFormData({
-          ...formData,
-          gender: selectedOption.value,
-        })
-      }
-    }
-  }
-
-  const handleSubmit = (formEvent: FormEvent) => {
-    formEvent.preventDefault()
     navigate('/list') // redirecionamento
 
     // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
@@ -112,7 +86,7 @@ export function Update() {
         const foundItem = parsedListStorage[index]
 
         // atualizar o objeto com os novos dados
-        const updatedItem = { ...foundItem, ...formData }
+        const updatedItem = { ...foundItem, ...data }
 
         // substituir o objeto no array original
         parsedListStorage[index] = updatedItem
@@ -146,56 +120,59 @@ export function Update() {
       </TopBar>
 
       <Title>Edição</Title>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Nome:</Label>
         <Input
           type="text"
           id="name"
-          name="name"
-          value={formData?.name}
-          onChange={handleChange}
+          {...register('name', { required: 'Nome é obrigatório' })}
         />
 
         <Label htmlFor="email">E-mail:</Label>
         <Input
           type="email"
           id="email"
-          name="email"
-          value={formData?.email}
-          onChange={handleChange}
+          {...register('email', { required: 'Email é obrigatório' })}
         />
+        <ErrorMessage hasError={!!errors.name}>
+          {errors.name && errors.name.message}
+        </ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
         <Input
           type="username"
           id="username"
-          name="username"
-          value={formData?.username}
-          onChange={handleChange}
+          {...register('username', {
+            required: 'Nome de Usuário é obrigatório',
+          })}
         />
+        <ErrorMessage hasError={!!errors.email}>
+          {errors.email && errors.email.message}
+        </ErrorMessage>
 
         <Label htmlFor="gender">Sexo:</Label>
-        <Select
-          id="gender"
-          options={genderOptions}
-          onChange={handleSelectChange}
-          value={genderOptions.find(
-            (option) => option.value === formData?.gender,
+
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={genderOptions}
+              styles={{
+                container: (base) => ({ ...base, marginBottom: '16px' }),
+              }}
+              value={genderOptions.find(
+                (option) => option.value === field.value,
+              )}
+              onChange={(val) => field.onChange(val ? val.value : '')}
+            />
           )}
-          styles={{ container: (base) => ({ ...base, marginBottom: '16px' }) }}
         />
 
         <Label htmlFor="message">Mensagem:</Label>
-        <TextArea
-          id="message"
-          name="message"
-          rows={4}
-          value={formData?.message}
-          onChange={handleChange}
-        />
-        <Button onSubmit={handleSubmit} type="submit">
-          Salvar
-        </Button>
+        <TextArea id="message" rows={4} {...register('message')} />
+        <Button type="submit">Salvar</Button>
       </Form>
     </FormWrapper>
   )

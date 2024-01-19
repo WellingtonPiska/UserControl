@@ -36,9 +36,6 @@ export function Register() {
   const onSubmit: SubmitHandler<ContactFormDataRegister> = async (
     data: ContactFormDataRegister,
   ) => {
-    // Exibir os dados do formulário no console
-    console.log(data)
-
     // Lógica para processar os dados, como enviar para o servidor ou realizar outras ações necessárias.
     // Aqui você pode adicionar a lógica de envio para o servidor, validação, etc.
 
@@ -67,7 +64,6 @@ export function Register() {
       theme: 'light',
     })
 
-    // Redirecionar o usuário para a página de listagem após o registro bem-sucedido
     navigate('/list')
   }
 
@@ -127,7 +123,7 @@ export function Register() {
               value={genderOptions.find(
                 (option) => option.value === field.value,
               )}
-              onChange={(val) => field.onChange(val ? val.value : '')} // ajuste aqui
+              onChange={(val) => field.onChange(val ? val.value : '')}
             />
           )}
         />
