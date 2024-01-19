@@ -18,6 +18,8 @@ import { toast } from 'react-toastify'
 import { ContactFormData } from '../interface'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { StyledErrorMessage } from '../Register/styles'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { validationUpdate } from './schema'
 
 export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado
@@ -28,7 +30,9 @@ export function Update() {
     control,
     reset,
     formState: { errors },
-  } = useForm<ContactFormData>()
+  } = useForm<ContactFormData>({
+    resolver: yupResolver(validationUpdate),
+  })
 
   const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -133,29 +137,15 @@ export function Update() {
       <Title>Edição</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Nome:</Label>
-        <Input
-          type="text"
-          id="name"
-          {...register('name', { required: 'Nome é obrigatório' })}
-        />
+        <Input type="text" id="name" {...register('name')} />
         <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
 
         <Label htmlFor="email">E-mail:</Label>
-        <Input
-          type="email"
-          id="email"
-          {...register('email', { required: 'Email é obrigatório' })}
-        />
+        <Input type="email" id="email" {...register('email')} />
         <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
-        <Input
-          type="username"
-          id="username"
-          {...register('username', {
-            required: 'Nome de Usuário é obrigatório',
-          })}
-        />
+        <Input type="username" id="username" {...register('username')} />
         <ErrorMessage>
           {errors.username && errors.username.message}
         </ErrorMessage>

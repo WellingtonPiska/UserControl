@@ -18,6 +18,8 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ContactFormDataRegister } from '../interface'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { validationRegister } from './schema'
 
 export function Register() {
   const navigate = useNavigate()
@@ -26,7 +28,9 @@ export function Register() {
     register,
     control,
     formState: { errors },
-  } = useForm<ContactFormDataRegister>()
+  } = useForm<ContactFormDataRegister>({
+    resolver: yupResolver(validationRegister),
+  })
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
@@ -89,29 +93,15 @@ export function Register() {
       <Title>Registro</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Nome:</Label>
-        <Input
-          type="text"
-          id="name"
-          {...register('name', { required: 'Nome é obrigatório' })}
-        />
+        <Input type="text" id="name" {...register('name')} />
         <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
 
         <Label htmlFor="email">E-mail:</Label>
-        <Input
-          type="email"
-          id="email"
-          {...register('email', { required: 'Email é obrigatório' })}
-        />
+        <Input type="email" id="email" {...register('email')} />
         <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
 
         <Label htmlFor="username">Usuário:</Label>
-        <Input
-          type="username"
-          id="username"
-          {...register('username', {
-            required: 'Nome de Usuário é obrigatório',
-          })}
-        />
+        <Input type="username" id="username" {...register('username')} />
         <ErrorMessage>
           {errors.username && errors.username.message}
         </ErrorMessage>
