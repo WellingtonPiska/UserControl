@@ -42,13 +42,13 @@ export function Signup() {
       <Content>
         <form onSubmit={handleSubmit(handleSignup)}>
           <C.Input
-            type="email"
+            type="text"
             placeholder="Digite o seu E-mail"
             {...register('emailConf')}
           />
           {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
           <C.Input
-            type="email"
+            type="text"
             placeholder="Confirme o seu E-mail"
             {...register('email')}
           />
