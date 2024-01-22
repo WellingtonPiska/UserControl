@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { MdDeleteForever } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { RxUpdate } from 'react-icons/rx'
+import { CiLogout } from 'react-icons/ci'
+import { RiKey2Line } from 'react-icons/ri'
 
 import {
   ActionsHeader,
@@ -16,6 +18,7 @@ import {
   TableHeaderCell,
   TableRow,
   TopBar,
+  TopBarExternal,
 } from './styles'
 
 import { useNavigate } from 'react-router'
@@ -24,7 +27,8 @@ import {
   ButtonContainer,
   ModalButton,
 } from '../../../components/ModalDelete/styles'
-import { ContactFormData } from '../interface'
+import { ContactFormData, User } from '../interface'
+import { PasswordChangeModal } from '../../../components/ChangePasswordModal'
 
 export function List() {
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([])
@@ -33,7 +37,12 @@ export function List() {
   const [itemToDelete, setItemToDelete] = useState<string | null>(null)
   const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
 
-  // console.log(isModalOpen, 'modal open')
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false)
+
+  const handleLogout = () => {
+    localStorage.removeItem('user_token')
+    navigate('/')
+  }
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem('formDataList')
@@ -46,6 +55,33 @@ export function List() {
   const openDeleteModal = (id: string) => {
     setItemToDelete(id)
     setIsModalOpen(true)
+  }
+
+  const handlePasswordChangeClick = () => {
+    setIsPasswordModalOpen(true)
+  }
+
+  const handlePassword = (newPassword: string) => {
+    // Obter os usuários do localStorage e converter para um array de objetos
+
+    const users = JSON.parse(localStorage.getItem('users_db') || '[]')
+    const email = JSON.parse(localStorage.get('user_token')).email
+
+    // Encontrar o índice do usuário com base no e-mail
+    const userIndex = users.findIndex((user: User) => user.email === email)
+
+    // Verificar se o usuário existe
+    if (userIndex !== -1) {
+      // Atualizar a senha do usuário
+      users[userIndex].password = newPassword
+
+      // Salvar o array atualizado de volta no localStorage
+      localStorage.setItem('users_db', JSON.stringify(users))
+
+      return true // Sucesso
+    } else {
+      return false // Usuário não encontrado
+    }
   }
 
   const handleUpdate = (id: string) => {
@@ -86,55 +122,73 @@ export function List() {
   }
 
   return (
-    <ListContainer>
-      <TopBar>
-        <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
-        <BackLink href="/register">Página de registro</BackLink>
-      </TopBar>
+    <>
+      <TopBarExternal>
+        <div>
+          <RiKey2Line onClick={handlePasswordChangeClick} />
+          {/* Ícone de mudar senha */}
+          <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
+        </div>
+      </TopBarExternal>
 
-      <ListTitle>Lista de Registros</ListTitle>
+      <PasswordChangeModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        onSubmit={handlePassword}
+      />
 
-      <Table>
-        <thead>
-          <TableRow>
-            <TableHeaderCell>Nome</TableHeaderCell>
-            <TableHeaderCell>E-mail</TableHeaderCell>
-            <TableHeaderCell>Usuário</TableHeaderCell>
-            <TableHeaderCell>Sexo</TableHeaderCell>
-            <TableHeaderCell>Mensagem</TableHeaderCell>
-            <ActionsHeader>Ações</ActionsHeader>
-          </TableRow>
-        </thead>
-        <tbody>
-          {formDataList.map((formData, index) => (
-            <TableRow key={index}>
-              <TableCell>{formData.name}</TableCell>
-              <TableCell>{formData.email}</TableCell>
-              <TableCell>{formData.username}</TableCell>
-              <TableCell>{formData.gender}</TableCell>
-              <TableCell>{formData.message}</TableCell>
-              <TableCell>
-                <IconContainer>
-                  <RxUpdate onClick={() => handleUpdate(formData.id)} />
-                  <MdDeleteForever
-                    onClick={() => openDeleteModal(formData.id)}
-                  />
-                </IconContainer>
-              </TableCell>
+      <ListContainer>
+        <TopBar>
+          <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
+          <BackLink href="/register">Página de registro</BackLink>
+        </TopBar>
+
+        <ListTitle>Lista de Registros</ListTitle>
+
+        <Table>
+          <thead>
+            <TableRow>
+              <TableHeaderCell>Nome</TableHeaderCell>
+              <TableHeaderCell>E-mail</TableHeaderCell>
+              <TableHeaderCell>Usuário</TableHeaderCell>
+              <TableHeaderCell>Sexo</TableHeaderCell>
+              <TableHeaderCell>Mensagem</TableHeaderCell>
+              <ActionsHeader>Ações</ActionsHeader>
             </TableRow>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {formDataList.map((formData, index) => (
+              <TableRow key={index}>
+                <TableCell>{formData.name}</TableCell>
+                <TableCell>{formData.email}</TableCell>
+                <TableCell>{formData.username}</TableCell>
+                <TableCell>{formData.gender}</TableCell>
+                <TableCell>{formData.message}</TableCell>
+                <TableCell>
+                  <IconContainer>
+                    <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                    <MdDeleteForever
+                      onClick={() => openDeleteModal(formData.id)}
+                    />
+                  </IconContainer>
+                </TableCell>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
 
-      {isModalOpen && (
-        <ModalDelete onClose={() => setIsModalOpen(false)}>
-          <p>Tem certeza de que deseja excluir este registro?</p>
-          <ButtonContainer>
-            <ModalButton onClick={handleDelete}>Sim</ModalButton>
-            <ModalButton onClick={() => setIsModalOpen(false)}>Não</ModalButton>
-          </ButtonContainer>
-        </ModalDelete>
-      )}
-    </ListContainer>
+        {isModalOpen && (
+          <ModalDelete onClose={() => setIsModalOpen(false)}>
+            <p>Tem certeza de que deseja excluir este registro?</p>
+            <ButtonContainer>
+              <ModalButton onClick={handleDelete}>Sim</ModalButton>
+              <ModalButton onClick={() => setIsModalOpen(false)}>
+                Não
+              </ModalButton>
+            </ButtonContainer>
+          </ModalDelete>
+        )}
+      </ListContainer>
+    </>
   )
 }

@@ -23,3 +23,8 @@ export interface GenderOption {
 export interface ErrorMessageProps {
   hasError: boolean
 }
+
+export interface User {
+  email: string
+  password: string
+}

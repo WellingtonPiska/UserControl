@@ -108,3 +108,91 @@ export const ToastContainer = createGlobalStyle`
     z-index: 9999;
   }
 `
+
+// TOP BAR
+
+export const TopBarButton = styled.button`
+  padding: 8px 16px;
+  margin-left: 8px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4169e1;
+  }
+`
+
+// TOP BAR
+
+export const TopBarExternal = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e90ff; // Cor de fundo da top bar externa
+  color: #fff; // Cor do texto
+  padding: 10px 20px; // Espaçamento interno
+
+  justify-content: flex-end;
+
+  // Estilizar os ícones
+  svg {
+    width: 24px; // Tamanho do ícone
+    height: 24px; // Tamanho do ícone
+    cursor: pointer; // Muda o cursor para indicar que é clicável
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease; // Transições de transformação e cor
+
+    &:hover {
+      transform: scale(1.1); // Efeito de zoom ao passar o mouse
+      color: #007bff; // Cor ao passar o mouse
+    }
+  }
+`
+
+// Alteração de senha
+
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ModalContainer = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+`
+
+export const Input = styled.input`
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+`
+
+export const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`

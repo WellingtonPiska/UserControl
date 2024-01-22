@@ -21,26 +21,6 @@ export function Signup() {
     resolver: yupResolver(validationSignup),
   })
 
-  // const handleSignup = () => {
-  //   if (!email || !emailConf || !password) {
-  //     setError('Preencha todos os campos!')
-  //   } else if (email !== emailConf) {
-  //     setError('Os e-mails não são iguais')
-  //   }
-
-  //   if (auth) {
-  //     const res = auth.signup(email, password)
-
-  //     if (res) {
-  //       setError(res)
-  //       return
-  //     }
-
-  //     alert('Usuário cadastrado com sucesso!')
-  //     navigate('/')
-  //   }
-  // }
-
   const handleSignup: SubmitHandler<SignupFormFields> = async (data) => {
     const { email, password } = data
 
@@ -66,7 +46,7 @@ export function Signup() {
             placeholder="Digite o seu E-mail"
             {...register('emailConf')}
           />
-          -{errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
           <C.Input
             type="email"
             placeholder="Confirme o seu E-mail"
