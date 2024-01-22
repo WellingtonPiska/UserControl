@@ -1,33 +1,54 @@
-import React, { useState } from 'react'
 import * as C from './styles'
 import { Container, Content, Label, Strong } from './styles'
 import { Link, useNavigate } from 'react-router-dom'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
 import useAuth from '../../hooks/useAuth'
 
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { SignupFormFields } from './interface'
+import { validationSignup } from './schema'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 export function Signup() {
-  const [email, setEmail] = useState('')
-  const [emailConf, setEmailConf] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const auth = useAuth() // Armazenando o contexto em uma variável
 
-  const handleSignup = () => {
-    if (!email || !emailConf || !password) {
-      setError('Preencha todos os campos!')
-    } else if (email !== emailConf) {
-      setError('Os e-mails não são iguais')
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormFields>({
+    resolver: yupResolver(validationSignup),
+  })
+
+  // const handleSignup = () => {
+  //   if (!email || !emailConf || !password) {
+  //     setError('Preencha todos os campos!')
+  //   } else if (email !== emailConf) {
+  //     setError('Os e-mails não são iguais')
+  //   }
+
+  //   if (auth) {
+  //     const res = auth.signup(email, password)
+
+  //     if (res) {
+  //       setError(res)
+  //       return
+  //     }
+
+  //     alert('Usuário cadastrado com sucesso!')
+  //     navigate('/')
+  //   }
+  // }
+
+  const handleSignup: SubmitHandler<SignupFormFields> = async (data) => {
+    const { email, password } = data
 
     if (auth) {
       const res = auth.signup(email, password)
 
       if (res) {
-        setError(res)
-        return
+        console.error(res)
       }
 
       alert('Usuário cadastrado com sucesso!')
@@ -39,26 +60,31 @@ export function Signup() {
     <Container>
       <Label>SISTEMA DE LOGIN</Label>
       <Content>
-        <Input
-          type="email"
-          placeholder="Digite o seu E-mail"
-          value={email}
-          onChange={(event) => [setEmail(event.target.value), setError('')]}
-        />
-        <Input
-          type="email"
-          placeholder="Confirme o seu E-mail"
-          value={emailConf}
-          onChange={(event) => [setEmailConf(event.target.value), setError('')]}
-        />
-        <Input
-          type="password"
-          placeholder="Digite a sua senha"
-          value={password}
-          onChange={(event) => [setPassword(event.target.value), setError('')]}
-        />
-        <C.labelError>{error}</C.labelError>
-        <Button Text="Inscrever-se" onClick={handleSignup} />
+        <form onSubmit={handleSubmit(handleSignup)}>
+          <C.Input
+            type="email"
+            placeholder="Digite o seu E-mail"
+            {...register('emailConf')}
+          />
+          -{errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          <C.Input
+            type="email"
+            placeholder="Confirme o seu E-mail"
+            {...register('email')}
+          />
+          {errors.emailConf && (
+            <C.labelError>{errors.emailConf.message}</C.labelError>
+          )}{' '}
+          <C.Input
+            type="password"
+            placeholder="Digite a sua senha"
+            {...register('password')}
+          />
+          {errors.password && (
+            <C.labelError>{errors.password.message}</C.labelError>
+          )}
+          <C.Button type="submit">Entrar</C.Button>{' '}
+        </form>{' '}
         <C.LabelSignin>
           Já tem uma conta?
           <Strong>

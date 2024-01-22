@@ -47,3 +47,30 @@ export const Strong = styled.strong`
     color: #676767;
   }
 `
+
+export const Input = styled.input`
+  outline: none;
+  padding: 16px 20px;
+  width: 89%;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f0f2f5;
+  border: none;
+  max-width: 350px;
+  margin: 0 auto;
+`
+
+export const Button = styled.button`
+  padding: 16px 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #046ee5;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  max-width: 350px;
+  margin: 10px auto 0; // Adicionado para centralizar o botão e adicionar espaço acima dele
+`
