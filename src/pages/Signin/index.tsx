@@ -39,7 +39,6 @@ export function Signin() {
       <C.Content>
         <form onSubmit={handleSubmit(handleLogin)}>
           {' '}
-          {/* Adicionando a tag form aqui */}
           <C.Input
             type="email"
             placeholder="Digite o seu E-mail"

@@ -20,6 +20,7 @@ export const ModalContainer = styled.div`
 `
 
 export const Input = styled.input`
+	margin-top: 10px;
   outline: none;
   padding: 16px 20px;
   width: 93%;
@@ -31,7 +32,8 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-  width: 100%;
+	margin-top: 10px;
+  width: 98.5%;
   padding: 10px;
   border: none;
   border-radius: 4px;

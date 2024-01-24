@@ -42,7 +42,7 @@ export const PasswordChangeModal = ({
           onChange={(e) => setConfirmNewPassword(e.target.value)}
         />
            <Button
-          onClick={() => onSubmit(oldPassword, newPassword)} 
+          onClick={() => onSubmit(oldPassword, newPassword, confirmNewPassword)} 
         >
           Alterar Senha
         </Button>

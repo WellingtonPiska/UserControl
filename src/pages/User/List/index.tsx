@@ -61,38 +61,48 @@ export function List() {
     setIsPasswordModalOpen(true)
   }
 
-  const handlePassword = (currentPassword: string, newPassword: string) => {
-		console.log(currentPassword, newPassword)
-    // Obter os usuários do localStorage e converter para um array de objetos
+  const handlePassword = (currentPassword: string, newPassword: string, confirmNewPassword: string) => {
 
     const usersDb = localStorage.getItem('users_db');
 
 		const userToken = localStorage.getItem('user_token')
 				
-		
 		if (usersDb && userToken) {
 			const usersDbArray: User[] = JSON.parse(usersDb)
 			const userTokenObj  = JSON.parse(userToken);
 			const usersArrayIndex = usersDbArray.findIndex(user => user.email === userTokenObj.email)
 
-			console.log(usersArrayIndex, `index`);
-			
-
-			console.log(usersDbArray);
-
 			if (usersArrayIndex !== -1) {
 				if (usersDbArray[usersArrayIndex].password === currentPassword) {
 
 					usersDbArray[usersArrayIndex].password  = newPassword;
-					localStorage.setItem('users_db', JSON.stringify(usersDbArray))
+					localStorage.setItem('users_db', JSON.stringify(usersDbArray))					
+					
+				} else if (newPassword !== confirmNewPassword) {
+					toast.error('As senhas precisam ser iguais!', {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						});
 				} else {
-					console.log('As senhas não são iguais')
+					toast.error('A senha atual está incorreta', {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						});
 				}	
-				
 			}
-		}
-
-   
+		} 
   }
 
   const handleUpdate = (id: string) => {
