@@ -63,7 +63,7 @@ export const TableHeaderCell = styled.th`
 
 export const BackLink = styled.a`
   display: inline-block;
-  margin-bottom: 20;
+  margin-bottom: 20px;
   text-decoration: none;
   background-color: #007bff;
   color: #fff;
