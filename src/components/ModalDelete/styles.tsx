@@ -10,6 +10,7 @@ export const ModalBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 600;
 `
 
 export const ModalContent = styled.div`
@@ -27,9 +28,9 @@ export const ButtonContainer = styled.div`
 `
 
 export const ModalButton = styled.button`
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: #007bff; // Exemplo de cor de fundo
   color: white;
   cursor: pointer;
