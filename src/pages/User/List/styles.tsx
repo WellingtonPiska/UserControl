@@ -129,13 +129,19 @@ export const TopBarButton = styled.button`
 
 export const TopBarExternal = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; // Alinha o conteúdo à direita
   align-items: center;
-  background-color: #1e90ff; // Cor de fundo da top bar externa
-  color: #fff; // Cor do texto
-  padding: 10px 20px; // Espaçamento interno
+  background-color: #1e90ff;
+  color: #fff;
+  padding: 10px 20px;
+  width: 97.9%;
+  height: 52px;
+  box-shadow: -2px 6px 4px 0px rgba(0, 0, 0, 0.47);
 
-  justify-content: flex-end;
+  .icon-container {
+    display: flex;
+    align-items: center;
+  }
 
   // Estilizar os ícones
   svg {
@@ -194,5 +200,13 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #0056b3;
+  }
+`
+
+export const GlobalStyle = createGlobalStyle`
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
   }
 `
