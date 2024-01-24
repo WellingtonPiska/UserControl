@@ -11,9 +11,11 @@ import { PasswordChangeModalProps } from './schema'
 export const PasswordChangeModal = ({
   isOpen,
   onClose,
+	onSubmit
 }: PasswordChangeModalProps) => {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
   if (!isOpen) return null
 
@@ -27,16 +29,20 @@ export const PasswordChangeModal = ({
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
         />
-        <Input
+				  <Input
           type="password"
           placeholder="Nova Senha"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <Button
-          onClick={() => {
-            /* Lógica de alteração de senha */
-          }}
+        <Input
+          type="password"
+          placeholder="Confirme a Nova Senha"
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+        />
+           <Button
+          onClick={() => onSubmit(oldPassword, newPassword)} 
         >
           Alterar Senha
         </Button>

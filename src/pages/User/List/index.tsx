@@ -61,27 +61,38 @@ export function List() {
     setIsPasswordModalOpen(true)
   }
 
-  const handlePassword = (newPassword: string) => {
+  const handlePassword = (currentPassword: string, newPassword: string) => {
+		console.log(currentPassword, newPassword)
     // Obter os usuários do localStorage e converter para um array de objetos
 
-    const users = JSON.parse(localStorage.getItem('users_db') || '[]')
-    const email = JSON.parse(localStorage.get('user_token')).email
+    const usersDb = localStorage.getItem('users_db');
 
-    // Encontrar o índice do usuário com base no e-mail
-    const userIndex = users.findIndex((user: User) => user.email === email)
+		const userToken = localStorage.getItem('user_token')
+				
+		
+		if (usersDb && userToken) {
+			const usersDbArray: User[] = JSON.parse(usersDb)
+			const userTokenObj  = JSON.parse(userToken);
+			const usersArrayIndex = usersDbArray.findIndex(user => user.email === userTokenObj.email)
 
-    // Verificar se o usuário existe
-    if (userIndex !== -1) {
-      // Atualizar a senha do usuário
-      users[userIndex].password = newPassword
+			console.log(usersArrayIndex, `index`);
+			
 
-      // Salvar o array atualizado de volta no localStorage
-      localStorage.setItem('users_db', JSON.stringify(users))
+			console.log(usersDbArray);
 
-      return true // Sucesso
-    } else {
-      return false // Usuário não encontrado
-    }
+			if (usersArrayIndex !== -1) {
+				if (usersDbArray[usersArrayIndex].password === currentPassword) {
+
+					usersDbArray[usersArrayIndex].password  = newPassword;
+					localStorage.setItem('users_db', JSON.stringify(usersDbArray))
+				} else {
+					console.log('As senhas não são iguais')
+				}	
+				
+			}
+		}
+
+   
   }
 
   const handleUpdate = (id: string) => {

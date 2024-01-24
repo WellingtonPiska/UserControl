@@ -26,5 +26,10 @@ export interface ErrorMessageProps {
 
 export interface User {
   email: string
-  password: string
+	password: string
+}
+
+export interface ChangePassword {
+	oldPassword: string
+	newPassword: string
 }
