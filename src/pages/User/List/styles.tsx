@@ -71,6 +71,7 @@ export const BackLink = styled.a`
   border-radius: 5px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  margin-left: 1030px;
 
   &:hover {
     background-color: #0056b3;

@@ -13,7 +13,6 @@ import {
   IconContainer,
   ListContainer,
   ListTitle,
-  Spacer,
   Table,
   TableCell,
   TableHeaderCell,
@@ -167,7 +166,6 @@ export function List() {
 
       <ListContainer>
         <TopBar>
-          <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
           <BackLink href="/register">Página de registro</BackLink>
         </TopBar>
 
