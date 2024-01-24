@@ -57,7 +57,7 @@ export const Input = styled.input`
   background-color: #f0f2f5;
   border: none;
   max-width: 350px;
-  margin: 0 auto;
+  margin: 10px auto;
 `
 
 export const Button = styled.button`
@@ -73,4 +73,11 @@ export const Button = styled.button`
   font-size: 16px;
   max-width: 350px;
   margin: 10px auto 0; // Adicionado para centralizar o botão e adicionar espaço acima dele
+`
+export const LabelFields = styled.label`
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  margin-left: 10px;
+  color: #676767;
 `

@@ -1,5 +1,5 @@
 import * as C from './styles'
-import { Container, Content, Label, Strong } from './styles'
+import { Container, Content, Label, LabelFields, Strong } from './styles'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
@@ -41,12 +41,14 @@ export function Signup() {
       <Label>SISTEMA DE LOGIN</Label>
       <Content>
         <form onSubmit={handleSubmit(handleSignup)}>
+          <LabelFields htmlFor="email">E-mail</LabelFields>
           <C.Input
             type="text"
             placeholder="Digite o seu E-mail"
             {...register('emailConf')}
           />
           {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          <LabelFields htmlFor="email">Confirme o E-mail</LabelFields>
           <C.Input
             type="text"
             placeholder="Confirme o seu E-mail"
@@ -55,6 +57,7 @@ export function Signup() {
           {errors.emailConf && (
             <C.labelError>{errors.emailConf.message}</C.labelError>
           )}{' '}
+          <LabelFields htmlFor="email">Senha</LabelFields>
           <C.Input
             type="password"
             placeholder="Digite a sua senha"

@@ -12,7 +12,7 @@ export const FormWrapper = styled.div`
 
 export const Title = styled.h1`
   margin: 0 auto 20px;
-  text-align: center; /* Centralizar o título */
+  text-align: center;
 `
 
 export const Form = styled.form`
@@ -22,13 +22,15 @@ export const Form = styled.form`
 
 export const Label = styled.label`
   margin-bottom: 8px;
+  font-weight: 600;
 `
 
 export const Input = styled.input`
   padding: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-top: 4px;
 `
 
 export const TextArea = styled.textarea`
@@ -46,6 +48,12 @@ export const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   align-self: center; /* Centralizar o botão no formulário */
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `
 
 export const ErrorMsg = styled.p`
@@ -57,7 +65,7 @@ export const ErrorMsg = styled.p`
 
 export const BackLink = styled.a`
   display: inline-block;
-  margin-bottom: 20;
+  margin-bottom: 10px;
   text-decoration: none;
   background-color: #007bff;
   color: #fff;
