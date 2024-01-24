@@ -39,12 +39,14 @@ export function Signin() {
       <C.Content>
         <form onSubmit={handleSubmit(handleLogin)}>
           {' '}
+          <C.LabelFields htmlFor="email">E-mail</C.LabelFields>
           <C.Input
             type="email"
             placeholder="Digite o seu E-mail"
             {...register('email')}
           />
           {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          <C.LabelFields htmlFor="password">Senha</C.LabelFields>
           <C.Input
             type="password"
             placeholder="Digite a sua Senha"

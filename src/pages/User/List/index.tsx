@@ -61,48 +61,51 @@ export function List() {
     setIsPasswordModalOpen(true)
   }
 
-  const handlePassword = (currentPassword: string, newPassword: string, confirmNewPassword: string) => {
+  const handlePassword = (
+    currentPassword: string,
+    newPassword: string,
+    confirmNewPassword: string,
+  ) => {
+    const usersDb = localStorage.getItem('users_db')
 
-    const usersDb = localStorage.getItem('users_db');
+    const userToken = localStorage.getItem('user_token')
 
-		const userToken = localStorage.getItem('user_token')
-				
-		if (usersDb && userToken) {
-			const usersDbArray: User[] = JSON.parse(usersDb)
-			const userTokenObj  = JSON.parse(userToken);
-			const usersArrayIndex = usersDbArray.findIndex(user => user.email === userTokenObj.email)
+    if (usersDb && userToken) {
+      const usersDbArray: User[] = JSON.parse(usersDb)
+      const userTokenObj = JSON.parse(userToken)
+      const usersArrayIndex = usersDbArray.findIndex(
+        (user) => user.email === userTokenObj.email,
+      )
 
-			if (usersArrayIndex !== -1) {
-				if (usersDbArray[usersArrayIndex].password === currentPassword) {
-
-					usersDbArray[usersArrayIndex].password  = newPassword;
-					localStorage.setItem('users_db', JSON.stringify(usersDbArray))					
-					
-				} else if (newPassword !== confirmNewPassword) {
-					toast.error('As senhas precisam ser iguais!', {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						});
-				} else {
-					toast.error('A senha atual está incorreta', {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						});
-				}	
-			}
-		} 
+      if (usersArrayIndex !== -1) {
+        if (usersDbArray[usersArrayIndex].password === currentPassword) {
+          usersDbArray[usersArrayIndex].password = newPassword
+          localStorage.setItem('users_db', JSON.stringify(usersDbArray))
+        } else if (newPassword !== confirmNewPassword) {
+          toast.error('As senhas precisam ser iguais!', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          })
+        } else {
+          toast.error('A senha atual está incorreta', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          })
+        }
+      }
+    }
   }
 
   const handleUpdate = (id: string) => {
