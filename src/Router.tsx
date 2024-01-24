@@ -7,6 +7,7 @@ import { Error404 } from './pages/Error404'
 import { Register } from './pages/User/Register'
 import { List } from './pages/User/List'
 import { Update } from './pages/User/Update'
+import { Menu } from './pages/Menu'
 
 const Private = ({ Item }: { Item: React.ComponentType }) => {
   const auth = useAuth()
@@ -27,6 +28,9 @@ export function Router() {
         <Route path="/list" element={<List />} /> */}
         <Route path="/update/:id" element={<Private Item={Update} />} />
         <Route path="/" element={<Signin />} />
+
+        <Route path="/menu" element={<Menu />} />
+
         <Route path="/error404" element={<Error404 />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Signin />} />

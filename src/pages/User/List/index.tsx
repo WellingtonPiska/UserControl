@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MdDeleteForever } from 'react-icons/md'
 import { toast } from 'react-toastify'
@@ -9,6 +9,7 @@ import { RiKey2Line } from 'react-icons/ri'
 import {
   ActionsHeader,
   BackLink,
+  GlobalStyle,
   IconContainer,
   ListContainer,
   ListTitle,
@@ -29,6 +30,7 @@ import {
 } from '../../../components/ModalDelete/styles'
 import { ContactFormData, User } from '../interface'
 import { PasswordChangeModal } from '../../../components/ChangePasswordModal'
+import { Menu } from '../../Menu'
 
 export function List() {
   const [formDataList, setFormDataList] = useState<ContactFormData[]>([])
@@ -147,8 +149,10 @@ export function List() {
 
   return (
     <>
+      <Menu />
+      <GlobalStyle />
       <TopBarExternal>
-        <div>
+        <div className="icon-container">
           <RiKey2Line onClick={handlePasswordChangeClick} />
           {/* Ícone de mudar senha */}
           <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
