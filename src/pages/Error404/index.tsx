@@ -1,6 +1,6 @@
 import { Container, Description, LogoImage, Title } from './styles'
 import error404 from '../../assets/error404.jpg'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 export function Error404() {
   useEffect(() => {

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Typography } from 'antd'
-import logoPNG from '../../assets/LogoPNG.png'
 
 const { Text } = Typography
 
@@ -27,12 +26,10 @@ export const ContainerLogoName = styled.div`
   box-shadow: -2px 6px 4px 0px rgba(0, 0, 0, 0.47);
 `
 
-export const LogoMenu = styled(logoPNG)`
-  width: 50px;
-  height: 50px;
-  margin: 0 16px;
-`
-
 export const NameCompany = styled(Text)`
   color: white;
+`
+
+export const Content = styled.div`
+  margin-top: 30px;
 `

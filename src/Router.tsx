@@ -21,6 +21,7 @@ import { User } from './pages/User/interface.ts'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { FC, useState } from 'react'
+import { Home } from './pages/Home'
 
 const Private = ({ Item }: { Item: FC }) => {
   const auth = useAuth()
@@ -120,6 +121,8 @@ export function Router() {
         <Routes>
           <Route path="/list" element={<Private Item={List} />} />
           <Route path="/register" element={<Private Item={Register} />} />
+
+          <Route path="/home" element={<Home />} />
 
           {/* <Route path="/register" element={<Register />} />
         <Route path="/list" element={<List />} /> */}
