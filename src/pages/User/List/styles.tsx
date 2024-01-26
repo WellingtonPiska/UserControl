@@ -14,10 +14,6 @@ export const ListContainer = styled.div`
   height: 95%;
 `
 
-export const Spacer = styled.div`
-  flex: 1;
-`
-
 export const TopBar = styled.div`
   width: 100%;
   display: flex;
@@ -28,6 +24,9 @@ export const TopBar = styled.div`
 
 export const ListTitle = styled.h2`
   text-align: center; /* Centralizar o título */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
 `
 
 export const Table = styled.table`
@@ -39,6 +38,9 @@ export const TableRow = styled.tr`
   &:nth-child(even) {
     background-color: #f2f2f2; /* Cor de fundo para linhas pares */
   }
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
 `
 
 export const TableCell = styled.td`
@@ -53,18 +55,23 @@ export const TableHeaderCell = styled.th`
   background-color: #007bff;
   color: #fff;
   text-align: left;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 `
 
 export const BackLink = styled.a`
   display: inline-block;
   text-decoration: none;
   align-content: center;
+  border: none;
   text-align: center;
   background-color: #007bff;
   color: #fff;
   padding: 8px 16px 6px;
   border-radius: 5px;
-  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: #0056b3;
@@ -99,28 +106,6 @@ export const IconContainer = styled.div`
   }
 `
 
-export const ToastContainer = createGlobalStyle`
-  .Toastify__toast-container {
-    z-index: 9999;
-  }
-`
-
-// TOP BAR
-
-export const TopBarButton = styled.button`
-  padding: 8px 16px;
-  margin-left: 8px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #4169e1;
-  }
-`
-
 // TOP BAR
 
 export const TopBarExternal = styled.div`
@@ -132,7 +117,7 @@ export const TopBarExternal = styled.div`
   padding: 10px 20px;
   width: 100%;
   box-sizing: border-box; // Inclui padding e borda na largura e altura do elemento
-  height: 72px;
+  height: 77px;
   box-shadow: -2px 6px 4px 0 rgba(0, 0, 0, 0.47);
 
   .icon-container {
@@ -157,28 +142,6 @@ export const TopBarExternal = styled.div`
 `
 
 // Alteração de senha
-
-export const ModalContainer = styled.div`
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-`
-
-export const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-
 export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     margin: 0;

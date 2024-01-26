@@ -5,7 +5,6 @@ export const FormWrapper = styled.div`
   padding: 20px 20px;
   margin-left: 240px;
   background-color: #fff; /* Adicionando fundo branco ao formulário */
-  padding: 20px; /* Espaçamento interno para o formulário */
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -57,18 +56,11 @@ export const Button = styled.button`
   color: white;
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
   font-weight: 600;
+  font-size: 14px;
   &:hover {
     background-color: #0056b3;
   }
-`
-
-export const ErrorMsg = styled.p`
-  color: red;
-  font-size: 14px;
-  text-align: center;
-  margin-top: 10px;
 `
 
 export const BackLink = styled.a`
@@ -80,6 +72,7 @@ export const BackLink = styled.a`
   padding: 8px 16px 6px;
   border-radius: 5px;
   font-weight: bold;
+  font-size: 17px;
   transition: background-color 0.3s ease;
 
   &:hover {

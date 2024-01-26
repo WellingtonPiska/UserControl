@@ -22,19 +22,18 @@ export const ModalContainer = styled.div`
 
 export const Input = styled.input`
   margin-top: 10px;
-  outline: none;
   padding: 16px 20px;
   width: calc(100% - 50px); // subtraindo o padding lateral
   border-radius: 5px;
   font-size: 16px;
+  border: 1px solid #ccc;
   margin-bottom: 25px;
 
-  background-color: #f0f2f5;
-  border: none;
+  background-color: #fbfbfd;
 `
 
 export const Button = styled.button`
-  margin: 20px auto 10px 780px;
+  margin: 20px auto 10px 787px;
   //width: calc(100% - 90px); // Ajusta a largura para ser igual à do input
   display: block;
   padding: 12px 40px;
@@ -49,12 +48,6 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
-`
-
-export const ModalTitle = styled.h2`
-  font-size: 30px;
-  text-align: right; // Alinha o texto ao centro
-  // Adicione aqui outros estilos que você deseja aplicar ao título
 `
 
 export const Label = styled.label`
