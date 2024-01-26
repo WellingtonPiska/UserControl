@@ -2,18 +2,18 @@ import Select from 'react-select'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
-  BackLink,
-  Button,
-  Form,
   FormWrapper,
-  Input,
-  Label,
-  Spacer,
-  StyledErrorMessage,
-  TextArea,
-  Title,
   TopBar,
-} from './styles'
+  Spacer,
+  BackLink,
+  Title,
+  Form,
+  Label,
+  Input,
+  TextArea,
+  Button,
+  StyledErrorMessage,
+} from '../stylesForRegisterAndUpdate.ts'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
@@ -116,7 +116,11 @@ export function Register() {
               {...field}
               options={genderOptions}
               styles={{
-                container: (base) => ({ ...base, marginBottom: '16px' }),
+                container: (base) => ({
+                  ...base,
+                  marginBottom: '16px',
+                  width: '99.5%',
+                }),
               }}
               value={genderOptions.find(
                 (option) => option.value === field.value,

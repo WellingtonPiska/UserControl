@@ -1,25 +1,25 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import {
-  BackLink,
-  Form,
-  FormWrapper,
-  Input,
-  Label,
-  Spacer,
-  Title,
-  TopBar,
-  TextArea,
-  Button,
-} from './styles'
 import Select from 'react-select'
 import { toast } from 'react-toastify'
 import { ContactFormData } from '../interface'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { StyledErrorMessage } from '../Register/styles'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { validationUpdate } from './schema'
+import {
+  FormWrapper,
+  TopBar,
+  Spacer,
+  BackLink,
+  Title,
+  Form,
+  Label,
+  Input,
+  TextArea,
+  Button,
+  StyledErrorMessage,
+} from '../stylesForRegisterAndUpdate.ts'
 
 export function Update() {
   const { id } = useParams() // Obtenha o ID do item a ser atualizado
@@ -108,12 +108,8 @@ export function Update() {
 
         // fazer a atualização do localStorage com a lista atualizada
         localStorage.setItem('formDataList', JSON.stringify(parsedListStorage))
-
-        console.log(foundItem, 'foundItem')
       }
     }
-
-    console.log(handleSubmit)
 
     toast.success('Formulário alterado com sucesso!', {
       position: 'top-right',
@@ -160,7 +156,11 @@ export function Update() {
               {...field}
               options={genderOptions}
               styles={{
-                container: (base) => ({ ...base, marginBottom: '16px' }),
+                container: (base) => ({
+                  ...base,
+                  marginBottom: '16px',
+                  width: '100%',
+                }),
               }}
               value={genderOptions.find(
                 (option) => option.value === field.value,

@@ -5,17 +5,15 @@ import logoPNG from '../../assets/LogoPNG.png'
 const { Text } = Typography
 
 export const ContainerMenu = styled.div`
+  width: 240px;
+  -webkit-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
+  -moz-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
+  box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
+  background-color: #4169e1;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
-  background-color: #4169e1;
-
-  width: 240px;
-
-  -webkit-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
-  -moz-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
-  box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
 `
 
 export const ContainerLogoName = styled.div`

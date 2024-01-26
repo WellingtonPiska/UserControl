@@ -66,7 +66,7 @@ export function Signup() {
           {errors.password && (
             <C.labelError>{errors.password.message}</C.labelError>
           )}
-          <C.Button type="submit">Entrar</C.Button>{' '}
+          <C.Button type="submit">Registrar</C.Button>{' '}
         </form>{' '}
         <C.LabelSignin>
           Já tem uma conta?

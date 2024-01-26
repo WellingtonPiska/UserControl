@@ -35,8 +35,12 @@ export const LabelSignup = styled.label`
 `
 
 export const labelError = styled.label`
+  min-height: 20px; /* Ajuste para a altura da mensagem de erro */
   font-size: 14px;
   color: red;
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 16px;
 `
 
 export const Strong = styled.strong`

@@ -10,11 +10,12 @@ export const ModalBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 `
 
 export const ModalContainer = styled.div`
   background-color: white;
-  padding: 20px;
+  padding: 16px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 `
@@ -26,22 +27,24 @@ export const Input = styled.input`
   width: calc(100% - 50px); // subtraindo o padding lateral
   border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 
   background-color: #f0f2f5;
   border: none;
 `
 
 export const Button = styled.button`
+  margin: 20px auto 10px 780px;
+  //width: calc(100% - 90px); // Ajusta a largura para ser igual à do input
   display: block;
-  margin: 10px auto;
-  width: calc(100% - 80px); // Ajusta a largura para ser igual à do input
-  padding: 10px;
+  padding: 12px 40px;
   border: none;
   border-radius: 4px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   font-weight: 600;
   &:hover {
     background-color: #0056b3;
@@ -50,14 +53,16 @@ export const Button = styled.button`
 
 export const ModalTitle = styled.h2`
   font-size: 30px;
-  text-align: center; // Alinha o texto ao centro
+  text-align: right; // Alinha o texto ao centro
   // Adicione aqui outros estilos que você deseja aplicar ao título
 `
 
 export const Label = styled.label`
   margin-bottom: 8px;
   margin-left: 10px;
-  font-weight: 600;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 `
 
 export const StyledCloseButton = styled.button`
@@ -75,10 +80,21 @@ export const StyledCloseButton = styled.button`
   &:hover {
     background-color: #e0e0e0;
   }
+
+  svg {
+    font-size: 30px;
+  }
 `
 
 export const ContainerCloseButton = styled.div`
   display: flex;
-  justify-content: flex-end; /* Alinhe o conteúdo à direita do container */
+  justify-content: space-between;
   padding: 10px; /* Adicione algum espaçamento se necessário */
+
+  .titleChangePassword {
+    font-size: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+  }
 `

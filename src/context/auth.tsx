@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import { AuthContextType, AuthProviderProps, User } from './interface'
+import { toast } from 'react-toastify'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -31,9 +32,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem('user_token', JSON.stringify({ email, token }))
         setUser({ email, password })
       } else {
+        toast.error('E-mail ou senha incorretos', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        })
         return 'E-mail ou senha incorretos'
       }
     } else {
+      toast.error('Usuário não cadastrado', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
       return 'Usuário não cadastrado'
     }
   }
@@ -44,6 +65,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const hasUser = usersStorage?.filter((user: User) => user.email === email)
 
     if (hasUser?.length) {
+      toast.error('Já tem uma conta com esse E-mail', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
       return 'Já tem uma conta com esse E-mail'
     }
 

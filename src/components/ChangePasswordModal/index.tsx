@@ -5,7 +5,6 @@ import {
   ModalContainer,
   Button,
   Input,
-  ModalTitle,
   Label,
   StyledCloseButton,
   ContainerCloseButton,
@@ -38,11 +37,11 @@ export const PasswordChangeModal = ({
     <ModalBackdrop onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <ContainerCloseButton>
+          <h2 className="titleChangePassword">Alterar Senha</h2>
           <StyledCloseButton onClick={onClose}>
             <IoMdClose />
           </StyledCloseButton>
         </ContainerCloseButton>
-        <ModalTitle>Alterar Senha</ModalTitle>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <Label htmlFor="oldPassword">Senha Atual:</Label>
           <Input

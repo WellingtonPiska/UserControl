@@ -19,7 +19,7 @@ export const Content = styled.div`
   box-shadow: 0 1px 2px #0003;
   background-color: white;
   max-width: 350px;
-  padding: 20px;
+  padding: 30px;
   border-radius: 5px;
 `
 
@@ -34,9 +34,17 @@ export const LabelSignin = styled.label`
   color: #676767;
 `
 
+export const InputWrapper = styled.div`
+  position: relative;
+`
+
 export const labelError = styled.label`
+  min-height: 20px; /* Ajuste para a altura da mensagem de erro */
   font-size: 14px;
   color: red;
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 16px;
 `
 
 export const Strong = styled.strong`
