@@ -31,5 +31,5 @@ export const NameCompany = styled(Text)`
 `
 
 export const Content = styled.div`
-  margin-top: 30px;
+  margin-top: 0px;
 `
