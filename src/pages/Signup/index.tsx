@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { SignupFormFields } from './interface'
+import { SignupFormFields, SignupFormFieldsScreen } from './interface'
 import { validationSignup } from './schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -17,15 +17,13 @@ export function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormFields>({
+  } = useForm<SignupFormFieldsScreen>({
     resolver: yupResolver(validationSignup),
   })
 
   const handleSignup: SubmitHandler<SignupFormFields> = async (data) => {
-    const { email, password } = data
-
     if (auth) {
-      const res = auth.signup(email, password)
+      const res = auth.signup(data)
 
       if (res) {
         console.error(res)
@@ -38,42 +36,124 @@ export function Signup() {
 
   return (
     <Container>
-      <Label>SISTEMA DE LOGIN</Label>
+      <Label>SISTEMA DE REGISTRO</Label>
       <Content>
         <form onSubmit={handleSubmit(handleSignup)}>
-          <LabelFields htmlFor="email">E-mail</LabelFields>
-          <C.Input
-            type="text"
-            placeholder="Digite o seu E-mail"
-            {...register('emailConf')}
-          />
-          {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
-          <LabelFields htmlFor="email">Confirme o E-mail</LabelFields>
-          <C.Input
-            type="text"
-            placeholder="Confirme o seu E-mail"
-            {...register('email')}
-          />
-          {errors.emailConf && (
-            <C.labelError>{errors.emailConf.message}</C.labelError>
-          )}{' '}
-          <LabelFields htmlFor="email">Senha</LabelFields>
-          <C.Input
-            type="password"
-            placeholder="Digite a sua senha"
-            {...register('password')}
-          />
-          {errors.password && (
-            <C.labelError>{errors.password.message}</C.labelError>
-          )}
-          <C.Button type="submit">Registrar</C.Button>{' '}
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ width: '50%' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <LabelFields htmlFor="cpf">CPF</LabelFields>
+                <C.Input
+                  type="text"
+                  placeholder="Digite o seu CPF"
+                  {...register('cpf')}
+                  maxLength={11}
+                />{' '}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <LabelFields htmlFor="name">Nome</LabelFields>
+                <C.Input
+                  type="text"
+                  placeholder="Digite o seu Nome"
+                  {...register('name')}
+                />
+                {errors.name && (
+                  <C.labelError>{errors.name.message}</C.labelError>
+                )}{' '}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <LabelFields htmlFor="Sobrenome">Sobrenome</LabelFields>
+                <C.Input
+                  type="text"
+                  placeholder="Digite o seu Sobrenome"
+                  {...register('lastName')}
+                />
+                {errors.lastName && (
+                  <C.labelError>{errors.lastName.message}</C.labelError>
+                )}{' '}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <LabelFields htmlFor="dateOfBirth">
+                  Data de Nascimento
+                </LabelFields>
+                <C.Input
+                  type="date"
+                  placeholder="Digite a sua Data de Nascimento"
+                  {...register('dateOfBirth')}
+                />
+                {errors.dateOfBirth && (
+                  <C.labelError>{errors.dateOfBirth.message}</C.labelError>
+                )}
+              </div>
+            </div>
+            <div style={{ width: '50%' }}>
+              <LabelFields htmlFor="email">E-mail</LabelFields>
+              <C.Input
+                type="text"
+                placeholder="Digite o seu E-mail"
+                {...register('emailConf')}
+              />
+              {errors.email && (
+                <C.labelError>{errors.email.message}</C.labelError>
+              )}
+              <LabelFields htmlFor="email">Confirme o E-mail</LabelFields>
+              <C.Input
+                type="text"
+                placeholder="Confirme o seu E-mail"
+                {...register('email')}
+              />
+              {errors.emailConf && (
+                <C.labelError>{errors.emailConf.message}</C.labelError>
+              )}{' '}
+              <LabelFields htmlFor="email">Senha</LabelFields>
+              <C.Input
+                type="password"
+                placeholder="Digite a sua senha"
+                {...register('password')}
+              />
+              {errors.password && (
+                <C.labelError>{errors.password.message}</C.labelError>
+              )}{' '}
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '10px',
+            }}
+          >
+            <C.Button type="submit">Registrar</C.Button>{' '}
+            <C.LabelSignin>
+              Já tem uma conta?
+              <Strong>
+                <Link to="/signin">&nbsp;Entre</Link>
+              </Strong>
+            </C.LabelSignin>
+          </div>
         </form>{' '}
-        <C.LabelSignin>
-          Já tem uma conta?
-          <Strong>
-            <Link to="/signin">&nbsp;Entre</Link>
-          </Strong>
-        </C.LabelSignin>
       </Content>
     </Container>
   )

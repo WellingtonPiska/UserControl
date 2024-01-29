@@ -6,6 +6,7 @@ import useAuth from '../../hooks/useAuth'
 import { LoginFormFields } from './interface'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { validationSignin } from './schema'
+import { toast } from 'react-toastify'
 
 export function Signin() {
   const auth = useAuth() // Armazenando o contexto em uma variável
@@ -24,12 +25,23 @@ export function Signin() {
 
     if (auth) {
       const res = auth.signin(email, password)
+      console.log(res, 'aaa')
 
       if (res) {
         return
       }
 
-      navigate('/list')
+      toast.success('Login efetuado com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+      navigate('/home')
     }
   }
 

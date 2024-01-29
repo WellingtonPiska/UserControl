@@ -3,24 +3,25 @@ import { styled } from 'styled-components'
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
   gap: 10px;
   height: 100vh;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const Content = styled.div`
-  gap: 15px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  box-shadow: 0 1px 2px #0003;
-  background-color: white;
-  max-width: 350px;
-  padding: 30px;
-  border-radius: 5px;
+  gap: 20px;
+`
+
+export const ContentForLogin = styled.div`
+  align-items: flex-end;
+  flex: 1;
+`
+
+export const ContentPersonalData = styled.div`
+  flex: 1;
+  margin-left: 10px;
 `
 
 export const Label = styled.label`
@@ -42,9 +43,6 @@ export const labelError = styled.label`
   min-height: 20px; /* Ajuste para a altura da mensagem de erro */
   font-size: 14px;
   color: red;
-  display: block;
-  margin-bottom: 10px;
-  margin-left: 16px;
 `
 
 export const Strong = styled.strong`
@@ -64,8 +62,7 @@ export const Input = styled.input`
   font-size: 16px;
   background-color: #f0f2f5;
   border: none;
-  max-width: 350px;
-  margin: 10px auto;
+  margin-bottom: 10px;
 `
 
 export const Button = styled.button`
@@ -80,12 +77,9 @@ export const Button = styled.button`
   font-weight: 600;
   font-size: 16px;
   max-width: 350px;
-  margin: 10px auto 0; // Adicionado para centralizar o botão e adicionar espaço acima dele
 `
 export const LabelFields = styled.label`
   font-size: 16px;
-  margin-bottom: 8px;
   font-weight: 600;
-  margin-left: 10px;
   color: #676767;
 `

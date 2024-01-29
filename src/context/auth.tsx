@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { AuthContextType, AuthProviderProps, User } from './interface'
 import { toast } from 'react-toastify'
+import { SignupFormFields } from '../pages/Signup/interface.ts'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -59,7 +60,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
-  const signup = (email: string, password: string) => {
+  const signup = ({
+    email,
+    password,
+    cpf,
+    name,
+    lastName,
+    dateOfBirth,
+  }: SignupFormFields) => {
     const usersStorage = JSON.parse(localStorage.getItem('users_db') || '[]')
 
     const hasUser = usersStorage?.filter((user: User) => user.email === email)
@@ -81,9 +89,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     let newUser
 
     if (usersStorage) {
-      newUser = [...usersStorage, { email, password }]
+      newUser = [
+        ...usersStorage,
+        { email, password, cpf, name, lastName, dateOfBirth },
+      ]
     } else {
-      newUser = [{ email, password }]
+      newUser = [{ email, password, cpf, name, lastName, dateOfBirth }]
     }
 
     localStorage.setItem('users_db', JSON.stringify(newUser))
