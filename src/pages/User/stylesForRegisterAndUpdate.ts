@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 
 export const FormWrapper = styled.div`
-  width: 100%;
+  width: 83.7%;
   padding: 20px 20px;
   margin-left: 240px;
   background-color: #fff; /* Adicionando fundo branco ao formulário */
@@ -34,7 +34,7 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 4px;
-  width: 98%;
+  width: 95%;
 `
 
 export const TextArea = styled.textarea`
@@ -42,11 +42,11 @@ export const TextArea = styled.textarea`
   margin-bottom: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 98.5%;
+  width: 95%;
 `
 
 export const Button = styled.button`
-  margin: 30px auto 10px 1519px;
+  margin: 30px auto 10px 1280px;
   //width: calc(100% - 90px); // Ajusta a largura para ser igual à do input
   display: flex;
   padding: 12px 40px;
@@ -65,7 +65,7 @@ export const Button = styled.button`
 
 export const BackLink = styled.a`
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-decoration: none;
   background-color: #007bff;
   color: #fff;
@@ -87,15 +87,15 @@ export const Spacer = styled.div`
 export const TopBar = styled.div`
   width: 100%;
   display: flex;
+  margin: 10px 0;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px; // Espaço entre a barra superior e o título
 `
 
 export const StyledErrorMessage = styled.p`
   color: red;
   font-size: 13px;
-  height: 16px;
+  height: 15px;
   margin-top: 2px;
   padding: 0;
   display: flex;

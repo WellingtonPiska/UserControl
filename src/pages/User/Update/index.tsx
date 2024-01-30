@@ -159,7 +159,7 @@ export function Update() {
                 container: (base) => ({
                   ...base,
                   marginBottom: '16px',
-                  width: '100%',
+                  width: '96.5%',
                 }),
               }}
               value={genderOptions.find(

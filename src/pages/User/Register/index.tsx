@@ -119,7 +119,7 @@ export function Register() {
                 container: (base) => ({
                   ...base,
                   marginBottom: '16px',
-                  width: '99.5%',
+                  width: '96.5%',
                 }),
               }}
               value={genderOptions.find(
@@ -132,7 +132,7 @@ export function Register() {
 
         <Label htmlFor="message">Mensagem:</Label>
         <TextArea id="message" rows={4} {...register('message')} />
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">Registrar</Button>
       </Form>
     </FormWrapper>
   )

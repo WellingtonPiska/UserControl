@@ -22,6 +22,7 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { FC, useState } from 'react'
 import { Home } from './pages/Home'
+import { MyPersonalData } from './pages/MyPersonalData'
 
 const Private = ({ Item }: { Item: FC }) => {
   const auth = useAuth()
@@ -123,6 +124,7 @@ export function Router() {
           <Route path="/register" element={<Private Item={Register} />} />
 
           <Route path="/home" element={<Home />} />
+          <Route path="/myPersonalData" element={<MyPersonalData />} />
 
           {/* <Route path="/register" element={<Register />} />
         <Route path="/list" element={<List />} /> */}

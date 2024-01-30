@@ -14,16 +14,6 @@ export const Content = styled.div`
   gap: 20px;
 `
 
-export const ContentForLogin = styled.div`
-  align-items: flex-end;
-  flex: 1;
-`
-
-export const ContentPersonalData = styled.div`
-  flex: 1;
-  margin-left: 10px;
-`
-
 export const Label = styled.label`
   font-size: 18px;
   font-weight: 600;
@@ -35,13 +25,9 @@ export const LabelSignin = styled.label`
   color: #676767;
 `
 
-export const InputWrapper = styled.div`
-  position: relative;
-`
-
 export const labelError = styled.label`
   min-height: 20px; /* Ajuste para a altura da mensagem de erro */
-  font-size: 14px;
+  font-size: 12px;
   color: red;
 `
 
@@ -82,4 +68,25 @@ export const LabelFields = styled.label`
   font-size: 16px;
   font-weight: 600;
   color: #676767;
+`
+
+export const ContainerColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const ContainerWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+export const ContainerHalfScreen = styled.div`
+  width: 50%;
+`
+export const ContainerUnderScreen = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 `

@@ -1,5 +1,15 @@
 import * as C from './styles'
-import { Container, Content, Label, LabelFields, Strong } from './styles'
+import {
+  Container,
+  ContainerColumn,
+  ContainerHalfScreen,
+  ContainerUnderScreen,
+  ContainerWrap,
+  Content,
+  Label,
+  LabelFields,
+  Strong,
+} from './styles'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
@@ -39,9 +49,9 @@ export function Signup() {
       <Label>SISTEMA DE REGISTRO</Label>
       <Content>
         <form onSubmit={handleSubmit(handleSignup)}>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <div style={{ width: '50%' }}>
-              <div
+          <ContainerWrap style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <ContainerHalfScreen style={{ width: '50%' }}>
+              <ContainerColumn
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -53,9 +63,12 @@ export function Signup() {
                   placeholder="Digite o seu CPF"
                   {...register('cpf')}
                   maxLength={11}
-                />{' '}
-              </div>
-              <div
+                />
+                {errors.cpf && (
+                  <C.labelError>{errors.cpf.message}</C.labelError>
+                )}{' '}
+              </ContainerColumn>
+              <ContainerColumn
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -70,8 +83,8 @@ export function Signup() {
                 {errors.name && (
                   <C.labelError>{errors.name.message}</C.labelError>
                 )}{' '}
-              </div>
-              <div
+              </ContainerColumn>
+              <ContainerColumn
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -86,8 +99,8 @@ export function Signup() {
                 {errors.lastName && (
                   <C.labelError>{errors.lastName.message}</C.labelError>
                 )}{' '}
-              </div>
-              <div
+              </ContainerColumn>
+              <ContainerColumn
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -104,39 +117,39 @@ export function Signup() {
                 {errors.dateOfBirth && (
                   <C.labelError>{errors.dateOfBirth.message}</C.labelError>
                 )}
-              </div>
-            </div>
-            <div style={{ width: '50%' }}>
+              </ContainerColumn>
+            </ContainerHalfScreen>
+            <ContainerHalfScreen style={{ width: '50%' }}>
               <LabelFields htmlFor="email">E-mail</LabelFields>
               <C.Input
                 type="text"
                 placeholder="Digite o seu E-mail"
                 {...register('emailConf')}
               />
-              {errors.email && (
-                <C.labelError>{errors.email.message}</C.labelError>
-              )}
+              {/* {errors.email && ( */}
+              {/*  <C.labelError>{errors.email.message}</C.labelError> */}
+              {/* )} */}
               <LabelFields htmlFor="email">Confirme o E-mail</LabelFields>
               <C.Input
                 type="text"
                 placeholder="Confirme o seu E-mail"
                 {...register('email')}
               />
-              {errors.emailConf && (
-                <C.labelError>{errors.emailConf.message}</C.labelError>
-              )}{' '}
+              {/* {errors.emailConf && ( */}
+              {/*  <C.labelError>{errors.emailConf.message}</C.labelError> */}
+              {/* )}{' '} */}
               <LabelFields htmlFor="email">Senha</LabelFields>
               <C.Input
                 type="password"
                 placeholder="Digite a sua senha"
                 {...register('password')}
               />
-              {errors.password && (
-                <C.labelError>{errors.password.message}</C.labelError>
-              )}{' '}
-            </div>
-          </div>
-          <div
+              {/* {errors.password && ( */}
+              {/*  <C.labelError>{errors.password.message}</C.labelError> */}
+              {/* )}{' '} */}
+            </ContainerHalfScreen>
+          </ContainerWrap>
+          <ContainerUnderScreen
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -152,7 +165,7 @@ export function Signup() {
                 <Link to="/signin">&nbsp;Entre</Link>
               </Strong>
             </C.LabelSignin>
-          </div>
+          </ContainerUnderScreen>
         </form>{' '}
       </Content>
     </Container>

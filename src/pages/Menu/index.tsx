@@ -4,7 +4,7 @@ import {
   Content,
   NameCompany,
 } from './styles.ts'
-import { FaHome, FaUserAlt } from 'react-icons/fa'
+import { FaHome, FaUserAlt, FaUsers } from 'react-icons/fa'
 import { SidebarItem } from '../../components/MenuItem'
 import { useNavigate, useLocation } from 'react-router'
 
@@ -13,6 +13,12 @@ export function Menu() {
   const location = useLocation()
   const handleHome = () => {
     navigate(`/home`)
+  }
+  const handlePersonalData = () => {
+    navigate(`/myPersonalData`)
+  }
+  const handleUsers = () => {
+    navigate(`/list`)
   }
 
   return (
@@ -28,12 +34,18 @@ export function Menu() {
           isActive={location.pathname === '/home'}
         />
         <SidebarItem
-          Icon={FaUserAlt}
-          Text="Users"
-          onClick={handleHome}
+          Icon={FaUsers}
+          Text="Usuários"
+          onClick={handleUsers}
           isActive={
             location.pathname === '/register' || location.pathname === '/list'
           }
+        />
+        <SidebarItem
+          Icon={FaUserAlt}
+          Text="Dados Pessoais"
+          onClick={handlePersonalData}
+          isActive={location.pathname === '/myPersonalData'}
         />
       </Content>
     </ContainerMenu>
