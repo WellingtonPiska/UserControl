@@ -15,6 +15,10 @@ export const validationSignup = yup.object().shape({
     .required('Senha é obrigatória')
     .min(6, 'Mínimo de 6 caracteres')
     .max(30, 'Máximo de 30 caracteres'),
+  passwordConf: yup
+    .string()
+    .oneOf([yup.ref('password')], 'As senhas não são iguais')
+    .required('A confirmação de senha é obrigatória'),
   cpf: yup
     .string()
     .required('CPF é obrigatório')

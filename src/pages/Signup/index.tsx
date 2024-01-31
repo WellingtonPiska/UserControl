@@ -157,6 +157,12 @@ export function Signup() {
               {/* {errors.password && ( */}
               {/*  <C.labelError>{errors.password.message}</C.labelError> */}
               {/* )}{' '} */}
+              <LabelFields htmlFor="email">Confirme a Senha</LabelFields>
+              <C.Input
+                type="password"
+                placeholder="Digite a sua senha"
+                {...register('passwordConf')}
+              />
             </ContainerHalfScreen>
           </ContainerWrap>
           <ContainerUnderScreen

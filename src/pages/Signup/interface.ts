@@ -11,6 +11,7 @@ export interface SignupFormFieldsScreen {
   email: string
   emailConf: string
   password: string
+  passwordConf: string
   cpf: string
   name: string
   lastName: string
