@@ -22,7 +22,6 @@ export const PasswordChangeModal = ({
     register,
     handleSubmit,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(validationChangePassword),
   })
@@ -49,7 +48,11 @@ export const PasswordChangeModal = ({
             placeholder="Senha Atual"
             {...register('oldPassword', { required: true })}
           />
-          {/* {errors.oldPassword && <LabelError>{errors.oldPassword.message}</LabelError>} */}
+          {/* {errors.oldPassword && ( */}
+          {/*  <StyledErrorMessage> */}
+          {/*    {errors.oldPassword.message} */}
+          {/*  </StyledErrorMessage> */}
+          {/* )} */}
 
           <Label htmlFor="newPassword">Nova Senha:</Label>
           <Input
@@ -57,7 +60,11 @@ export const PasswordChangeModal = ({
             placeholder="Nova Senha"
             {...register('newPassword', { required: true })}
           />
-          {/* {errors.newPassword && <LabelError>{errors.newPassword.message}</LabelError>} */}
+          {/* {errors.newPassword && ( */}
+          {/*  <StyledErrorMessage> */}
+          {/*    {errors.newPassword.message} */}
+          {/*  </StyledErrorMessage> */}
+          {/* )} */}
 
           <Label htmlFor="confirmNewPassword">Confirmação:</Label>
           <Input

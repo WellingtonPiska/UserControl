@@ -33,7 +33,7 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-  margin: 20px auto 10px 787px;
+  margin: 20px auto 10px 810px;
   //width: calc(100% - 90px); // Ajusta a largura para ser igual à do input
   display: block;
   padding: 12px 40px;
@@ -90,4 +90,16 @@ export const ContainerCloseButton = styled.div`
     font-weight: 600;
     margin-top: 0;
   }
+`
+
+export const StyledErrorMessage = styled.p`
+  color: red;
+  font-size: 13px;
+  height: 15px;
+  margin-top: 2px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  visibility: hidden; // Invisível por padrão
+  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
 `

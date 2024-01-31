@@ -5,8 +5,9 @@ import {
   LabelFields,
   Title,
 } from './styles.ts'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { User } from './interface.ts'
+import { useForm } from 'react-hook-form'
 export interface Root {
   email: string
   password: string
@@ -16,7 +17,7 @@ export interface Root {
   dateOfBirth: Date | string
 }
 export function MyPersonalData() {
-  const [fields, setFields] = useState({} as Root)
+  const { register, setValue } = useForm()
 
   const formatDate = (dateString: Date | string): string => {
     const date = new Date(dateString)
@@ -55,26 +56,30 @@ export function MyPersonalData() {
   useEffect(() => {
     const data = getMyPersonalData()
     if (data) {
-      setFields(data)
+      Object.keys(data).forEach((key) => {
+        if (key in data) {
+          setValue(key, data[key as keyof Root])
+        }
+      })
     }
-  }, [])
+  }, [setValue])
 
   return (
     <Container>
       <Title>Dados Pessoais</Title>
       <ContainerInputs>
         <LabelFields>CPF</LabelFields>
-        <Input value={fields.cpf} />
+        <Input {...register('cpf')} readOnly />
         <LabelFields>Nome</LabelFields>
-        <Input value={fields.name} />
+        <Input {...register('name')} readOnly />
         <LabelFields>Sobrenome</LabelFields>
-        <Input value={fields.lastName} />
+        <Input {...register('lastName')} readOnly />
         <LabelFields>Data de Nascimento</LabelFields>
-        <Input value={fields.dateOfBirth} />
+        <Input {...register('dateOfBirth')} readOnly />
         <LabelFields>E-mail</LabelFields>
-        <Input value={fields.email} />
+        <Input {...register('email')} readOnly />
         <LabelFields>Senha</LabelFields>
-        <Input value={fields.password} />
+        <Input {...register('password')} readOnly />
       </ContainerInputs>
     </Container>
   )
