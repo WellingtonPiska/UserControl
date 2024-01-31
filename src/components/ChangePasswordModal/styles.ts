@@ -23,13 +23,30 @@ export const ModalContainer = styled.div`
 export const Input = styled.input`
   margin-top: 10px;
   padding: 16px 20px;
-  width: calc(100% - 50px); // subtraindo o padding lateral
+  width: calc(100% - 45px); // subtraindo o padding lateral
   border-radius: 5px;
   font-size: 16px;
   border: 1px solid #ccc;
   margin-bottom: 25px;
 
   background-color: #fbfbfd;
+`
+
+export const InputContainerForPassword = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`
+
+export const IconPassword = styled.span`
+  position: absolute;
+  right: 25px; // Ajuste conforme necessário para alinhar o ícone
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  font-size: 22px;
 `
 
 export const Button = styled.button`

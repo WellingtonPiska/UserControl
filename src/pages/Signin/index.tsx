@@ -1,14 +1,19 @@
 import { useNavigate, Link } from 'react-router-dom'
+import { useState } from 'react'
 import * as C from './styles'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 
 import useAuth from '../../hooks/useAuth'
 import { LoginFormFields } from './interface'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { validationSignin } from './schema'
 import { toast } from 'react-toastify'
+import { IconPassword, InputContainerForPassword } from './styles'
 
 export function Signin() {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
   const auth = useAuth() // Armazenando o contexto em uma variável
   const {
     register,
@@ -25,7 +30,6 @@ export function Signin() {
 
     if (auth) {
       const res = auth.signin(email, password)
-      console.log(res, 'aaa')
 
       if (res) {
         return
@@ -45,6 +49,10 @@ export function Signin() {
     }
   }
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible)
+  }
+
   return (
     <C.Container>
       <C.Label>SISTEMA DE LOGIN</C.Label>
@@ -59,11 +67,16 @@ export function Signin() {
           />
           {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
           <C.LabelFields htmlFor="password">Senha</C.LabelFields>
-          <C.Input
-            type="password"
-            placeholder="Digite a sua Senha"
-            {...register('password')}
-          />
+          <InputContainerForPassword>
+            <C.Input
+              type={isPasswordVisible ? 'text' : 'password'}
+              placeholder="Digite a sua Senha"
+              {...register('password')}
+            />
+            <IconPassword onClick={togglePasswordVisibility}>
+              {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+            </IconPassword>
+          </InputContainerForPassword>
           {errors.password && (
             <C.labelError>{errors.password.message}</C.labelError>
           )}

@@ -66,6 +66,21 @@ export const Input = styled.input`
   margin-bottom: 5px;
 `
 
+export const InputContainerForPassword = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`
+
+export const IconPassword = styled.span`
+  position: absolute;
+  right: 10px; // Ajuste conforme necessário para alinhar o ícone
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`
+
 export const Button = styled.button`
   padding: 16px 20px;
   outline: none;

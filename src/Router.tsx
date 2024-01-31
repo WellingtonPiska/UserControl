@@ -67,6 +67,17 @@ export function Router() {
         if (usersDbArray[usersArrayIndex].password === currentPassword) {
           usersDbArray[usersArrayIndex].password = newPassword
           localStorage.setItem('users_db', JSON.stringify(usersDbArray))
+
+          toast.success('Senha alterada com sucesso!', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          })
         } else if (newPassword !== confirmNewPassword) {
           toast.error('As senhas precisam ser iguais!', {
             position: 'top-right',
@@ -108,7 +119,6 @@ export function Router() {
       <TopBarExternal>
         <div className="icon-container">
           <RiKey2Line onClick={handlePasswordChangeClick} />
-          {/* Ícone de mudar senha */}
           <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
         </div>
       </TopBarExternal>
@@ -122,14 +132,9 @@ export function Router() {
         <Routes>
           <Route path="/list" element={<Private Item={List} />} />
           <Route path="/register" element={<Private Item={Register} />} />
-
           <Route path="/home" element={<Home />} />
           <Route path="/myPersonalData" element={<MyPersonalData />} />
-
-          {/* <Route path="/register" element={<Register />} />
-        <Route path="/list" element={<List />} /> */}
           <Route path="/update/:id" element={<Private Item={Update} />} />
-
           <Route path="/error404" element={<Error404 />} />
         </Routes>
       </ContainerMiddle>
