@@ -119,7 +119,7 @@ export function Register() {
                 container: (base) => ({
                   ...base,
                   marginBottom: '16px',
-                  width: '96.5%',
+                  width: '100%',
                 }),
               }}
               value={genderOptions.find(

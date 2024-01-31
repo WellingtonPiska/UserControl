@@ -11,7 +11,7 @@ export const ListContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 5px;
   overflow-x: auto;
-  height: 95%;
+  height: 94.5%;
 `
 
 export const TopBar = styled.div`

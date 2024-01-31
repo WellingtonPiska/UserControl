@@ -12,6 +12,7 @@ import {
 } from './styles'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignupFormFields, SignupFormFieldsScreen } from './interface'
@@ -21,7 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 export function Signup() {
   const navigate = useNavigate()
 
-  const auth = useAuth() // Armazenando o contexto em uma variável
+  const auth = useAuth()
 
   const {
     register,
@@ -39,7 +40,16 @@ export function Signup() {
         console.error(res)
       }
 
-      alert('Usuário cadastrado com sucesso!')
+      toast.success('Registro efetuado com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
       navigate('/')
     }
   }
@@ -124,16 +134,16 @@ export function Signup() {
               <C.Input
                 type="text"
                 placeholder="Digite o seu E-mail"
-                {...register('emailConf')}
+                {...register('email')}
               />
-              {/* {errors.email && ( */}
-              {/*  <C.labelError>{errors.email.message}</C.labelError> */}
-              {/* )} */}
-              <LabelFields htmlFor="email">Confirme o E-mail</LabelFields>
+              {errors.email && (
+                <C.labelError>{errors.email.message}</C.labelError>
+              )}
+              <LabelFields htmlFor="emailConf">Confirme o E-mail</LabelFields>
               <C.Input
                 type="text"
                 placeholder="Confirme o seu E-mail"
-                {...register('email')}
+                {...register('emailConf')}
               />
               {/* {errors.emailConf && ( */}
               {/*  <C.labelError>{errors.emailConf.message}</C.labelError> */}

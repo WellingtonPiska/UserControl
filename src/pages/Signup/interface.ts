@@ -1,5 +1,6 @@
 export interface SignupFormFields {
   email: string
+  emailConf: string
   password: string
   cpf: string
   name: string
