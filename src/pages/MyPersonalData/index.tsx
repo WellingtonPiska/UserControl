@@ -10,7 +10,6 @@ import { User } from './interface.ts'
 import { useForm } from 'react-hook-form'
 export interface Root {
   email: string
-  password: string
   cpf: string
   name: string
   lastName: string
@@ -52,7 +51,6 @@ export function MyPersonalData() {
           cpf: userData.cpf,
           lastName: userData.lastName,
           name: userData.name,
-          password: userData.password,
           email: userData.email,
           dateOfBirth: formatDate(userData.dateOfBirth),
         }
@@ -93,8 +91,6 @@ export function MyPersonalData() {
         <Input {...register('dateOfBirth')} readOnly />
         <LabelFields>E-mail</LabelFields>
         <Input {...register('email')} readOnly />
-        <LabelFields>Senha</LabelFields>
-        <Input {...register('password')} readOnly />
       </ContainerInputs>
     </Container>
   )
