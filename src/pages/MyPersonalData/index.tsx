@@ -26,6 +26,15 @@ export function MyPersonalData() {
     const year = date.getFullYear()
     return `${day}/${month}/${year}`
   }
+
+  const cpfMask = (value: string) => {
+    return value
+      .replace(/\D/g, '') // Remove tudo o que não é dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três primeiros dígitos
+      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três dígitos seguintes
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Coloca hífen antes dos dois últimos dígitos
+      .replace(/(-\d{2})\d+?$/, '$1') // Permite apenas dois dígitos após o hífen
+  }
   const getMyPersonalData = () => {
     const usersDb = localStorage.getItem('users_db')
     const userToken = localStorage.getItem('user_token')
@@ -58,7 +67,13 @@ export function MyPersonalData() {
     if (data) {
       Object.keys(data).forEach((key) => {
         if (key in data) {
-          setValue(key, data[key as keyof Root])
+          let value = data[key as keyof Root]
+          if (key === 'dateOfBirth' && value instanceof Date) {
+            value = formatDate(value)
+          } else if (key === 'cpf' && typeof value === 'string') {
+            value = cpfMask(value)
+          }
+          setValue(key, value)
         }
       })
     }
