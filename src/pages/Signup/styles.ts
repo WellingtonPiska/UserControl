@@ -37,17 +37,20 @@ export const Strong = styled.strong`
   a {
     text-decoration: none;
     color: #676767;
+
+    &:hover {
+      color: #00050a;
+    }
   }
 `
 
 export const Input = styled.input`
-  outline: none;
   padding: 16px 20px;
-  width: 89%;
+  width: calc(100% - 70px);
   border-radius: 5px;
-  font-size: 16px;
-  background-color: #f0f2f5;
-  border: none;
+  font-size: 14px;
+  background-color: #fbfbfd;
+  border: 1px solid #ccc;
   margin-bottom: 10px;
 `
 
@@ -63,6 +66,10 @@ export const Button = styled.button`
   font-weight: 600;
   font-size: 16px;
   max-width: 350px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `
 export const LabelFields = styled.label`
   font-size: 16px;

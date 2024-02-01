@@ -158,8 +158,23 @@ export function Update() {
               styles={{
                 container: (base) => ({
                   ...base,
+                  backgroundColor: '#fbfbfd',
                   marginBottom: '16px',
                   width: '100%',
+                }),
+                control: (base) => ({
+                  ...base,
+                  backgroundColor: '#fbfbfd',
+                  height: '44px',
+                }),
+                menu: (base) => ({
+                  ...base,
+                  backgroundColor: '#fbfbfd',
+                }),
+                option: (base, { isFocused }) => ({
+                  ...base,
+                  backgroundColor: isFocused ? '#f0f0f0' : '#fbfbfd',
+                  color: 'black',
                 }),
               }}
               value={genderOptions.find(

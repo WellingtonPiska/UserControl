@@ -1,20 +1,25 @@
 import { styled } from 'styled-components'
 
 export const FormWrapper = styled.div`
-  width: 83.8%;
+  width: 100%;
+  overflow-x: hidden;
   padding: 20px 20px;
   margin-left: 240px;
-  background-color: #fff; /* Adicionando fundo branco ao formulário */
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const Title = styled.h1`
-  margin: 0 auto 40px;
   display: flex;
+  align-self: flex-start;
+  transform: translateY(-10px);
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `
 
 export const Form = styled.form`
@@ -26,15 +31,17 @@ export const Label = styled.label`
   margin-bottom: 10px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  margin-left: 10px;
 `
 
 export const Input = styled.input`
-  padding: 10px;
-  margin-bottom: 4px;
+  width: calc(97% + 20px);
+  padding: 10px 10px 10px 10px;
+  margin: 0 auto;
+  font-size: 14px;
+  background-color: #fbfbfd;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 4px;
-  width: 98.5%;
+  border-radius: 5px;
 `
 
 export const TextArea = styled.textarea`
@@ -43,6 +50,7 @@ export const TextArea = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 98.5%;
+  background-color: #fbfbfd;
 `
 
 export const Button = styled.button`
@@ -65,7 +73,6 @@ export const Button = styled.button`
 
 export const BackLink = styled.a`
   display: inline-block;
-  margin-bottom: 10px;
   text-decoration: none;
   background-color: #007bff;
   color: #fff;
@@ -87,7 +94,7 @@ export const Spacer = styled.div`
 export const TopBar = styled.div`
   width: 100%;
   display: flex;
-  margin: 10px 0;
+  margin: 3px 0;
   justify-content: space-between;
   align-items: center;
 `

@@ -56,7 +56,6 @@ export const PasswordChangeModal = ({
           <InputContainerForPassword>
             <Input
               type={isPasswordVisible ? 'text' : 'password'}
-              placeholder="Senha Atual"
               {...register('oldPassword', { required: true })}
             />
             <IconPassword onClick={togglePasswordVisibility}>
@@ -73,7 +72,6 @@ export const PasswordChangeModal = ({
           <InputContainerForPassword>
             <Input
               type={isPasswordVisible ? 'text' : 'password'}
-              placeholder="Nova Senha"
               {...register('newPassword', { required: true })}
             />
             <IconPassword onClick={togglePasswordVisibility}>
@@ -90,7 +88,6 @@ export const PasswordChangeModal = ({
           <InputContainerForPassword>
             <Input
               type={isPasswordVisible ? 'text' : 'password'}
-              placeholder="Confirme a Nova Senha"
               {...register('confirmNewPassword', { required: true })}
             />
             <IconPassword onClick={togglePasswordVisibility}>

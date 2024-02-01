@@ -49,17 +49,20 @@ export const Strong = styled.strong`
   a {
     text-decoration: none;
     color: #676767;
+
+    &:hover {
+      color: #00050a;
+    }
   }
 `
 
 export const Input = styled.input`
-  outline: none;
   padding: 16px 20px;
   width: 89%;
   border-radius: 5px;
   font-size: 16px;
-  background-color: #f0f2f5;
-  border: none;
+  background-color: #fbfbfd;
+  border: 1px solid #ccc;
   max-width: 350px;
   margin: 0 auto;
   margin-top: 5px;
@@ -74,11 +77,15 @@ export const InputContainerForPassword = styled.div`
 
 export const IconPassword = styled.span`
   position: absolute;
-  right: 10px; // Ajuste conforme necessário para alinhar o ícone
+  right: 10px;
   cursor: pointer;
   height: 100%;
   display: flex;
   align-items: center;
+
+  &:hover {
+    color: #0056b3;
+  }
 `
 
 export const Button = styled.button`
@@ -94,6 +101,10 @@ export const Button = styled.button`
   font-size: 16px;
   max-width: 350px;
   margin: 10px auto 0; // Adicionado para centralizar o botão e adicionar espaço acima dele
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `
 
 export const LabelFields = styled.label`

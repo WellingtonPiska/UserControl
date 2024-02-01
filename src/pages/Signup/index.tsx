@@ -24,11 +24,7 @@ export function Signup() {
 
   const auth = useAuth()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignupFormFieldsScreen>({
+  const { register, handleSubmit } = useForm<SignupFormFieldsScreen>({
     resolver: yupResolver(validationSignup),
   })
 
@@ -74,9 +70,9 @@ export function Signup() {
                   {...register('cpf')}
                   maxLength={11}
                 />
-                {errors.cpf && (
-                  <C.labelError>{errors.cpf.message}</C.labelError>
-                )}{' '}
+                {/* {errors.cpf && ( */}
+                {/*  <C.labelError>{errors.cpf.message}</C.labelError> */}
+                {/* )}{' '} */}
               </ContainerColumn>
               <ContainerColumn
                 style={{
@@ -90,9 +86,9 @@ export function Signup() {
                   placeholder="Digite o seu Nome"
                   {...register('name')}
                 />
-                {errors.name && (
-                  <C.labelError>{errors.name.message}</C.labelError>
-                )}{' '}
+                {/* {errors.name && ( */}
+                {/*  <C.labelError>{errors.name.message}</C.labelError> */}
+                {/* )}{' '} */}
               </ContainerColumn>
               <ContainerColumn
                 style={{
@@ -106,9 +102,9 @@ export function Signup() {
                   placeholder="Digite o seu Sobrenome"
                   {...register('lastName')}
                 />
-                {errors.lastName && (
-                  <C.labelError>{errors.lastName.message}</C.labelError>
-                )}{' '}
+                {/* {errors.lastName && ( */}
+                {/*  <C.labelError>{errors.lastName.message}</C.labelError> */}
+                {/* )}{' '} */}
               </ContainerColumn>
               <ContainerColumn
                 style={{
@@ -124,9 +120,9 @@ export function Signup() {
                   placeholder="Digite a sua Data de Nascimento"
                   {...register('dateOfBirth')}
                 />
-                {errors.dateOfBirth && (
-                  <C.labelError>{errors.dateOfBirth.message}</C.labelError>
-                )}
+                {/* {errors.dateOfBirth && ( */}
+                {/*  <C.labelError>{errors.dateOfBirth.message}</C.labelError> */}
+                {/* )} */}
               </ContainerColumn>
             </ContainerHalfScreen>
             <ContainerHalfScreen style={{ width: '50%' }}>
@@ -136,9 +132,9 @@ export function Signup() {
                 placeholder="Digite o seu E-mail"
                 {...register('email')}
               />
-              {errors.email && (
-                <C.labelError>{errors.email.message}</C.labelError>
-              )}
+              {/* {errors.email && ( */}
+              {/*  <C.labelError>{errors.email.message}</C.labelError> */}
+              {/* )} */}
               <LabelFields htmlFor="emailConf">Confirme o E-mail</LabelFields>
               <C.Input
                 type="text"

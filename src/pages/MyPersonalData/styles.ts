@@ -1,33 +1,44 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 10px;
-  background-color: #ffffff;
-  height: calc(100vh - 125px);
-  margin-top: 20px;
-  width: 83%;
-  margin-left: 260px;
-  border-radius: 5px;
-  box-shadow: 3px 5px 5px 5px rgba(0, 0, 0, 0.5);
-  overflow: auto;
-  display: flex;
+  //padding: 10px;
+  //background-color: #ffffff;
+  //height: calc(100vh - 125px);
+  //margin-top: 20px;
+  //width: 100%;
+  //margin-left: 260px;
+  //border-radius: 5px;
+  //overflow: auto;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  overflow-x: hidden;
+  padding: 20px 20px;
+  margin-left: 240px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const Input = styled.input`
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 12px;
+  border-radius: 5px;
+  background-color: #fbfbfd;
+  margin-top: 8px;
   width: 100%;
+  font-size: 14px;
 `
 
 export const Title = styled.h1`
   display: flex;
-  position: absolute;
-  top: 120px;
+  margin-bottom: 30px;
+  margin-top: 35px;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
 `
@@ -39,7 +50,8 @@ export const ContainerInputs = styled.div`
 `
 
 export const LabelFields = styled.label`
-  font-size: 14px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  margin-left: 10px;
+  margin-bottom: 8px;
 `

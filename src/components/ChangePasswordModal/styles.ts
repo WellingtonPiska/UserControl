@@ -47,6 +47,10 @@ export const IconPassword = styled.span`
   margin-bottom: 10px;
   align-items: center;
   font-size: 22px;
+
+  &:hover {
+    color: #0056b3;
+  }
 `
 
 export const Button = styled.button`
