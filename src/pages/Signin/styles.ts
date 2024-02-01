@@ -64,7 +64,6 @@ export const Input = styled.input`
   background-color: #fbfbfd;
   border: 1px solid #ccc;
   max-width: 350px;
-  margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
 `

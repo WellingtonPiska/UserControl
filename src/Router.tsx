@@ -7,6 +7,7 @@ import { Register } from './pages/User/Register'
 import { Update } from './pages/User/Update'
 import { Menu } from './pages/Menu'
 import { List } from './pages/User/List'
+import { User } from './pages/MyPersonalData/interface.ts'
 
 import {
   ContainerApp,
@@ -17,12 +18,16 @@ import {
 import { RiKey2Line } from 'react-icons/ri'
 import { CiLogout } from 'react-icons/ci'
 import { PasswordChangeModal } from './components/ChangePasswordModal'
-import { User } from './pages/User/interface.ts'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { FC, useState } from 'react'
 import { Home } from './pages/Home'
 import { MyPersonalData } from './pages/MyPersonalData'
+
+export interface Root {
+  name: string
+  lastName: string
+}
 
 const Private = ({ Item }: { Item: FC }) => {
   const auth = useAuth()
@@ -38,6 +43,30 @@ export function Router() {
   const handlePasswordChangeClick = () => {
     setIsPasswordModalOpen(true)
   }
+
+  const getUserLogged = () => {
+    const usersDb = localStorage.getItem('users_db')
+    const userToken = localStorage.getItem('user_token')
+    if (usersDb && userToken) {
+      const usersDbArray: User[] = JSON.parse(usersDb)
+      const userTokenObj = JSON.parse(userToken)
+      const userArrayIndex = usersDbArray.findIndex(
+        (user) => user.email === userTokenObj.email,
+      )
+
+      if (userArrayIndex !== -1) {
+        const userData = usersDbArray[userArrayIndex]
+        const personalNameData: Root = {
+          name: userData.name,
+          lastName: userData.lastName,
+        }
+
+        return personalNameData
+      }
+    }
+  }
+
+  const personalNameData = getUserLogged()
 
   const handleLogout = () => {
     localStorage.removeItem('user_token')
@@ -118,6 +147,15 @@ export function Router() {
       <GlobalStyle />
       <TopBarExternal>
         <div className="icon-container">
+          <div>
+            <div style={{ marginRight: '30px' }}>
+              <span>
+                {personalNameData
+                  ? `${personalNameData.name} ${personalNameData.lastName}`
+                  : ''}
+              </span>
+            </div>
+          </div>
           <RiKey2Line onClick={handlePasswordChangeClick} />
           <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
         </div>

@@ -45,8 +45,8 @@ export const Strong = styled.strong`
 `
 
 export const Input = styled.input`
-  padding: 16px 20px;
-  width: calc(100% - 70px);
+  padding: 16px 10px;
+  width: 90%;
   border-radius: 5px;
   font-size: 14px;
   background-color: #fbfbfd;

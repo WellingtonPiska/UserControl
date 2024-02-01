@@ -18,7 +18,7 @@ export function Signin() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<LoginFormFields>({
     resolver: yupResolver(validationSignin),
   })
@@ -65,7 +65,7 @@ export function Signin() {
             placeholder="Digite o seu E-mail"
             {...register('email')}
           />
-          {errors.email && <C.labelError>{errors.email.message}</C.labelError>}
+          {/* {errors.email && <C.labelError>{errors.email.message}</C.labelError>} */}
           <C.LabelFields htmlFor="password">Senha</C.LabelFields>
           <InputContainerForPassword>
             <C.Input
@@ -77,9 +77,9 @@ export function Signin() {
               {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
             </IconPassword>
           </InputContainerForPassword>
-          {errors.password && (
-            <C.labelError>{errors.password.message}</C.labelError>
-          )}
+          {/* {errors.password && ( */}
+          {/*  <C.labelError>{errors.password.message}</C.labelError> */}
+          {/* )} */}
           <C.Button type="submit">Entrar</C.Button>{' '}
           {/* Mudança para type="submit" */}
         </form>{' '}
