@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  gap: 20px;
+  align-items: center;
 `
 
 export const Label = styled.label`
@@ -46,12 +46,13 @@ export const Strong = styled.strong`
 
 export const Input = styled.input`
   padding: 16px 10px;
-  width: 90%;
+  width: 100%;
   border-radius: 5px;
   font-size: 14px;
   background-color: #fbfbfd;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  max-width: 310px;
 `
 
 export const Button = styled.button`
@@ -85,10 +86,11 @@ export const ContainerColumn = styled.div`
 export const ContainerWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 40px;
 `
 
 export const ContainerHalfScreen = styled.div`
-  width: 50%;
+  width: calc(50% - 40px);
 `
 export const ContainerUnderScreen = styled.div`
   display: flex;

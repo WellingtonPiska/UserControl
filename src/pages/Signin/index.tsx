@@ -18,7 +18,7 @@ export function Signin() {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm<LoginFormFields>({
     resolver: yupResolver(validationSignin),
   })
@@ -58,14 +58,17 @@ export function Signin() {
       <C.Label>SISTEMA DE LOGIN</C.Label>
       <C.Content>
         <form onSubmit={handleSubmit(handleLogin)}>
-          {' '}
           <C.LabelFields htmlFor="email">E-mail</C.LabelFields>
           <C.Input
             type="email"
             placeholder="Digite o seu E-mail"
             {...register('email')}
           />
-          {/* {errors.email && <C.labelError>{errors.email.message}</C.labelError>} */}
+          <div style={{ display: 'flex' }}>
+            {errors.email && (
+              <C.labelError>{errors.email.message}</C.labelError>
+            )}
+          </div>
           <C.LabelFields htmlFor="password">Senha</C.LabelFields>
           <InputContainerForPassword>
             <C.Input
@@ -77,13 +80,13 @@ export function Signin() {
               {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
             </IconPassword>
           </InputContainerForPassword>
-          {/* {errors.password && ( */}
-          {/*  <C.labelError>{errors.password.message}</C.labelError> */}
-          {/* )} */}
-          <C.Button type="submit">Entrar</C.Button>{' '}
-          {/* Mudança para type="submit" */}
-        </form>{' '}
-        {/* Fechando a tag form */}
+          <div style={{ display: 'flex' }}>
+            {errors.password && (
+              <C.labelError>{errors.password.message}</C.labelError>
+            )}
+          </div>
+          <C.Button type="submit">Entrar</C.Button>
+        </form>
         <C.LabelSignup>
           Não tem uma conta?
           <C.Strong>
