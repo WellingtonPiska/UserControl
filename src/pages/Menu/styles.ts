@@ -28,6 +28,10 @@ export const ContainerLogoName = styled.div`
 
 export const NameCompany = styled(Text)`
   color: white;
+  font-style: italic;
+  text-shadow: 0.1em 0.1em 0.2em darkblue;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
 `
 
 export const Content = styled.div`

@@ -11,7 +11,10 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 2px #0003;
+  width: 50%;
+  height: 450px;
 `
 
 export const Label = styled.label`
@@ -86,11 +89,12 @@ export const ContainerColumn = styled.div`
 export const ContainerWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
 `
 
 export const ContainerHalfScreen = styled.div`
-  width: calc(50% - 40px);
+  width: calc(50% - 30px);
+  //width: 50%;
 `
 export const ContainerUnderScreen = styled.div`
   display: flex;

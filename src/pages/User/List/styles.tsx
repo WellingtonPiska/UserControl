@@ -162,3 +162,7 @@ export const ContainerMiddle = styled.div`
   display: flex;
   height: 100%;
 `
+
+export const ContainerNameTopBar = styled.span`
+  font-size: 15px;
+`

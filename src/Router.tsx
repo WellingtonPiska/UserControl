@@ -12,6 +12,7 @@ import { User } from './pages/MyPersonalData/interface.ts'
 import {
   ContainerApp,
   ContainerMiddle,
+  ContainerNameTopBar,
   GlobalStyle,
   TopBarExternal,
 } from './pages/User/List/styles.tsx'
@@ -148,15 +149,17 @@ export function Router() {
       <TopBarExternal>
         <div className="icon-container">
           <div>
-            <div style={{ marginRight: '30px' }}>
-              <span>
+            <div style={{ marginRight: '40px' }}>
+              <ContainerNameTopBar>
                 {personalNameData
                   ? `${personalNameData.name} ${personalNameData.lastName}`
                   : ''}
-              </span>
+              </ContainerNameTopBar>
             </div>
           </div>
-          <RiKey2Line onClick={handlePasswordChangeClick} />
+          <div style={{ marginRight: '10px' }}>
+            <RiKey2Line onClick={handlePasswordChangeClick} />
+          </div>
           <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
         </div>
       </TopBarExternal>
