@@ -13,7 +13,6 @@ import {
   ContainerApp,
   ContainerMiddle,
   ContainerNameTopBar,
-  GlobalStyle,
   TopBarExternal,
 } from './pages/User/List/styles.tsx'
 import { RiKey2Line } from 'react-icons/ri'

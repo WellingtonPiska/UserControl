@@ -1,105 +1,116 @@
 import { styled } from 'styled-components'
 
-export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 98vh;
-  flex-direction: column;
-  justify-content: center;
-`
-
-export const Content = styled.div`
-  display: flex;
-  justify-content: center;
-  box-shadow: 0 2px 2px #0003;
-  width: 50%;
-  height: 450px;
-`
-
-export const Label = styled.label`
-  font-size: 18px;
-  font-weight: 600;
-  color: #676767;
-`
-
-export const LabelSignin = styled.label`
-  font-size: 16px;
-  color: #676767;
-`
-
 export const labelError = styled.label`
   min-height: 20px; /* Ajuste para a altura da mensagem de erro */
   font-size: 12px;
   color: red;
 `
 
-export const Strong = styled.strong`
-  cursor: pointer;
-
-  a {
-    text-decoration: none;
-    color: #676767;
-
-    &:hover {
-      color: #00050a;
-    }
-  }
-`
-
-export const Input = styled.input`
-  padding: 16px 10px;
+export const ContainerForAll = styled.div`
   width: 100%;
-  border-radius: 5px;
-  font-size: 14px;
-  background-color: #fbfbfd;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  max-width: 310px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6f2ff;
 `
 
-export const Button = styled.button`
-  padding: 16px 20px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
+export const Container = styled.div`
+  width: 50%;
+  height: 80vh;
+  display: flex;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+`
+export const FormContainer = styled.div`
   width: 100%;
-  cursor: pointer;
-  background-color: #046ee5;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  max-width: 350px;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-export const LabelFields = styled.label`
-  font-size: 16px;
-  font-weight: 600;
-  color: #676767;
-`
-
-export const ContainerColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const ContainerWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-`
-
-export const ContainerHalfScreen = styled.div`
-  width: calc(50% - 30px);
-  //width: 50%;
-`
-export const ContainerUnderScreen = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  background-color: #fff;
+  padding: 3rem;
+`
+export const FormHeader = styled.div`
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+`
+export const Title = styled.div`
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+`
+
+export const TitleUnderline = styled.div`
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 0.3rem;
+  background-color: #046ee5;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 10px;
+`
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem 0;
+`
+
+export const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.1rem;
+`
+
+export const Input = styled.input`
+  margin: 0.6rem 0;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px #0000001c;
+  font-size: 0.8rem;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
+`
+
+export const GlobalStylesForSignup = styled.div`
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+`
+
+export const RegisterButton = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`
+export const Button = styled.div`
+  width: 100%;
+  margin-top: 2.5rem;
+  border: none;
+  background-color: #046ee5;
+  padding: 0.62rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.93rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `

@@ -1,14 +1,16 @@
-import * as C from './styles'
 import {
   Container,
-  ContainerColumn,
-  ContainerHalfScreen,
-  ContainerUnderScreen,
-  ContainerWrap,
-  Content,
-  Label,
-  LabelFields,
-  Strong,
+  ContainerForAll,
+  FormContainer,
+  FormHeader,
+  InputBox,
+  InputGroup,
+  Input,
+  Title,
+  TitleUnderline,
+  GlobalStylesForSignup,
+  Button,
+  RegisterButton,
 } from './styles'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
@@ -55,126 +57,110 @@ export function Signup() {
   }
 
   return (
-    <Container>
-      <Label>SISTEMA DE REGISTRO</Label>
-      <Content>
-        <form onSubmit={handleSubmit(handleSignup)}>
-          <ContainerWrap>
-            <ContainerHalfScreen>
-              <ContainerColumn>
-                <LabelFields htmlFor="cpf">CPF</LabelFields>
-                <C.Input
-                  type="text"
-                  placeholder="Digite o seu CPF"
-                  {...register('cpf')}
-                  maxLength={11}
-                />
-                <div style={{ display: 'flex' }}>
-                  {errors.cpf && (
-                    <C.labelError>{errors.cpf.message}</C.labelError>
-                  )}{' '}
-                </div>
-              </ContainerColumn>
-              <ContainerColumn>
-                <LabelFields htmlFor="name">Nome</LabelFields>
-                <C.Input
-                  type="text"
-                  placeholder="Digite o seu Nome"
-                  {...register('name')}
-                />
-                <div style={{ display: 'flex' }}>
-                  {errors.name && (
-                    <C.labelError>{errors.name.message}</C.labelError>
-                  )}{' '}
-                </div>
-              </ContainerColumn>
-              <ContainerColumn>
-                <LabelFields htmlFor="Sobrenome">Sobrenome</LabelFields>
-                <C.Input
-                  type="text"
-                  placeholder="Digite o seu Sobrenome"
-                  {...register('lastName')}
-                />
-                <div style={{ display: 'flex' }}>
-                  {errors.lastName && (
-                    <C.labelError>{errors.lastName.message}</C.labelError>
-                  )}{' '}
-                </div>
-              </ContainerColumn>
-              <ContainerColumn>
-                <LabelFields htmlFor="dateOfBirth">
-                  Data de Nascimento
-                </LabelFields>
-                <C.Input
-                  type="date"
-                  placeholder="Digite a sua Data de Nascimento"
-                  {...register('dateOfBirth')}
-                />
-                <div style={{ display: 'flex' }}>
-                  {errors.dateOfBirth && (
-                    <C.labelError>{errors.dateOfBirth.message}</C.labelError>
-                  )}
-                </div>
-              </ContainerColumn>
-            </ContainerHalfScreen>
-            <ContainerHalfScreen>
-              <LabelFields htmlFor="email">E-mail</LabelFields>
-              <C.Input
-                type="text"
-                placeholder="Digite o seu E-mail"
-                {...register('email')}
-              />
-              <div>
-                {errors.email && (
-                  <C.labelError>{errors.email.message}</C.labelError>
-                )}
-              </div>
-              <LabelFields htmlFor="emailConf">Confirme o E-mail</LabelFields>
-              <C.Input
-                type="text"
-                placeholder="Confirme o seu E-mail"
-                {...register('emailConf')}
-              />
-              <div>
-                {errors.emailConf && (
-                  <C.labelError>{errors.emailConf.message}</C.labelError>
-                )}{' '}
-              </div>
-              <LabelFields htmlFor="email">Senha</LabelFields>
-              <C.Input
-                type="password"
-                placeholder="Digite a sua senha"
-                {...register('password')}
-              />
-              <div>
-                {errors.password && (
-                  <C.labelError>{errors.password.message}</C.labelError>
-                )}{' '}
-              </div>
-              <LabelFields htmlFor="email">Confirme a Senha</LabelFields>
-              <C.Input
-                type="password"
-                placeholder="Digite a sua senha"
-                {...register('passwordConf')}
-              />
-              <div>
-                {errors.passwordConf && (
-                  <C.labelError>{errors.passwordConf.message}</C.labelError>
-                )}{' '}
-              </div>
-            </ContainerHalfScreen>
-          </ContainerWrap>
-          <ContainerUnderScreen>
-            <C.Button type="submit">Registrar</C.Button>
-            <C.LabelSignin>
-              Já tem uma conta?
-              <Strong>
-                <Link to="/signin">&nbsp;Entre</Link>
-              </Strong>
-            </C.LabelSignin>
-          </ContainerUnderScreen>
-        </form>
-      </Content>
-    </Container>
+    <GlobalStylesForSignup>
+      <ContainerForAll>
+        <Container>
+          <FormContainer>
+            <form onSubmit={handleSubmit(handleSignup)}>
+              <FormHeader>
+                <Title>
+                  Cadastre-se
+                  <TitleUnderline />
+                </Title>
+              </FormHeader>
+
+              <InputGroup>
+                <InputBox>
+                  <label>CPF</label>
+                  <Input
+                    type="text"
+                    placeholder="Digite o seu CPF"
+                    {...register('cpf')}
+                    maxLength={11}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Nome</label>
+                  <Input
+                    type="text"
+                    placeholder="Digite o seu Nome"
+                    {...register('name')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Sobrenome</label>
+                  <Input
+                    type="text"
+                    placeholder="Digite o seu Sobrenome"
+                    {...register('lastName')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Data de Nascimento</label>
+                  <Input
+                    type="date"
+                    placeholder="Digite a sua Data de Nascimento"
+                    {...register('dateOfBirth')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>E-mail</label>
+                  <Input
+                    type="text"
+                    placeholder="Digite o seu E-mail"
+                    {...register('email')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Confirme o E-mail</label>
+                  <Input
+                    type="text"
+                    placeholder="Confirme o seu E-mail"
+                    {...register('emailConf')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Senha</label>
+                  <Input
+                    type="password"
+                    placeholder="Digite a sua senha"
+                    {...register('password')}
+                  />
+                </InputBox>
+
+                <InputBox>
+                  <label>Confirme a sua senha</label>
+                  <Input
+                    type="password"
+                    placeholder="Digite a sua senha"
+                    {...register('passwordConf')}
+                  />
+                </InputBox>
+
+                <RegisterButton>
+                  <Button>Registrar</Button>
+                </RegisterButton>
+              </InputGroup>
+
+              {/* <ContainerUnderScreen> */}
+              {/*  <C.Button type="submit">Registrar</C.Button> */}
+              {/*  <C.LabelSignin> */}
+              {/*    Já tem uma conta? */}
+              {/*    <Strong> */}
+              {/*      <Link to="/signin">&nbsp;Entre</Link> */}
+              {/*    </Strong> */}
+              {/*  </C.LabelSignin> */}
+              {/* </ContainerUnderScreen> */}
+            </form>
+          </FormContainer>
+        </Container>
+      </ContainerForAll>
+    </GlobalStylesForSignup>
   )
 }
