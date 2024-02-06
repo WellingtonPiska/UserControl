@@ -7,16 +7,17 @@ export const labelError = styled.label`
 `
 
 export const ContainerForAll = styled.div`
-  width: 100%;
-  height: 100vh;
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  overflow: auto;
   background-color: #e6f2ff;
 `
 
 export const Container = styled.div`
-  width: 50%;
+  width: 70%;
   height: 80vh;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
@@ -68,8 +69,9 @@ export const InputBox = styled.div`
 
 export const Input = styled.input`
   margin: 0.6rem 0;
-  padding: 0.8rem 1.2rem;
-  border: none;
+  padding: 0.8rem 3.3rem;
+  //border: none;
+  border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 1px 1px 6px #0000001c;
   font-size: 0.8rem;
@@ -96,7 +98,7 @@ export const RegisterButton = styled.div`
   justify-content: center;
   margin-top: 20px;
 `
-export const Button = styled.div`
+export const Button = styled.button`
   width: 100%;
   margin-top: 2.5rem;
   border: none;
@@ -112,5 +114,23 @@ export const Button = styled.div`
 
   &:hover {
     background-color: #0056b3;
+  }
+`
+
+export const ContainerUnderScreen = styled.div`
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+`
+export const Strong = styled.strong`
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    color: #676767;
+
+    &:hover {
+      color: #00050a;
+    }
   }
 `

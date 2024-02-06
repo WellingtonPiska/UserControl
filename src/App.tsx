@@ -3,6 +3,7 @@ import { Router } from './Router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { AuthProvider } from './context/auth'
+import { GlobalStyle } from './themes/global.ts'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AuthProvider>
         <Router />
       </AuthProvider>
+      <GlobalStyle />
     </BrowserRouter>
   )
 }

@@ -144,7 +144,6 @@ export function Router() {
   }
   return (
     <ContainerApp>
-      <GlobalStyle />
       <TopBarExternal>
         <div className="icon-container">
           <div>
