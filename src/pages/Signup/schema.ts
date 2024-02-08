@@ -25,7 +25,11 @@ export const validationSignup = yup.object().shape({
     .test('valida-cpf', 'CPF inválido', (value) => isValidCPF(value)),
   name: yup.string().required('Nome é obrigatório'),
   lastName: yup.string().required('Sobrenome é obrigatório'),
-  dateOfBirth: yup.date().required('Data de Nascimento é obrigatório'),
+  dateOfBirth: yup
+    .date()
+    .nullable()
+    .transform((curr, orig) => (orig === '' ? null : curr))
+    .required('Data de Nascimento é obrigatória'),
 })
 
 function isValidCPF(cpf: string) {

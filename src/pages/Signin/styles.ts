@@ -1,44 +1,147 @@
 import { styled } from 'styled-components'
 
-export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  height: 98vh;
+export const InputContainerForPassword = styled.div`
+  position: relative; /* Alterado para relative */
+  margin-top: 4px;
 `
 
-export const Content = styled.div`
-  gap: 15px;
+export const IconPassword = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Ajuste baseado no tamanho do seu input e ícone */
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &:hover {
+    color: #0056b3;
+  }
+`
+
+// -------------------
+
+export const ContainerForAll = styled.div`
   display: flex;
-  justify-content: center;
-  flex-direction: column;
   width: 100%;
-  box-shadow: 0 1px 2px #0003;
-  background-color: white;
-  max-width: 350px;
-  padding: 20px;
-  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
+  background-color: #e6f2ff;
+`
+export const Container = styled.div`
+  width: 80%;
+  height: 80vh;
+  display: flex;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
 `
 
-export const Label = styled.label`
-  font-size: 18px;
+export const FormContainer = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem;
+`
+
+export const FormImage = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fde3a7d7;
+  padding: 1rem;
+`
+
+export const FormHeader = styled.div`
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+`
+export const Title = styled.div`
+  position: relative;
+  text-align: center;
   font-weight: 600;
-  color: #676767;
+  margin-top: 10px;
 `
 
-export const LabelSignup = styled.label`
-  font-size: 16px;
-  color: #676767;
+export const TitleUnderline = styled.div`
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 0.3rem;
+  background-color: #046ee5;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 10px;
 `
 
-export const labelError = styled.label`
-  min-height: 20px; /* Ajuste para a altura da mensagem de erro */
-  font-size: 14px;
-  color: red;
-  margin-bottom: 8px;
-  margin-left: 10px;
+export const InputGroup = styled.div`
+  display: flex;
+  padding: 1rem 0;
+  flex-direction: column;
+`
+
+export const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.1rem;
+`
+
+export const Input = styled.input`
+  margin: 0.6rem 0;
+  padding: 0.8rem 4.4rem 0.8rem 0.8rem;
+  //border: none;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px #0000001c;
+  font-size: 0.8rem;
+  width: 100%;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
+`
+
+export const RegisterButton = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`
+export const Button = styled.button`
+  width: 100%;
+  margin-top: 2.5rem;
+  border: none;
+  background-color: #046ee5;
+  padding: 0.62rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.93rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+export const Img = styled.img`
+  width: 39rem;
+`
+
+export const ContainerUnderScreen = styled.div`
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  justify-content: center;
 `
 
 export const Strong = styled.strong`
@@ -53,58 +156,14 @@ export const Strong = styled.strong`
     }
   }
 `
-
-export const Input = styled.input`
-  padding: 16px 19px 16px;
-  width: 100%;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #fbfbfd;
-  border: 1px solid #ccc;
-  max-width: 310px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-`
-
-export const InputContainerForPassword = styled.div`
-  position: relative;
-`
-
-export const IconPassword = styled.span`
-  position: absolute;
-  right: 20px;
-  cursor: pointer;
-  height: 100%;
-  top: 25px;
-
-  &:hover {
-    color: #0056b3;
-  }
-`
-
-export const Button = styled.button`
-  padding: 16px 20px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-  cursor: pointer;
-  background-color: #046ee5;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  max-width: 350px;
-  margin: 10px auto 0;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-
-export const LabelFields = styled.label`
-  font-size: 16px;
-  margin-bottom: 8px;
-  font-weight: 600;
-  margin-left: 10px;
-  color: #676767;
+export const StyledErrorMessage = styled.p`
+  color: red;
+  font-size: 13px;
+  height: 15px;
+  margin-top: 2px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  visibility: hidden; // Invisível por padrão
+  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
 `

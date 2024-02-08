@@ -103,9 +103,9 @@ export const StyledErrorMessage = styled.p`
   color: red;
   font-size: 13px;
   height: 15px;
-  margin-top: 2px;
-  padding: 0;
   display: flex;
+  margin-top: 6px;
+  margin-left: 8px;
   align-items: center;
   visibility: hidden; // Invisível por padrão
   margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário

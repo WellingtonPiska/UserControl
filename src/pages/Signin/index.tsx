@@ -1,15 +1,32 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
-import * as C from './styles'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
+import { Container, ContainerUnderScreen, FormImage } from './styles.ts'
+import SigninImage from '../../assets/SigninImage.svg'
 
 import useAuth from '../../hooks/useAuth'
 import { LoginFormFields } from './interface'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { validationSignin } from './schema'
 import { toast } from 'react-toastify'
-import { IconPassword, InputContainerForPassword } from './styles'
+import {
+  ContainerForAll,
+  FormContainer,
+  IconPassword,
+  InputContainerForPassword,
+  InputGroup,
+  Input,
+  InputBox,
+  Button,
+  RegisterButton,
+  FormHeader,
+  Title,
+  TitleUnderline,
+  Strong,
+  Img,
+  StyledErrorMessage,
+} from './styles'
 
 export function Signin() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -49,51 +66,92 @@ export function Signin() {
     }
   }
 
+  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
+    return (
+      <StyledErrorMessage
+        style={{ visibility: children ? 'visible' : 'hidden' }}
+      >
+        {children}
+      </StyledErrorMessage>
+    )
+  }
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
   return (
-    <C.Container>
-      <C.Label>SISTEMA DE LOGIN</C.Label>
-      <C.Content>
-        <form onSubmit={handleSubmit(handleLogin)}>
-          <C.LabelFields htmlFor="email">E-mail</C.LabelFields>
-          <C.Input
-            type="email"
-            placeholder="Digite o seu E-mail"
-            {...register('email')}
-          />
-          <div style={{ display: 'flex' }}>
-            {errors.email && (
-              <C.labelError>{errors.email.message}</C.labelError>
-            )}
-          </div>
-          <C.LabelFields htmlFor="password">Senha</C.LabelFields>
-          <InputContainerForPassword>
-            <C.Input
-              type={isPasswordVisible ? 'text' : 'password'}
-              placeholder="Digite a sua Senha"
-              {...register('password')}
-            />
-            <IconPassword onClick={togglePasswordVisibility}>
-              {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-            </IconPassword>
-          </InputContainerForPassword>
-          <div style={{ display: 'flex' }}>
-            {errors.password && (
-              <C.labelError>{errors.password.message}</C.labelError>
-            )}
-          </div>
-          <C.Button type="submit">Entrar</C.Button>
-        </form>
-        <C.LabelSignup>
-          Não tem uma conta?
-          <C.Strong>
-            <Link to="/signup">&nbsp;Registre-se</Link>
-          </C.Strong>
-        </C.LabelSignup>
-      </C.Content>
-    </C.Container>
+    <ContainerForAll>
+      <Container>
+        <FormImage>
+          <Img src={SigninImage} />
+          {/* <Img src="../../assets/SigninImage.svg.svg" alt="" /> */}
+        </FormImage>
+        <FormContainer>
+          <form onSubmit={handleSubmit(handleLogin)} style={{ width: '90%' }}>
+            <FormHeader>
+              <Title>
+                Entrar
+                <TitleUnderline />
+              </Title>
+            </FormHeader>
+
+            <InputGroup>
+              <InputBox>
+                <label>E-mail</label>
+                <Input
+                  type="email"
+                  placeholder="Digite o seu E-mail"
+                  {...register('email')}
+                />
+                <ErrorMessage>
+                  {errors.email && errors.email.message}
+                </ErrorMessage>
+              </InputBox>
+
+              <InputBox style={{ marginTop: '10px' }}>
+                <label>Senha</label>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  <Input
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    placeholder="Digite a sua Senha"
+                    {...register('password')}
+                  />
+                  <InputContainerForPassword>
+                    <IconPassword onClick={togglePasswordVisibility}>
+                      {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </IconPassword>
+                  </InputContainerForPassword>
+                </div>
+                <ErrorMessage>
+                  {errors.password && errors.password.message}
+                </ErrorMessage>
+              </InputBox>
+            </InputGroup>
+
+            <RegisterButton style={{ marginTop: '0px' }}>
+              <Button type="submit">Entrar</Button>
+            </RegisterButton>
+
+            <ContainerUnderScreen>
+              <label>
+                Ainda não tem uma conta?{' '}
+                <Strong>
+                  <Link to="/signup">&nbsp;Criar</Link>
+                </Strong>
+              </label>
+            </ContainerUnderScreen>
+          </form>
+        </FormContainer>
+      </Container>
+    </ContainerForAll>
   )
 }

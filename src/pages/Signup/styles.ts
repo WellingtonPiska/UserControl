@@ -17,7 +17,7 @@ export const ContainerForAll = styled.div`
 `
 
 export const Container = styled.div`
-  width: 70%;
+  width: 80%;
   height: 80vh;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
@@ -32,7 +32,8 @@ export const FormContainer = styled.div`
   padding: 3rem;
 `
 export const FormHeader = styled.div`
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   font-size: 3rem;
@@ -65,16 +66,25 @@ export const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.1rem;
+  width: 21%;
 `
 
 export const Input = styled.input`
   margin: 0.6rem 0;
-  padding: 0.8rem 3.3rem;
+  padding: 0.8rem 4.4rem 0.8rem 0.8rem;
   //border: none;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 1px 1px 6px #0000001c;
   font-size: 0.8rem;
+  width: 100%;
+
+  &[type='date'] {
+    padding-right: 1rem; // Aumente o padding-right para inputs do tipo 'date'
+    -webkit-appearance: none;
+    appearance: none;
+    /* Adicione aqui quaisquer outros estilos específicos para inputs de data */
+  }
 
   &:hover {
     background-color: #eeeeee75;
@@ -85,18 +95,10 @@ export const Input = styled.input`
   }
 `
 
-export const GlobalStylesForSignup = styled.div`
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-`
-
 export const RegisterButton = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 `
 export const Button = styled.button`
   width: 100%;
@@ -119,7 +121,8 @@ export const Button = styled.button`
 
 export const ContainerUnderScreen = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   justify-content: center;
 `
 export const Strong = styled.strong`
@@ -132,5 +135,32 @@ export const Strong = styled.strong`
     &:hover {
       color: #00050a;
     }
+  }
+`
+
+export const StyledErrorMessage = styled.p`
+  color: red;
+  font-size: 13px;
+  height: 15px;
+  margin-top: 2px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  visibility: hidden; // Invisível por padrão
+  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
+`
+export const InputContainerForPassword = styled.div`
+  position: relative; /* Alterado para relative */
+  margin-top: 4px;
+`
+export const IconPassword = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 16px; /* Ajuste baseado no tamanho do seu input e ícone */
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &:hover {
+    color: #0056b3;
   }
 `

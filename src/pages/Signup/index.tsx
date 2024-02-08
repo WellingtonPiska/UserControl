@@ -12,8 +12,12 @@ import {
   Button,
   RegisterButton,
   ContainerUnderScreen,
+  StyledErrorMessage,
+  IconPassword,
+  InputContainerForPassword,
 } from './styles'
 import { Link, useNavigate } from 'react-router-dom'
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-toastify'
 
@@ -21,16 +25,17 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignupFormFields, SignupFormFieldsScreen } from './interface'
 import { validationSignup } from './schema'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
 
 export function Signup() {
   const navigate = useNavigate()
-
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const auth = useAuth()
 
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm<SignupFormFieldsScreen>({
     resolver: yupResolver(validationSignup),
   })
@@ -57,6 +62,22 @@ export function Signup() {
     }
   }
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible)
+  }
+
+  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
+    return (
+      <StyledErrorMessage
+        style={{ visibility: children ? 'visible' : 'hidden' }}
+      >
+        {children}
+      </StyledErrorMessage>
+    )
+  }
+
   return (
     <ContainerForAll>
       <Container>
@@ -78,6 +99,7 @@ export function Signup() {
                   {...register('cpf')}
                   maxLength={11}
                 />
+                <ErrorMessage>{errors.cpf && errors.cpf.message}</ErrorMessage>
               </InputBox>
 
               <InputBox>
@@ -87,6 +109,9 @@ export function Signup() {
                   placeholder="Digite o seu Nome"
                   {...register('name')}
                 />
+                <ErrorMessage>
+                  {errors.name && errors.name.message}
+                </ErrorMessage>
               </InputBox>
 
               <InputBox>
@@ -96,15 +121,21 @@ export function Signup() {
                   placeholder="Digite o seu Sobrenome"
                   {...register('lastName')}
                 />
+                <ErrorMessage>
+                  {errors.lastName && errors.lastName.message}
+                </ErrorMessage>
               </InputBox>
 
-              <InputBox>
+              <InputBox style={{}}>
                 <label>Data de Nascimento</label>
                 <Input
                   type="date"
                   placeholder="Digite a sua Data de Nascimento"
                   {...register('dateOfBirth')}
                 />
+                <ErrorMessage>
+                  {errors.dateOfBirth && errors.dateOfBirth.message}
+                </ErrorMessage>
               </InputBox>
 
               <InputBox>
@@ -114,6 +145,9 @@ export function Signup() {
                   placeholder="Digite o seu E-mail"
                   {...register('email')}
                 />
+                <ErrorMessage>
+                  {errors.email && errors.email.message}
+                </ErrorMessage>
               </InputBox>
 
               <InputBox>
@@ -123,27 +157,62 @@ export function Signup() {
                   placeholder="Confirme o seu E-mail"
                   {...register('emailConf')}
                 />
+                <ErrorMessage>
+                  {errors.emailConf && errors.emailConf.message}
+                </ErrorMessage>
               </InputBox>
 
               <InputBox>
                 <label>Senha</label>
-                <Input
-                  type="password"
-                  placeholder="Digite a sua senha"
-                  {...register('password')}
-                />
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  <Input
+                    type="password"
+                    placeholder="Digite a sua senha"
+                    {...register('password')}
+                  />
+                  <InputContainerForPassword>
+                    <IconPassword onClick={togglePasswordVisibility}>
+                      {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </IconPassword>
+                  </InputContainerForPassword>
+                </div>
+                <ErrorMessage>
+                  {errors.password && errors.password.message}
+                </ErrorMessage>
               </InputBox>
 
               <InputBox>
                 <label>Confirme a sua senha</label>
-                <Input
-                  type="password"
-                  placeholder="Digite a sua senha"
-                  {...register('passwordConf')}
-                />
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  <Input
+                    type="password"
+                    placeholder="Digite a sua senha"
+                    {...register('passwordConf')}
+                  />
+                  <InputContainerForPassword>
+                    <IconPassword onClick={togglePasswordVisibility}>
+                      {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </IconPassword>
+                  </InputContainerForPassword>
+                </div>
+                <ErrorMessage>
+                  {errors.passwordConf && errors.passwordConf.message}
+                </ErrorMessage>
               </InputBox>
 
-              <RegisterButton>
+              <RegisterButton style={{ marginTop: '60px' }}>
                 <Button>Registrar</Button>
               </RegisterButton>
             </InputGroup>
