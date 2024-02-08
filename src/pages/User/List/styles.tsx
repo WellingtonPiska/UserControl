@@ -1,25 +1,18 @@
-import { createGlobalStyle, styled } from 'styled-components'
+import { createGlobalStyle, styled, css } from 'styled-components'
+
+interface ButtonPaginationNumberProps {
+  isCurrentPage: boolean
+}
 
 export const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   width: 100%;
+  overflow-x: hidden;
   padding: 20px 20px;
   margin-left: 240px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow-x: auto;
-  height: 94.5%;
-`
-
-export const TopBar = styled.div`
-  width: 100%;
-  display: flex;
-  margin: 10px 0;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const ListTitle = styled.h2`
@@ -32,6 +25,19 @@ export const ListTitle = styled.h2`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+`
+
+export const TableHeadContainer = styled.div`
+  width: 100%;
+  overflow-y: hidden; // Evita rolagem no cabeçalho
+`
+export const TableContainer = styled.div`
+  height: 532px; // Altura máxima antes de ativar a rolagem
+  overflow-y: auto; // Ativa a rolagem vertical quando necessário
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const TableRow = styled.tr`
@@ -62,21 +68,20 @@ export const TableHeaderCell = styled.th`
 export const BackLink = styled.a`
   display: inline-block;
   text-decoration: none;
-  align-content: center;
+  background-color: #046ee5;
   border: none;
-  text-align: center;
-  background-color: #007bff;
   color: #fff;
-  padding: 8px 16px 6px;
+  padding: 0.4rem;
+  cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 17px;
-  transition: background-color 0.3s ease;
+
   &:hover {
     background-color: #0056b3;
   }
-  height: 25px;
 `
 
 export const ActionsHeader = styled.th`
@@ -92,16 +97,16 @@ export const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; // Espaçamento entre os ícones
+  gap: 10px;
 
   svg {
-    width: 24px; // Tamanho do ícone
-    height: 24px; // Tamanho do ícone
-    cursor: pointer; // Muda o cursor para indicar que é clicável
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
     transition: transform 0.3s ease;
 
     &:hover {
-      transform: scale(1.1); // Efeito de zoom ao passar o mouse
+      transform: scale(1.1);
     }
   }
 `
@@ -110,13 +115,13 @@ export const IconContainer = styled.div`
 
 export const TopBarExternal = styled.div`
   display: flex;
-  justify-content: flex-end; // Alinha o conteúdo à direita
+  justify-content: flex-end;
   align-items: center;
   background-color: #1e90ff;
   color: #fff;
   padding: 10px 20px;
   width: 100%;
-  box-sizing: border-box; // Inclui padding e borda na largura e altura do elemento
+  box-sizing: border-box;
   height: 77px;
   box-shadow: -2px 6px 4px 0 rgba(0, 0, 0, 0.47);
 
@@ -165,4 +170,57 @@ export const ContainerMiddle = styled.div`
 
 export const ContainerNameTopBar = styled.span`
   font-size: 15px;
+`
+
+export const PhraseToDelete = styled.p`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+`
+
+export const ButtonPagination = styled.button`
+  display: inline-block;
+  text-decoration: none;
+  background-color: #046ee5;
+  border: 1px solid #046ee5;
+  color: #fff;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>`
+  display: inline-block;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #046ee5;
+  color: #046ee5;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  ${(props) =>
+    props.isCurrentPage &&
+    css`
+      background-color: #046ee5;
+      color: #fff;
+      border: 1px solid #0358c7;
+
+      &:hover {
+        background-color: #0358c7;
+      }
+    `}
 `

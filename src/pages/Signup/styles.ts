@@ -1,11 +1,5 @@
 import { styled } from 'styled-components'
 
-export const labelError = styled.label`
-  min-height: 20px; /* Ajuste para a altura da mensagem de erro */
-  font-size: 12px;
-  color: red;
-`
-
 export const ContainerForAll = styled.div`
   display: flex;
   width: 100%;
@@ -79,19 +73,19 @@ export const Input = styled.input`
   font-size: 0.8rem;
   width: 100%;
 
-  &[type='date'] {
-    padding-right: 1rem; // Aumente o padding-right para inputs do tipo 'date'
-    -webkit-appearance: none;
-    appearance: none;
-    /* Adicione aqui quaisquer outros estilos específicos para inputs de data */
-  }
-
   &:hover {
     background-color: #eeeeee75;
   }
 
   &:focus-visible {
     outline: 1px solid #6c63ff;
+  }
+
+  &[type='date'] {
+    padding-right: 1rem; // Aumente o padding-right para inputs do tipo 'date'
+    -webkit-appearance: none;
+    appearance: none;
+    /* Adicione aqui quaisquer outros estilos específicos para inputs de data */
   }
 `
 

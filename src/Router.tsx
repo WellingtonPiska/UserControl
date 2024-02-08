@@ -137,7 +137,7 @@ export function Router() {
   if (!signed) {
     return (
       <Routes>
-        <Route path="*" element={<Signin />} />
+        <Route path="/" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     )

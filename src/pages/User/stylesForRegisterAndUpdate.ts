@@ -28,44 +28,62 @@ export const Form = styled.form`
 `
 
 export const Label = styled.label`
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   margin-left: 10px;
 `
 
 export const Input = styled.input`
-  width: calc(97% + 20px);
-  padding: 10px 10px 10px 10px;
-  margin: 0 auto;
-  font-size: 14px;
-  background-color: #fbfbfd;
+  margin: 0.6rem 0;
+  padding: 0.8rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px #0000001c;
+  font-size: 0.8rem;
+  width: 100%;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
 `
 
 export const TextArea = styled.textarea`
-  padding: 10px;
-  margin-bottom: 16px;
+  padding: 5px;
+  margin-bottom: 10px;
+  margin-top: 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 98.5%;
+  border-radius: 10px;
+  width: 100%;
   background-color: #fbfbfd;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
 `
 
 export const Button = styled.button`
-  margin: 30px auto 10px 1330px;
-  //width: calc(100% - 90px); // Ajusta a largura para ser igual à do input
-  display: flex;
-  padding: 12px 40px;
+  margin-top: 2.5rem;
   border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  background-color: #046ee5;
+  padding: 0.62rem;
+  border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 0.93rem;
+  color: #fff;
+  text-align: center;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+
   &:hover {
     background-color: #0056b3;
   }
@@ -74,38 +92,29 @@ export const Button = styled.button`
 export const BackLink = styled.a`
   display: inline-block;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #046ee5;
+  border: none;
   color: #fff;
-  padding: 8px 16px 6px;
+  padding: 0.4rem;
+  cursor: pointer;
   border-radius: 5px;
-  font-weight: bold;
-  font-size: 17px;
   transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 
   &:hover {
     background-color: #0056b3;
   }
 `
 
-export const Spacer = styled.div`
-  flex: 1;
-`
-
-export const TopBar = styled.div`
-  width: 100%;
-  display: flex;
-  margin: 3px 0;
-  justify-content: space-between;
-  align-items: center;
-`
-
 export const StyledErrorMessage = styled.p`
   color: red;
   font-size: 13px;
   height: 15px;
+  margin-top: 2px;
+  padding: 0;
   display: flex;
-  margin-top: 6px;
-  margin-left: 8px;
   align-items: center;
   visibility: hidden; // Invisível por padrão
   margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário

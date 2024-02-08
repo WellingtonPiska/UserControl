@@ -7,14 +7,17 @@ import { RxUpdate } from 'react-icons/rx'
 import {
   ActionsHeader,
   BackLink,
+  ButtonPagination,
+  ButtonPaginationNumber,
   IconContainer,
   ListContainer,
   ListTitle,
+  PhraseToDelete,
   Table,
   TableCell,
+  TableContainer,
   TableHeaderCell,
   TableRow,
-  TopBar,
 } from './styles'
 
 import { useNavigate } from 'react-router'
@@ -31,12 +34,16 @@ export function List() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [itemToDelete, setItemToDelete] = useState<string | null>(null)
   const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
+  // Paginacao
+  const [currentPage, setCurrentPage] = useState(0)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem('formDataList')
 
     if (jsonFormDataList) {
-      setFormDataList(JSON.parse(jsonFormDataList))
+      const parsedList = JSON.parse(jsonFormDataList) as ContactFormData[]
+      setFormDataList(parsedList)
     }
   }, [])
 
@@ -50,6 +57,30 @@ export function List() {
       // Redireciona para a página de edição com o ID do registro (index)
       navigate(`/update/${id}`)
     }
+  }
+
+  const indexOfLastItem = (currentPage + 1) * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = formDataList.slice(indexOfFirstItem, indexOfLastItem)
+  const totalPages = Math.ceil(formDataList.length / itemsPerPage)
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const goToPreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  const handleItemsPerPageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setItemsPerPage(Number(event.target.value))
+    setCurrentPage(0)
   }
 
   const handleDelete = () => {
@@ -82,48 +113,156 @@ export function List() {
     }
   }
 
+  function getPageNumbers(currentPage: number, totalPages: number) {
+    const pages = []
+    const maxPagesToShow = 4
+
+    if (totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i)
+      }
+    } else {
+      pages.push(1)
+      const start = Math.max(2, currentPage - 1)
+      const end = Math.min(currentPage + 1, totalPages - 1)
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i)
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push('...')
+      }
+
+      pages.push(totalPages)
+    }
+
+    return pages
+  }
+
+  const pageNumbers = getPageNumbers(currentPage, totalPages)
+
   return (
     <ListContainer>
-      <TopBar>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <ListTitle>Lista de Registros</ListTitle>
         <BackLink href="/register">Página de registro</BackLink>
-      </TopBar>
+      </div>
 
-      <Table>
-        <thead>
-          <TableRow>
-            <TableHeaderCell>Nome</TableHeaderCell>
-            <TableHeaderCell>E-mail</TableHeaderCell>
-            <TableHeaderCell>Usuário</TableHeaderCell>
-            <TableHeaderCell>Sexo</TableHeaderCell>
-            <TableHeaderCell>Mensagem</TableHeaderCell>
-            <ActionsHeader>Ações</ActionsHeader>
-          </TableRow>
-        </thead>
-        <tbody>
-          {formDataList.map((formData, index) => (
-            <TableRow key={index}>
-              <TableCell>{formData.name}</TableCell>
-              <TableCell>{formData.email}</TableCell>
-              <TableCell>{formData.username}</TableCell>
-              <TableCell>{formData.gender}</TableCell>
-              <TableCell>{formData.message}</TableCell>
-              <TableCell>
-                <IconContainer>
-                  <RxUpdate onClick={() => handleUpdate(formData.id)} />
-                  <MdDeleteForever
-                    onClick={() => openDeleteModal(formData.id)}
-                  />
-                </IconContainer>
-              </TableCell>
+      <div
+        style={{
+          display: 'flex',
+          marginTop: '16px',
+          alignItems: 'center',
+          marginBottom: '14px',
+        }}
+      >
+        <select
+          id="itemsPerPage"
+          onChange={handleItemsPerPageChange}
+          value={itemsPerPage}
+          style={{
+            padding: '4px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+            outline: 'none',
+            transition: 'border-color 0.3s ease-in-out',
+          }}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+        <label htmlFor="itemsPerPage" style={{ marginLeft: '8px' }}>
+          Itens por página{' '}
+        </label>
+      </div>
+
+      <TableContainer>
+        <Table>
+          <thead>
+            <TableRow>
+              <TableHeaderCell>Nome</TableHeaderCell>
+              <TableHeaderCell>E-mail</TableHeaderCell>
+              <TableHeaderCell>Usuário</TableHeaderCell>
+              <TableHeaderCell>Sexo</TableHeaderCell>
+              <TableHeaderCell>Mensagem</TableHeaderCell>
+              <ActionsHeader>Ações</ActionsHeader>
             </TableRow>
+          </thead>
+          <tbody>
+            {currentItems.map((formData, index) => (
+              <TableRow key={index}>
+                <TableCell>{formData.name}</TableCell>
+                <TableCell>{formData.email}</TableCell>
+                <TableCell>{formData.username}</TableCell>
+                <TableCell>{formData.gender}</TableCell>
+                <TableCell>{formData.message}</TableCell>
+                <TableCell>
+                  <IconContainer>
+                    <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                    <MdDeleteForever
+                      onClick={() => openDeleteModal(formData.id)}
+                    />
+                  </IconContainer>
+                </TableCell>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      </TableContainer>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginTop: '10px',
+        }}
+      >
+        <div>Mostrando de 1 até {formDataList.length} registros</div>
+
+        <div>
+          <ButtonPagination
+            onClick={goToPreviousPage}
+            disabled={currentPage === 0}
+          >
+            Anterior
+          </ButtonPagination>
+          {pageNumbers.map((number, index) => (
+            <ButtonPaginationNumber
+              key={index}
+              onClick={() =>
+                typeof number === 'number' && setCurrentPage(number - 1)
+              }
+              disabled={number === '...'}
+              isCurrentPage={number === currentPage + 1}
+            >
+              {number}
+            </ButtonPaginationNumber>
           ))}
-        </tbody>
-      </Table>
+          <ButtonPagination
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages - 1}
+          >
+            Próximo
+          </ButtonPagination>
+        </div>
+      </div>
 
       {isModalOpen && (
         <ModalDelete onClose={() => setIsModalOpen(false)}>
-          <p>Tem certeza de que deseja excluir este registro?</p>
+          <PhraseToDelete>
+            Tem certeza de que deseja excluir este registro?
+          </PhraseToDelete>
           <ButtonContainer>
             <ModalButton onClick={handleDelete}>Sim</ModalButton>
             <ModalButton onClick={() => setIsModalOpen(false)}>Não</ModalButton>

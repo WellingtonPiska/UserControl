@@ -3,8 +3,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import {
   FormWrapper,
-  TopBar,
-  Spacer,
   BackLink,
   Title,
   Form,
@@ -85,12 +83,17 @@ export function Register() {
 
   return (
     <FormWrapper>
-      <TopBar>
-        <Spacer /> {/* Espaçador para empurrar o BackLink para a direita */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Title>Registro</Title>
         <BackLink href="/list">Página de Listagem</BackLink>
-      </TopBar>
+      </div>
 
-      <Title>Registro</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Nome:</Label>
         <Input type="text" id="name" {...register('name')} />
@@ -115,17 +118,26 @@ export function Register() {
             <Select
               {...field}
               options={genderOptions}
+              isSearchable={false}
               styles={{
                 container: (base) => ({
                   ...base,
-                  backgroundColor: '#fbfbfd',
-                  marginBottom: '16px',
+                  marginBottom: '0.6rem',
                   width: '100%',
                 }),
                 control: (base) => ({
                   ...base,
-                  backgroundColor: '#fbfbfd',
                   height: '44px',
+                  border: '1px solid #ccc',
+                  padding: '0.3rem',
+                  borderRadius: '10px',
+                  marginTop: '6px',
+                  boxShadow: '1px 1px 6px #0000001c',
+                  fontSize: '0.8rem',
+                  backgroundColor: '#fbfbfd',
+                  '&:hover': {
+                    backgroundColor: '#eeeeee75',
+                  },
                 }),
                 menu: (base) => ({
                   ...base,
@@ -145,7 +157,9 @@ export function Register() {
           )}
         />
 
-        <Label htmlFor="message">Mensagem:</Label>
+        <Label htmlFor="message" style={{ marginTop: '20px' }}>
+          Mensagem:
+        </Label>
         <TextArea id="message" rows={4} {...register('message')} />
         <Button type="submit">Registrar</Button>
       </Form>

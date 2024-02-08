@@ -1,20 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  //padding: 10px;
-  //background-color: #ffffff;
-  //height: calc(100vh - 125px);
-  //margin-top: 20px;
-  //width: 100%;
-  //margin-left: 260px;
-  //border-radius: 5px;
-  //overflow: auto;
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-
   width: 100%;
-  align-items: center;
   overflow-x: hidden;
   padding: 20px 20px;
   margin-left: 240px;
@@ -25,22 +12,32 @@ export const Container = styled.div`
 `
 
 export const Input = styled.input`
-  padding: 10px;
-  margin-bottom: 14px;
+  padding: 0.8rem;
+  margin: 0.6rem 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fbfbfd;
-  margin-top: 8px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px #0000001c;
   width: 100%;
-  font-size: 14px;
+  font-size: 0.8rem;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
 `
 
 export const Title = styled.h1`
   display: flex;
-  margin-bottom: 30px;
-  margin-top: 35px;
+  align-self: flex-start;
+  transform: translateY(-10px);
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `
 
 export const ContainerInputs = styled.div`

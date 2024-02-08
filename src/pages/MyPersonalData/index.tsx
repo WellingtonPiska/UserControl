@@ -79,7 +79,13 @@ export function MyPersonalData() {
 
   return (
     <Container>
-      <Title>Dados Pessoais</Title>
+      <div
+        style={{
+          display: 'flex',
+        }}
+      >
+        <Title>Dados Pessoais</Title>
+      </div>
       <ContainerInputs>
         <LabelFields>CPF</LabelFields>
         <Input {...register('cpf')} readOnly />
