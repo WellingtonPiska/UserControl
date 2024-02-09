@@ -221,7 +221,7 @@ export function Signup() {
               <label>
                 Já tem uma conta?{' '}
                 <Strong>
-                  <Link to="/signin">&nbsp;Entre</Link>
+                  <Link to="/">&nbsp;Entre</Link>
                 </Strong>
               </label>
             </ContainerUnderScreen>
