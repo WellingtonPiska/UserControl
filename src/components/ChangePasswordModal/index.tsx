@@ -12,6 +12,7 @@ import {
   ContainerCloseButton,
   InputContainerForPassword,
   IconPassword,
+  Title,
 } from './styles'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -46,57 +47,63 @@ export const PasswordChangeModal = ({
     <ModalBackdrop onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <ContainerCloseButton>
-          <h2 className="titleChangePassword">Alterar Senha</h2>
+          <Title>Alterar Senha</Title>
           <StyledCloseButton onClick={onClose}>
             <IoMdClose />
           </StyledCloseButton>
         </ContainerCloseButton>
-        <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Label htmlFor="oldPassword">Senha Atual:</Label>
-          <InputContainerForPassword>
-            <Input
-              type={isPasswordVisible ? 'text' : 'password'}
-              {...register('oldPassword', { required: true })}
-            />
-            <IconPassword onClick={togglePasswordVisibility}>
-              {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-            </IconPassword>
-          </InputContainerForPassword>
-          {/* {errors.oldPassword && ( */}
-          {/*  <StyledErrorMessage> */}
-          {/*    {errors.oldPassword.message} */}
-          {/*  </StyledErrorMessage> */}
-          {/* )} */}
+        <form
+          onSubmit={handleSubmit(onSubmitForm)}
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ marginBottom: '10px' }}>
+            <Label htmlFor="oldPassword">Senha Atual:</Label>
+            <InputContainerForPassword>
+              <Input
+                type={isPasswordVisible ? 'text' : 'password'}
+                {...register('oldPassword', { required: true })}
+              />
+              <IconPassword onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+              </IconPassword>
+            </InputContainerForPassword>
 
-          <Label htmlFor="newPassword">Nova Senha:</Label>
-          <InputContainerForPassword>
-            <Input
-              type={isPasswordVisible ? 'text' : 'password'}
-              {...register('newPassword', { required: true })}
-            />
-            <IconPassword onClick={togglePasswordVisibility}>
-              {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-            </IconPassword>
-          </InputContainerForPassword>
-          {/* {errors.newPassword && ( */}
-          {/*  <StyledErrorMessage> */}
-          {/*    {errors.newPassword.message} */}
-          {/*  </StyledErrorMessage> */}
-          {/* )} */}
+            <Label htmlFor="newPassword">Nova Senha:</Label>
+            <InputContainerForPassword>
+              <Input
+                type={isPasswordVisible ? 'text' : 'password'}
+                {...register('newPassword', { required: true })}
+              />
+              <IconPassword onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+              </IconPassword>
+            </InputContainerForPassword>
 
-          <Label htmlFor="confirmNewPassword">Confirmação:</Label>
-          <InputContainerForPassword>
-            <Input
-              type={isPasswordVisible ? 'text' : 'password'}
-              {...register('confirmNewPassword', { required: true })}
-            />
-            <IconPassword onClick={togglePasswordVisibility}>
-              {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-            </IconPassword>
-          </InputContainerForPassword>
-          {/* {errors.confirmNewPassword && <LabelError>{errors.confirmNewPassword.message}</LabelError>} */}
-
-          <Button type="submit">Alterar Senha</Button>
+            <Label htmlFor="confirmNewPassword">Confirmação:</Label>
+            <InputContainerForPassword>
+              <Input
+                type={isPasswordVisible ? 'text' : 'password'}
+                {...register('confirmNewPassword', { required: true })}
+              />
+              <IconPassword onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+              </IconPassword>
+            </InputContainerForPassword>
+            {/* {errors.confirmNewPassword && <LabelError>{errors.confirmNewPassword.message}</LabelError>} */}
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Button type="submit">Alterar Senha</Button>
+          </div>
         </form>
       </ModalContainer>
     </ModalBackdrop>

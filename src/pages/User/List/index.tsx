@@ -113,7 +113,7 @@ export function List() {
     }
   }
 
-  function getPageNumbers(currentPage: number, totalPages: number) {
+  const getPageNumbers = (currentPage: number, totalPages: number) => {
     const pages = []
     const maxPagesToShow = 4
 
@@ -228,9 +228,11 @@ export function List() {
           marginTop: '10px',
         }}
       >
-        <div>Mostrando de 1 até {formDataList.length} registros</div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          Mostrando de 1 até {formDataList.length} registros
+        </div>
 
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <ButtonPagination
             onClick={goToPreviousPage}
             disabled={currentPage === 0}

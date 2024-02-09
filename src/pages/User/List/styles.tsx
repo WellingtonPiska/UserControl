@@ -32,12 +32,34 @@ export const TableHeadContainer = styled.div`
   overflow-y: hidden; // Evita rolagem no cabeçalho
 `
 export const TableContainer = styled.div`
-  height: 532px; // Altura máxima antes de ativar a rolagem
-  overflow-y: auto; // Ativa a rolagem vertical quando necessário
+  height: 532px;
+  overflow-y: auto;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Estilização da barra de rolagem para WebKit/Blink */
+  ::-webkit-scrollbar {
+    width: 10px; // Largura da barra de rolagem
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; // Cor de fundo do trilho da barra de rolagem
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888; // Cor do controle deslizante da barra de rolagem
+    border-radius: 5px; // Raio da borda do controle deslizante
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; // Cor do controle deslizante ao passar o mouse
+  }
+
+  /* Estilização da barra de rolagem para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 `
 
 export const TableRow = styled.tr`
@@ -63,6 +85,9 @@ export const TableHeaderCell = styled.th`
   text-align: left;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `
 
 export const BackLink = styled.a`
@@ -85,12 +110,14 @@ export const BackLink = styled.a`
 `
 
 export const ActionsHeader = styled.th`
-  width: 40px; // Largura fixa para acomodar ambos os botões
+  width: 40px;
   text-align: left;
   padding: 10px;
   border: 1px solid #ddd;
   background-color: #007bff;
   color: #fff;
+  position: sticky;
+  top: 0;
 `
 
 export const IconContainer = styled.div`
@@ -223,4 +250,10 @@ export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>
         background-color: #0358c7;
       }
     `}
+`
+
+export const TableBodyContainer = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+  width: 100%;
 `
