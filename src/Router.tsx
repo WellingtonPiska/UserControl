@@ -158,7 +158,7 @@ export function Router() {
           <div style={{ marginRight: '10px' }}>
             <RiKey2Line onClick={handlePasswordChangeClick} />
           </div>
-          <CiLogout onClick={() => handleLogout()} /> {/* Ícone de deslogar */}
+          <CiLogout onClick={() => handleLogout()} />
         </div>
       </TopBarExternal>
       <PasswordChangeModal

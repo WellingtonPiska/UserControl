@@ -106,9 +106,10 @@ export function Signin() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: '38%',
-                    marginLeft: '10px',
+                    top: '35%',
+                    left: '10px',
                     color: 'gray',
+                    transform: 'translateY(20%)',
                   }}
                 >
                   <AiOutlineUser />
@@ -124,7 +125,7 @@ export function Signin() {
                 </ErrorMessage>
               </InputBox>
 
-              <InputBox style={{ marginTop: '10px' }}>
+              <InputBox>
                 <label>Senha</label>
                 <div
                   style={{
@@ -139,6 +140,7 @@ export function Signin() {
                       top: '35%',
                       left: '10px',
                       color: 'gray',
+                      transform: 'translateY(10%)',
                     }}
                   >
                     <HiOutlineKey />
