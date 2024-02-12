@@ -92,7 +92,6 @@ export const InputBox = styled.div`
 export const Input = styled.input`
   margin: 0.6rem 0;
   padding: 0.8rem 4.4rem 0.8rem 0.8rem;
-  //border: none;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 1px 1px 6px #0000001c;

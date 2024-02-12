@@ -1,4 +1,4 @@
-import { createGlobalStyle, styled, css } from 'styled-components'
+import { styled, css } from 'styled-components'
 
 interface ButtonPaginationNumberProps {
   isCurrentPage: boolean
@@ -37,34 +37,32 @@ export const TableContainer = styled.div`
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-  /* Estilização da barra de rolagem para WebKit/Blink */
   ::-webkit-scrollbar {
-    width: 10px; // Largura da barra de rolagem
+    width: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; // Cor de fundo do trilho da barra de rolagem
+    background: #f1f1f1;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #888; // Cor do controle deslizante da barra de rolagem
-    border-radius: 5px; // Raio da borda do controle deslizante
+    background: #888;
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; // Cor do controle deslizante ao passar o mouse
+    background: #555;
   }
 
-  /* Estilização da barra de rolagem para Firefox */
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 `
 
 export const TableRow = styled.tr`
   &:nth-child(even) {
-    background-color: #f2f2f2; /* Cor de fundo para linhas pares */
+    background-color: #f2f2f2;
   }
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -152,33 +150,18 @@ export const TopBarExternal = styled.div`
   height: 77px;
   box-shadow: -2px 6px 4px 0 rgba(0, 0, 0, 0.47);
 
-  .icon-container {
-    display: flex;
-    align-items: center;
-  }
-
-  // Estilizar os ícones
   svg {
-    width: 24px; // Tamanho do ícone
-    height: 24px; // Tamanho do ícone
-    cursor: pointer; // Muda o cursor para indicar que é clicável
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
     transition:
       transform 0.3s ease,
-      color 0.3s ease; // Transições de transformação e cor
+      color 0.3s ease;
 
     &:hover {
-      transform: scale(1.1); // Efeito de zoom ao passar o mouse
-      color: #007bff; // Cor ao passar o mouse
+      transform: scale(1.1);
+      color: #007bff;
     }
-  }
-`
-
-// Alteração de senha
-export const GlobalStyle = createGlobalStyle`
-  html, body, #root {
-    margin: 0;
-    padding: 0;
-    height: 100%
   }
 `
 
@@ -252,8 +235,19 @@ export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>
     `}
 `
 
-export const TableBodyContainer = styled.div`
-  max-height: 500px;
-  overflow-y: auto;
+export const InputForSearch = styled.input`
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 1px 1px 6px #0000001c;
+  font-size: 0.8rem;
   width: 100%;
+
+  &:hover {
+    background-color: #eeeeee75;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
 `

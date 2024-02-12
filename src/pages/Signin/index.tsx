@@ -1,5 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { HiOutlineKey } from 'react-icons/hi'
+import { AiOutlineUser } from 'react-icons/ai'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { Container, ContainerUnderScreen, FormImage } from './styles.ts'
@@ -87,7 +89,6 @@ export function Signin() {
       <Container>
         <FormImage>
           <Img src={SigninImage} />
-          {/* <Img src="../../assets/SigninImage.svg.svg" alt="" /> */}
         </FormImage>
         <FormContainer>
           <form onSubmit={handleSubmit(handleLogin)} style={{ width: '90%' }}>
@@ -101,10 +102,22 @@ export function Signin() {
             <InputGroup>
               <InputBox>
                 <label>E-mail</label>
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '38%',
+                    marginLeft: '10px',
+                    color: 'gray',
+                  }}
+                >
+                  <AiOutlineUser />
+                </div>
                 <Input
                   type="email"
                   placeholder="Digite o seu E-mail"
                   {...register('email')}
+                  style={{ paddingLeft: '34px' }}
                 />
                 <ErrorMessage>
                   {errors.email && errors.email.message}
@@ -120,11 +133,24 @@ export function Signin() {
                     position: 'relative',
                   }}
                 >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '35%',
+                      left: '10px',
+                      color: 'gray',
+                    }}
+                  >
+                    <HiOutlineKey />
+                  </div>
+
                   <Input
                     type={isPasswordVisible ? 'text' : 'password'}
                     placeholder="Digite a sua Senha"
                     {...register('password')}
+                    style={{ paddingLeft: '34px' }}
                   />
+
                   <InputContainerForPassword>
                     <IconPassword onClick={togglePasswordVisibility}>
                       {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}

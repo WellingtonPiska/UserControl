@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { MdDeleteForever } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { RxUpdate } from 'react-icons/rx'
+import { CiSearch } from 'react-icons/ci'
 
 import {
   ActionsHeader,
@@ -10,6 +11,7 @@ import {
   ButtonPagination,
   ButtonPaginationNumber,
   IconContainer,
+  InputForSearch,
   ListContainer,
   ListTitle,
   PhraseToDelete,
@@ -37,6 +39,11 @@ export function List() {
   // Paginacao
   const [currentPage, setCurrentPage] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(5)
+  // search
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredDataList, setFilteredDataList] = useState<ContactFormData[]>(
+    [],
+  )
 
   useEffect(() => {
     const jsonFormDataList = localStorage.getItem('formDataList')
@@ -142,6 +149,21 @@ export function List() {
 
   const pageNumbers = getPageNumbers(currentPage, totalPages)
 
+  // Search
+
+  useEffect(() => {
+    // Atualizar a lista filtrada sempre que o termo de pesquisa ou a lista original mudar
+    const filteredList = formDataList.filter((formData) =>
+      formData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+    setFilteredDataList(filteredList)
+  }, [searchTerm, formDataList])
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    // Aqui você pode realizar ações adicionais, se necessário
+  }
+
   return (
     <ListContainer>
       <div
@@ -185,6 +207,27 @@ export function List() {
         <label htmlFor="itemsPerPage" style={{ marginLeft: '8px' }}>
           Itens por página{' '}
         </label>
+
+        <div style={{ marginLeft: '1150px', position: 'relative' }}>
+          <form
+            onSubmit={handleSearchSubmit}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <InputForSearch
+              type="text"
+              placeholder="Pesquisar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <CiSearch
+              style={{
+                color: 'gray',
+                position: 'absolute',
+                right: '10px',
+              }}
+            />
+          </form>
+        </div>
       </div>
 
       <TableContainer>
@@ -200,23 +243,41 @@ export function List() {
             </TableRow>
           </thead>
           <tbody>
-            {currentItems.map((formData, index) => (
-              <TableRow key={index}>
-                <TableCell>{formData.name}</TableCell>
-                <TableCell>{formData.email}</TableCell>
-                <TableCell>{formData.username}</TableCell>
-                <TableCell>{formData.gender}</TableCell>
-                <TableCell>{formData.message}</TableCell>
-                <TableCell>
-                  <IconContainer>
-                    <RxUpdate onClick={() => handleUpdate(formData.id)} />
-                    <MdDeleteForever
-                      onClick={() => openDeleteModal(formData.id)}
-                    />
-                  </IconContainer>
-                </TableCell>
-              </TableRow>
-            ))}
+            {searchTerm.trim() !== ''
+              ? filteredDataList.map((formData, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{formData.name}</TableCell>
+                    <TableCell>{formData.email}</TableCell>
+                    <TableCell>{formData.username}</TableCell>
+                    <TableCell>{formData.gender}</TableCell>
+                    <TableCell>{formData.message}</TableCell>
+                    <TableCell>
+                      <IconContainer>
+                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <MdDeleteForever
+                          onClick={() => openDeleteModal(formData.id)}
+                        />
+                      </IconContainer>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : currentItems.map((formData, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{formData.name}</TableCell>
+                    <TableCell>{formData.email}</TableCell>
+                    <TableCell>{formData.username}</TableCell>
+                    <TableCell>{formData.gender}</TableCell>
+                    <TableCell>{formData.message}</TableCell>
+                    <TableCell>
+                      <IconContainer>
+                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <MdDeleteForever
+                          onClick={() => openDeleteModal(formData.id)}
+                        />
+                      </IconContainer>
+                    </TableCell>
+                  </TableRow>
+                ))}
           </tbody>
         </Table>
       </TableContainer>
@@ -236,6 +297,10 @@ export function List() {
           <ButtonPagination
             onClick={goToPreviousPage}
             disabled={currentPage === 0}
+            style={{
+              borderTopLeftRadius: '8px',
+              borderBottomLeftRadius: '8px',
+            }}
           >
             Anterior
           </ButtonPagination>
@@ -254,6 +319,10 @@ export function List() {
           <ButtonPagination
             onClick={goToNextPage}
             disabled={currentPage === totalPages - 1}
+            style={{
+              borderTopRightRadius: '8px',
+              borderBottomRightRadius: '8px',
+            }}
           >
             Próximo
           </ButtonPagination>
