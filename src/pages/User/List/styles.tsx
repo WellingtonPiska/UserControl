@@ -150,6 +150,11 @@ export const TopBarExternal = styled.div`
   height: 77px;
   box-shadow: -2px 6px 4px 0 rgba(0, 0, 0, 0.47);
 
+  .icon-container {
+    display: flex;
+    align-items: center;
+  }
+
   svg {
     width: 24px;
     height: 24px;
