@@ -50,9 +50,6 @@ export function Register() {
   const onSubmit: SubmitHandler<ContactFormDataRegister> = async (
     data: ContactFormDataRegister,
   ) => {
-    // Lógica para processar os dados, como enviar para o servidor ou realizar outras ações necessárias.
-    // Aqui você pode adicionar a lógica de envio para o servidor, validação, etc.
-
     // Verificar se já existem dados no localStorage
     const existingData = localStorage.getItem('formDataList')
     const formDataListArray = existingData ? JSON.parse(existingData) : []

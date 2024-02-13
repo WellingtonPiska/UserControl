@@ -114,6 +114,7 @@ export const RegisterButton = styled.div`
   justify-content: center;
   margin-top: 20px;
 `
+
 export const Button = styled.button`
   width: 100%;
   margin-top: 2.5rem;
@@ -130,6 +131,11 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    box-shadow: none;
   }
 `
 

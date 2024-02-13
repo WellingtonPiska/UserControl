@@ -23,6 +23,8 @@ import { useNavigate } from 'react-router'
 import { FC, useState } from 'react'
 import { Home } from './pages/Home'
 import { MyPersonalData } from './pages/MyPersonalData'
+import { Company } from './pages/Company/List'
+import { CompanyRegister } from './pages/Company/Register'
 
 export interface Root {
   name: string
@@ -175,6 +177,8 @@ export function Router() {
           <Route path="/myPersonalData" element={<MyPersonalData />} />
           <Route path="/update/:id" element={<Private Item={Update} />} />
           <Route path="/error404" element={<Error404 />} />
+          <Route path="/company" element={<Company />} />
+          <Route path="/company/register" element={<CompanyRegister />} />
         </Routes>
       </ContainerMiddle>
     </ContainerApp>

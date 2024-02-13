@@ -66,6 +66,15 @@ export function Signup() {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
+  const cpfMask = (value: string) => {
+    return value
+      .replace(/\D/g, '') // Remove tudo o que não é dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três primeiros dígitos
+      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três dígitos seguintes
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Coloca hífen antes dos dois últimos dígitos
+      .replace(/(-\d{2})\d+?$/, '$1') // Permite apenas dois dígitos após o hífen
+  }
+
   const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
     children,
   }) => {
@@ -97,7 +106,10 @@ export function Signup() {
                   type="text"
                   placeholder="Digite o seu CPF"
                   {...register('cpf')}
-                  maxLength={11}
+                  maxLength={14}
+                  onChange={(e) => {
+                    e.target.value = cpfMask(e.target.value)
+                  }}
                 />
                 <ErrorMessage>{errors.cpf && errors.cpf.message}</ErrorMessage>
               </InputBox>

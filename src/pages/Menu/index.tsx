@@ -7,6 +7,7 @@ import {
 import { FaHome, FaUserAlt, FaUsers } from 'react-icons/fa'
 import { SidebarItem } from '../../components/MenuItem'
 import { useNavigate, useLocation } from 'react-router'
+import { IoBusinessOutline } from 'react-icons/io5'
 
 export function Menu() {
   const navigate = useNavigate()
@@ -19,6 +20,10 @@ export function Menu() {
   }
   const handleUsers = () => {
     navigate(`/list`)
+  }
+
+  const handleCompany = () => {
+    navigate(`/company`)
   }
 
   return (
@@ -46,6 +51,12 @@ export function Menu() {
           Text="Dados Pessoais"
           onClick={handlePersonalData}
           isActive={location.pathname === '/myPersonalData'}
+        />
+        <SidebarItem
+          Icon={IoBusinessOutline}
+          Text="Empresas"
+          onClick={handleCompany}
+          isActive={location.pathname === '/company'}
         />
       </Content>
     </ContainerMenu>
