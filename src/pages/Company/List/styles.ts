@@ -1,5 +1,8 @@
 import { styled } from 'styled-components'
 
+interface ButtonPaginationNumberProps {
+  isCurrentPage?: boolean
+}
 export const ListContainer = styled.div`
   width: 100%;
   overflow-x: hidden;
@@ -117,8 +120,52 @@ export const IconContainer = styled.div`
     }
   }
 `
+
+export const ButtonPagination = styled.button`
+  display: inline-block;
+  text-decoration: none;
+  background-color: #046ee5;
+  border: 1px solid #046ee5;
+  color: #fff;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
 export const TableCell = styled.td`
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
+`
+
+export const PhraseToDelete = styled.p`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+`
+export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>`
+  display: inline-block;
+  text-decoration: none;
+  background-color: ${(props) => (props.isCurrentPage ? '#046ee5' : '#fff')};
+  border: 1px solid ${(props) => (props.isCurrentPage ? '#0358c7' : '#046ee5')};
+  color: ${(props) => (props.isCurrentPage ? '#fff' : '#046ee5')};
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.isCurrentPage ? '#0358c7' : '#0056b3'};
+    border: 1px solid
+      ${(props) => (props.isCurrentPage ? '#0358c7' : '#046ee5')};
+    color: ${(props) => (props.isCurrentPage ? '#fff' : '#fff')};
+  }
 `

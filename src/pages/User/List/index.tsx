@@ -311,7 +311,7 @@ export function List() {
                 typeof number === 'number' && setCurrentPage(number - 1)
               }
               disabled={number === '...'}
-              isCurrentPage={number === currentPage + 1}
+              className={number === currentPage + 1 ? 'currentPage' : ''}
             >
               {number}
             </ButtonPaginationNumber>

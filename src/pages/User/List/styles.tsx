@@ -1,7 +1,7 @@
-import { styled, css } from 'styled-components'
+import { styled } from 'styled-components'
 
 interface ButtonPaginationNumberProps {
-  isCurrentPage: boolean
+  isCurrentPage?: boolean
 }
 
 export const ListContainer = styled.div`
@@ -213,9 +213,9 @@ export const ButtonPagination = styled.button`
 export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>`
   display: inline-block;
   text-decoration: none;
-  background-color: #fff;
-  border: 1px solid #046ee5;
-  color: #046ee5;
+  background-color: ${(props) => (props.isCurrentPage ? '#046ee5' : '#fff')};
+  border: 1px solid ${(props) => (props.isCurrentPage ? '#0358c7' : '#046ee5')};
+  color: ${(props) => (props.isCurrentPage ? '#fff' : '#046ee5')};
   padding: 0.4rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -224,20 +224,12 @@ export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>
   font-weight: 400;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${(props) =>
+      props.isCurrentPage ? '#0358c7' : '#0056b3'};
+    border: 1px solid
+      ${(props) => (props.isCurrentPage ? '#0358c7' : '#046ee5')};
+    color: ${(props) => (props.isCurrentPage ? '#fff' : '#fff')};
   }
-
-  ${(props) =>
-    props.isCurrentPage &&
-    css`
-      background-color: #046ee5;
-      color: #fff;
-      border: 1px solid #0358c7;
-
-      &:hover {
-        background-color: #0358c7;
-      }
-    `}
 `
 
 export const InputForSearch = styled.input`

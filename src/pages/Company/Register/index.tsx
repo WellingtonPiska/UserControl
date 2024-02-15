@@ -8,13 +8,22 @@ import {
   Input,
   Label,
   Button,
+  StyledErrorMessage,
 } from './styles.ts'
-import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import {
+  SubmitHandler,
+  useForm,
+  Controller,
+  UseFormSetValue,
+} from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import { ICompanyRegister } from '../interface.ts'
+import { ICompanyRegister, AddressInfo } from '../interface.ts'
 import { useNavigate } from 'react-router'
 import Select from 'react-select'
+import axios from 'axios'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { validationRegisterAndUpdateCompany } from '../schema.ts'
 
 export function CompanyRegister() {
   const navigate = useNavigate()
@@ -23,7 +32,10 @@ export function CompanyRegister() {
     register,
     control,
     formState: { errors },
-  } = useForm<ICompanyRegister>({})
+    setValue,
+  } = useForm<ICompanyRegister>({
+    resolver: yupResolver(validationRegisterAndUpdateCompany),
+  })
 
   const companyTypeOptions = [
     { value: 'MEI', label: 'Micro Empreendedor Individual' },
@@ -37,16 +49,16 @@ export function CompanyRegister() {
   ) => {
     // Verificar se já existem dados no localStorage
     const existingData = localStorage.getItem('companyData')
-    const formDataListArray = existingData ? JSON.parse(existingData) : []
+    const companyDataListArray = existingData ? JSON.parse(existingData) : []
 
-    // Adicionar um UUID ao formData
-    const formDataWithId = { ...data, id: uuidv4() }
+    // Adicionar um UUID ao companyData
+    const companyDataWithId = { ...data, id: uuidv4() }
 
     // Adicionar o novo registro à lista de dados
-    formDataListArray.push(formDataWithId)
+    companyDataListArray.push(companyDataWithId)
 
     // Salvar a lista atualizada no localStorage
-    localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
+    localStorage.setItem('companyData', JSON.stringify(companyDataListArray))
 
     // Exibir mensagem de sucesso para o usuário
     toast.success('Empresa criada com sucesso!', {
@@ -63,6 +75,84 @@ export function CompanyRegister() {
     navigate('/company')
   }
 
+  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
+    return (
+      <StyledErrorMessage
+        style={{ visibility: children ? 'visible' : 'hidden' }}
+      >
+        {children}
+      </StyledErrorMessage>
+    )
+  }
+  const formatCNPJ = (cnpj: string) => {
+    cnpj = cnpj.replace(/\D/g, '')
+    return cnpj.replace(
+      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+      '$1.$2.$3/$4-$5',
+    )
+  }
+
+  const formatCep = (value: string) => {
+    const numericValue = value.replace(/\D/g, '')
+    if (numericValue.length <= 5) {
+      return numericValue
+    } else if (numericValue.length <= 8) {
+      return `${numericValue.slice(0, 5)}-${numericValue.slice(5)}`
+    } else {
+      return `${numericValue.slice(0, 5)}-${numericValue.slice(5, 8)}`
+    }
+  }
+
+  const formatPhoneNumber = (phoneNumber: string) => {
+    const removeNotNumerics = phoneNumber.replace(/\D/g, '')
+
+    if (removeNotNumerics.length === 11) {
+      return removeNotNumerics.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+    } else if (removeNotNumerics.length === 10) {
+      return removeNotNumerics.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3')
+    } else {
+      return removeNotNumerics
+    }
+  }
+
+  const getAddressInfo = async (cep: string) => {
+    try {
+      const response = await axios.get<AddressInfo>(
+        `https://viacep.com.br/ws/${cep}/json/`,
+      )
+      return response.data
+    } catch (error) {
+      console.error('Erro ao obter informações de endereço:', error)
+      return {} as AddressInfo
+    }
+  }
+
+  const fillAddressFields = (
+    addressInfo: AddressInfo,
+    setValue: UseFormSetValue<ICompanyRegister>,
+  ) => {
+    const { uf, localidade, bairro, logradouro } = addressInfo
+    setValue('country', 'Brasil')
+    setValue('state', uf)
+    setValue('city', localidade)
+    setValue('neighborhood', bairro)
+    setValue('address', logradouro)
+  }
+
+  const handleCEPChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cep = e.target.value
+    if (cep.length === 8) {
+      try {
+        const addressInfo = await getAddressInfo(cep)
+        fillAddressFields(addressInfo, setValue)
+      } catch (error) {
+        console.error('Erro ao obter informações de endereço:', error)
+      }
+    }
+  }
+
   return (
     <ContainerForAll>
       <div
@@ -70,6 +160,7 @@ export function CompanyRegister() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          height: '50px',
         }}
       >
         <Title>Registro</Title>
@@ -91,18 +182,19 @@ export function CompanyRegister() {
                   styles={{
                     container: (base) => ({
                       ...base,
-                      marginBottom: '0.6rem',
                       width: '100%',
                     }),
                     control: (base) => ({
                       ...base,
-                      height: '44px',
+                      height: '25px',
                       border: '1px solid #ccc',
                       padding: '0.1rem',
                       borderRadius: '10px',
-                      marginTop: '6px',
+                      marginTop: '10px',
                       boxShadow: '1px 1px 6px #0000001c',
                       fontSize: '0.8rem',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
                       backgroundColor: '#fbfbfd',
                       '&:hover': {
                         backgroundColor: '#eeeeee75',
@@ -129,7 +221,16 @@ export function CompanyRegister() {
 
           <InputBox style={{ width: '30%' }}>
             <Label htmlFor="cnpj">CNPJ</Label>
-            <Input type="text" id="cnpj" {...register('cnpj')} />
+            <Input
+              type="text"
+              id="cnpj"
+              {...register('cnpj')}
+              onChange={(e) => {
+                e.target.value = formatCNPJ(e.target.value)
+              }}
+              maxLength={14}
+            />
+            <ErrorMessage>{errors.cnpj && errors.cnpj.message}</ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '30%' }}>
@@ -139,6 +240,9 @@ export function CompanyRegister() {
               id="stateRegistration"
               {...register('stateRegistration')}
             />
+            <ErrorMessage>
+              {errors.stateRegistration && errors.stateRegistration.message}
+            </ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '48%' }}>
@@ -148,46 +252,104 @@ export function CompanyRegister() {
               id="corporateReason"
               {...register('corporateReason')}
             />
+            <ErrorMessage>
+              {errors.corporateReason && errors.corporateReason.message}
+            </ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '48%' }}>
             <Label htmlFor="fantasyName">Nome Fantasia</Label>
             <Input type="text" id="fantasyName" {...register('fantasyName')} />
+            <ErrorMessage>
+              {errors.fantasyName && errors.fantasyName.message}
+            </ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '30%' }}>
             <Label htmlFor="email">E-mail</Label>
             <Input type="text" id="email" {...register('email')} />
+            <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '30%' }}>
             <Label htmlFor="telephone">Telefone</Label>
-            <Input type="text" id="telephone" {...register('telephone')} />
+            <Input
+              type="text"
+              id="telephone"
+              {...register('telephone')}
+              onChange={(e) => {
+                e.target.value = formatPhoneNumber(e.target.value)
+              }}
+              maxLength={11}
+            />
+            <ErrorMessage>
+              {errors.telephone && errors.telephone.message}
+            </ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '30%' }}>
             <Label htmlFor="phoneNumber">Celular</Label>
-            <Input type="text" id="phoneNumber" {...register('phoneNumber')} />
+            <Input
+              type="text"
+              id="phoneNumber"
+              {...register('phoneNumber')}
+              onChange={(e) => {
+                e.target.value = formatPhoneNumber(e.target.value)
+              }}
+              maxLength={11}
+            />
+            <ErrorMessage>
+              {errors.phoneNumber && errors.phoneNumber.message}
+            </ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '100%' }}>
             <Label htmlFor="cep">CEP</Label>
-            <Input type="text" id="cep" {...register('cep')} />
+            <Input
+              type="text"
+              id="cep"
+              {...register('cep')}
+              onChange={(e) => {
+                const maskedCep = formatCep(e.target.value)
+                handleCEPChange(e)
+                e.target.value = maskedCep
+                setValue('cep', maskedCep)
+              }}
+            />
+            <ErrorMessage>{errors.cep && errors.cep.message}</ErrorMessage>
           </InputBox>
 
           <InputBox style={{ width: '23%' }}>
             <Label htmlFor="country">País</Label>
-            <Input type="text" id="country" {...register('country')} />
+            <Input
+              type="text"
+              id="country"
+              {...register('country')}
+              readOnly
+              style={{ backgroundColor: '#f2f2f2' }}
+            />
           </InputBox>
 
           <InputBox style={{ width: '23%' }}>
             <Label htmlFor="state">Estado</Label>
-            <Input type="text" id="state" {...register('state')} />
+            <Input
+              type="text"
+              id="state"
+              {...register('state')}
+              readOnly
+              style={{ backgroundColor: '#f2f2f2' }}
+            />
           </InputBox>
 
           <InputBox style={{ width: '23%' }}>
             <Label htmlFor="city">Cidade</Label>
-            <Input type="text" id="city" {...register('city')} />
+            <Input
+              type="text"
+              id="city"
+              {...register('city')}
+              readOnly
+              style={{ backgroundColor: '#f2f2f2' }}
+            />
           </InputBox>
 
           <InputBox style={{ width: '23%' }}>
@@ -196,12 +358,20 @@ export function CompanyRegister() {
               type="text"
               id="neighborhood"
               {...register('neighborhood')}
+              readOnly
+              style={{ backgroundColor: '#f2f2f2' }}
             />
           </InputBox>
 
           <InputBox style={{ width: '50%' }}>
             <Label htmlFor="address">Endereço</Label>
-            <Input type="text" id="address" {...register('address')} />
+            <Input
+              type="text"
+              id="address"
+              {...register('address')}
+              readOnly
+              style={{ backgroundColor: '#f2f2f2' }}
+            />
           </InputBox>
 
           <InputBox style={{ width: '10%' }}>

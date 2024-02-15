@@ -59,7 +59,7 @@ export const InputGroup = styled.div`
 
 export const InputBox = styled.div`
   display: flex;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.9rem;
   width: 21%;
   flex-direction: column;
 `
@@ -99,4 +99,13 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+`
+export const StyledErrorMessage = styled.p`
+  color: red;
+  font-size: 13px;
+  height: 15px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  visibility: hidden; // Invisível por padrão
 `
