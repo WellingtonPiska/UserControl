@@ -15,7 +15,7 @@ export interface ICompanyRegister {
   city: string
   country: string
   complement?: string
-  dateRegister: Date
+  dateRegister?: Date
 }
 
 export interface ICompanyFormData {

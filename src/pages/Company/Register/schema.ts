@@ -59,5 +59,5 @@ export const validationRegister = yup.object().shape({
     .string()
     .max(40, 'O Complemento deve ter no máximo 40 caracteres'),
 
-  dateRegister: yup.date().notRequired(),
+  // dateRegister: yup.date().required('A data é necessária'),
 })

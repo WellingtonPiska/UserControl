@@ -254,7 +254,9 @@ export function Company() {
                     <TableCell>{formData.cnpj}</TableCell>
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
-                    <TableCell>{formData.dateRegister}</TableCell>
+                    <TableCell>
+                      {formData.dateRegister.toLocaleString()}
+                    </TableCell>
                     <TableCell>
                       <IconContainer>
                         <RxUpdate onClick={() => handleUpdate(formData.id)} />
@@ -270,7 +272,9 @@ export function Company() {
                     <TableCell>{formData.cnpj}</TableCell>
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
-                    <TableCell>{formData.dateRegister}</TableCell>
+                    <TableCell>
+                      {formData.dateRegister.toLocaleString()}
+                    </TableCell>
                     <TableCell>
                       <IconContainer>
                         <RxUpdate onClick={() => handleUpdate(formData.id)} />
