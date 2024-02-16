@@ -25,6 +25,7 @@ import { Home } from './pages/Home'
 import { MyPersonalData } from './pages/MyPersonalData'
 import { Company } from './pages/Company/List'
 import { CompanyRegister } from './pages/Company/Register'
+import { UpdateCompany } from './pages/Company/Update'
 
 export interface Root {
   name: string
@@ -179,6 +180,7 @@ export function Router() {
           <Route path="/error404" element={<Error404 />} />
           <Route path="/company" element={<Company />} />
           <Route path="/company/register" element={<CompanyRegister />} />
+          <Route path="/company/update/:id" element={<UpdateCompany />} />
         </Routes>
       </ContainerMiddle>
     </ContainerApp>

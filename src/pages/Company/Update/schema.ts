@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 
-export const validationRegisterAndUpdateCompany = yup.object().shape({
+export const validationUpdateCompany = yup.object().shape({
+  id: yup.string().required('Id é obrigatório'),
   type: yup.string().required('Tipo é obrigatório'),
   cnpj: yup
     .string()

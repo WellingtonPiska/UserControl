@@ -23,6 +23,9 @@ import {
   ModalButton,
 } from '../../../components/ModalDelete/styles.tsx'
 import { toast } from 'react-toastify'
+import { CiSearch } from 'react-icons/ci'
+import { InputForSearch } from '../../User/List/styles.tsx'
+import { useNavigate } from 'react-router'
 
 export function Company() {
   const [formDataCompanyList, setFormDataCompanyList] = useState<
@@ -47,6 +50,8 @@ export function Company() {
   const [filteredDataList, setFilteredDataList] = useState<ICompanyFormData[]>(
     [],
   )
+
+  const navigate = useNavigate()
 
   const openDeleteModal = (id: string) => {
     setItemToDelete(id)
@@ -80,6 +85,12 @@ export function Company() {
       }
       setIsModalOpen(false)
       setItemToDelete(null)
+    }
+  }
+
+  const handleUpdate = (id: string) => {
+    if (id !== null) {
+      navigate(`/company/update/${id}`)
     }
   }
 
@@ -139,19 +150,22 @@ export function Company() {
 
   const pageNumbers = getPageNumbers(currentPage, totalPages)
 
-  // useEffect(() => {
-  //   // Atualizar a lista filtrada sempre que o termo de pesquisa ou a lista original mudar
-  //   const filteredList = formDataCompanyList.filter(
-  //     (formData) =>
-  //       formData.fantasyName &&
-  //       formData.fantasyName.toLowerCase().includes(searchTerm.toLowerCase()),
-  //   )
-  //   setFilteredDataList(filteredList)
-  // }, [searchTerm, formDataCompanyList])
+  useEffect(() => {
+    const filteredList = formDataCompanyList.filter(
+      (formData) =>
+        // formData.fantasyName &&
+        // formData.fantasyName.toLowerCase().includes(searchTerm.toLowerCase()),
+        formData.fantasyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        formData.cnpj.includes(searchTerm) ||
+        formData.corporateReason
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()),
+    )
+    setFilteredDataList(filteredList)
+  }, [searchTerm, formDataCompanyList])
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // Aqui você pode realizar ações adicionais, se necessário
   }
 
   return (
@@ -165,6 +179,59 @@ export function Company() {
       >
         <ListTitle>Lista de Empresas</ListTitle>
         <BackLink href="/company/register">Página de registro</BackLink>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          marginTop: '16px',
+          alignItems: 'center',
+          marginBottom: '14px',
+        }}
+      >
+        <select
+          id="itemsPerPage"
+          onChange={handleItemsPerPageChange}
+          value={itemsPerPage}
+          style={{
+            padding: '4px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+            outline: 'none',
+            transition: 'border-color 0.3s ease-in-out',
+          }}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+        <label htmlFor="itemsPerPage" style={{ marginLeft: '8px' }}>
+          Itens por página{' '}
+        </label>
+
+        <div style={{ marginLeft: '1150px', position: 'relative' }}>
+          <form
+            onSubmit={handleSearchSubmit}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <InputForSearch
+              type="text"
+              placeholder="Pesquisar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
+            />
+            <CiSearch
+              style={{
+                color: 'gray',
+                position: 'absolute',
+                right: '10px',
+              }}
+            />
+          </form>
+        </div>
       </div>
 
       <TableContainer>
@@ -187,10 +254,10 @@ export function Company() {
                     <TableCell>{formData.cnpj}</TableCell>
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
-                    <TableCell>{formData.email}</TableCell>
+                    <TableCell>{formData.dateRegister}</TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate />
+                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
                         <MdDeleteForever
                           onClick={() => openDeleteModal(formData.id)}
                         />
@@ -203,10 +270,10 @@ export function Company() {
                     <TableCell>{formData.cnpj}</TableCell>
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
-                    <TableCell>{formData.email}</TableCell>
+                    <TableCell>{formData.dateRegister}</TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate />
+                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
                         <MdDeleteForever
                           onClick={() => openDeleteModal(formData.id)}
                         />

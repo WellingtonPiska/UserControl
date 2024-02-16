@@ -6,15 +6,16 @@ export interface ICompanyRegister {
   fantasyName: string
   email: string
   telephone: string
-  phoneNumber: string
+  phoneNumber?: string
   cep: string
-  addressNumber: number
   address: string
   neighborhood: string
-  complement: string
+  addressNumber: number
   state: string
   city: string
   country: string
+  complement?: string
+  dateRegister: Date
 }
 
 export interface ICompanyFormData {
@@ -26,15 +27,16 @@ export interface ICompanyFormData {
   fantasyName: string
   email: string
   telephone: string
-  phoneNumber: string
+  phoneNumber?: string
   cep: string
   addressNumber: number
   address: string
   neighborhood: string
-  complement: string
+  complement?: string
   state: string
   city: string
   country: string
+  dateRegister: Date
 }
 
 export interface AddressInfo {

@@ -10,31 +10,33 @@ import {
   Button,
   StyledErrorMessage,
 } from '../stylesForRegisterAndUpdate.ts'
+import { useEffect } from 'react'
 import {
   SubmitHandler,
   useForm,
   Controller,
   UseFormSetValue,
 } from 'react-hook-form'
-import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import { ICompanyRegister, AddressInfo } from '../interface.ts'
-import { useNavigate } from 'react-router'
+import { AddressInfo, ICompanyFormData } from '../interface.ts'
+import { useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select'
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { validationRegister } from './schema.ts'
+import { validationUpdateCompany } from './schema.ts'
 
-export function CompanyRegister() {
+export function UpdateCompany() {
   const navigate = useNavigate()
+  const { id } = useParams()
   const {
     handleSubmit,
     register,
     control,
     formState: { errors },
     setValue,
-  } = useForm<ICompanyRegister>({
-    resolver: yupResolver(validationRegister),
+    reset,
+  } = useForm<ICompanyFormData>({
+    resolver: yupResolver(validationUpdateCompany),
   })
 
   const companyTypeOptions = [
@@ -44,44 +46,34 @@ export function CompanyRegister() {
     { value: 'ASS', label: 'Associação' },
   ]
 
-  const onSubmit: SubmitHandler<ICompanyRegister> = async (
-    data: ICompanyRegister,
-  ) => {
-    const currentDate = new Date()
-    const formattedDate = `${currentDate.getDate()}/${
-      currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`
+  useEffect(() => {
+    const jsonFormDataList = localStorage.getItem(`companyData`)
+    if (jsonFormDataList && id !== undefined) {
+      const parsedFormData = JSON.parse(jsonFormDataList)
+      const itemById = parsedFormData.find(
+        (item: ICompanyFormData) => item.id === id,
+      )
 
-    const companyDataWithDate = {
-      ...data,
-      id: uuidv4(),
-      dateRegister: formattedDate,
+      if (itemById) {
+        reset(itemById)
+      } else {
+        toast.error(
+          'Erro ao carregar os dados do formulário. Por favor, tente novamente.',
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          },
+        )
+        navigate('/company')
+      }
     }
-
-    // Verificar se já existem dados no localStorage
-    const existingData = localStorage.getItem('companyData')
-    const companyDataListArray = existingData ? JSON.parse(existingData) : []
-
-    // Adicionar o novo registro à lista de dados
-    companyDataListArray.push(companyDataWithDate)
-
-    // Salvar a lista atualizada no localStorage
-    localStorage.setItem('companyData', JSON.stringify(companyDataListArray))
-
-    // Exibir mensagem de sucesso para o usuário
-    toast.success('Empresa criada com sucesso!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    })
-
-    navigate('/company')
-  }
+  }, [id, reset])
 
   const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -139,7 +131,7 @@ export function CompanyRegister() {
 
   const fillAddressFields = (
     addressInfo: AddressInfo,
-    setValue: UseFormSetValue<ICompanyRegister>,
+    setValue: UseFormSetValue<ICompanyFormData>,
   ) => {
     const { uf, localidade, bairro, logradouro } = addressInfo
     setValue('country', 'Brasil')
@@ -150,7 +142,7 @@ export function CompanyRegister() {
   }
 
   const handleCEPChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cep = e.target.value.replace(/\D/g, '') // Remove todos os caracteres não numéricos
+    const cep = e.target.value
     if (cep.length === 8) {
       try {
         const addressInfo = await getAddressInfo(cep)
@@ -159,6 +151,50 @@ export function CompanyRegister() {
         console.error('Erro ao obter informações de endereço:', error)
       }
     }
+  }
+
+  const onSubmit: SubmitHandler<ICompanyFormData> = async (
+    data: ICompanyFormData,
+  ) => {
+    navigate('/company') // redirecionamento
+
+    // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
+
+    // Pegando a lista do storage em JSON
+    const listStorage = localStorage.getItem('companyData')
+
+    if (listStorage) {
+      const parsedListStorage = JSON.parse(listStorage)
+
+      const index = parsedListStorage.findIndex(
+        (item: ICompanyFormData) => item.id === id,
+      )
+
+      if (index !== -1) {
+        // obtenha o objeto encontrado
+        const foundItem = parsedListStorage[index]
+
+        // atualizar o objeto com os novos dados
+        const updatedItem = { ...foundItem, ...data }
+
+        // substituir o objeto no array original
+        parsedListStorage[index] = updatedItem
+
+        // fazer a atualização do localStorage com a lista atualizada
+        localStorage.setItem('companyData', JSON.stringify(parsedListStorage))
+      }
+    }
+
+    toast.success('Formulário alterado com sucesso!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    })
   }
 
   return (
@@ -397,7 +433,7 @@ export function CompanyRegister() {
           </InputBox>
         </InputGroup>
 
-        <Button type="submit">Registrar</Button>
+        <Button type="submit">Salvar</Button>
       </Form>
     </ContainerForAll>
   )
