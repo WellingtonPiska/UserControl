@@ -253,9 +253,19 @@ export function List() {
                     <TableCell>{formData.message}</TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <RxUpdate
+                          onClick={() =>
+                            formData.id !== undefined
+                              ? handleUpdate(formData.id)
+                              : undefined
+                          }
+                        />
                         <MdDeleteForever
-                          onClick={() => openDeleteModal(formData.id)}
+                          onClick={() =>
+                            formData.id !== undefined
+                              ? openDeleteModal(formData.id)
+                              : undefined
+                          }
                         />
                       </IconContainer>
                     </TableCell>
@@ -270,9 +280,19 @@ export function List() {
                     <TableCell>{formData.message}</TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <RxUpdate
+                          onClick={() =>
+                            formData.id !== undefined
+                              ? handleUpdate(formData.id)
+                              : undefined
+                          }
+                        />
                         <MdDeleteForever
-                          onClick={() => openDeleteModal(formData.id)}
+                          onClick={() =>
+                            formData.id !== undefined
+                              ? openDeleteModal(formData.id)
+                              : undefined
+                          }
                         />
                       </IconContainer>
                     </TableCell>

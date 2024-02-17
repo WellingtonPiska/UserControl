@@ -1,12 +1,7 @@
-import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-
 import Select from 'react-select'
-import { toast } from 'react-toastify'
-import { ContactFormData } from '../interface'
-import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { validationUpdate } from './schema'
+import { v4 as uuidv4 } from 'uuid'
+import { useEffect } from 'react'
+
 import {
   FormWrapper,
   BackLink,
@@ -16,109 +11,105 @@ import {
   Input,
   TextArea,
   Button,
-  StyledErrorMessage,
 } from '../stylesForRegisterAndUpdate.ts'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
+import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import { ContactFormDataRegister, ContactFormData } from '../interface'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { validationRegister } from './schema'
+import { useParams } from 'react-router-dom'
+import { ErrorMessage } from '../../../components/ErrorMessage'
 
-export function Update() {
-  const { id } = useParams() // Obtenha o ID do item a ser atualizado
-  const navigate = useNavigate() // Use o navigation para redirecionar após a atualização
+export function RegisterAndUpdate() {
+  const { id } = useParams()
+  const navigate = useNavigate()
   const {
     handleSubmit,
     register,
     control,
     reset,
     formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: yupResolver(validationUpdate),
+  } = useForm<ContactFormDataRegister>({
+    resolver: yupResolver(validationRegister),
   })
-
-  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => {
-    return (
-      <StyledErrorMessage
-        style={{ visibility: children ? 'visible' : 'hidden' }}
-      >
-        {children}
-      </StyledErrorMessage>
-    )
-  }
-  useEffect(() => {
-    const jsonFormDataList = localStorage.getItem(`formDataList`)
-    if (jsonFormDataList && id !== undefined) {
-      const parsedFormData = JSON.parse(jsonFormDataList)
-      const itemById = parsedFormData.find(
-        (item: ContactFormData) => item.id === id,
-      )
-
-      if (itemById) {
-        reset(itemById) // Carregar os dados iniciais no formulário
-      } else {
-        toast.error(
-          'Erro ao carregar os dados do formulário. Por favor, tente novamente.',
-          {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          },
-        )
-        navigate('/list')
-      }
-    }
-  }, [id, reset])
 
   const genderOptions = [
     { value: 'male', label: 'Masculino' },
     { value: 'female', label: 'Feminino' },
   ]
 
+  useEffect(() => {
+    if (id) {
+      const storageData = localStorage.getItem('formDataList')
+      if (storageData) {
+        const parsedData = JSON.parse(storageData)
+        const itemToEdit = parsedData.find(
+          (item: ContactFormData) => item.id === id,
+        )
+        if (itemToEdit) {
+          reset(itemToEdit)
+        }
+      }
+    }
+  }, [id, reset])
+
   const onSubmit: SubmitHandler<ContactFormData> = async (
     data: ContactFormData,
   ) => {
-    navigate('/list') // redirecionamento
+    navigate('/list')
 
-    // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
+    if (id !== undefined) {
+      // Atualização
+      const listStorage = localStorage.getItem('formDataList')
 
-    // Pegando a lista do storage em JSON
-    const listStorage = localStorage.getItem('formDataList')
+      if (listStorage) {
+        const parsedListStorage = JSON.parse(listStorage)
 
-    if (listStorage) {
-      const parsedListStorage = JSON.parse(listStorage)
+        const index = parsedListStorage.findIndex(
+          (item: ContactFormData) => item.id === id,
+        )
 
-      const index = parsedListStorage.findIndex(
-        (item: ContactFormData) => item.id === id,
-      )
-
-      if (index !== -1) {
-        // obtenha o objeto encontrado
-        const foundItem = parsedListStorage[index]
-
-        // atualizar o objeto com os novos dados
-        const updatedItem = { ...foundItem, ...data }
-
-        // substituir o objeto no array original
-        parsedListStorage[index] = updatedItem
-
-        // fazer a atualização do localStorage com a lista atualizada
-        localStorage.setItem('formDataList', JSON.stringify(parsedListStorage))
+        if (index !== -1) {
+          const foundItem = parsedListStorage[index]
+          const updatedItem = { ...foundItem, ...data }
+          parsedListStorage[index] = updatedItem
+          localStorage.setItem(
+            'formDataList',
+            JSON.stringify(parsedListStorage),
+          )
+        }
       }
-    }
 
-    toast.success('Formulário alterado com sucesso!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    })
+      toast.success('Formulário alterado com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+    } else {
+      const existingData = localStorage.getItem('formDataList')
+      const formDataListArray = existingData ? JSON.parse(existingData) : []
+
+      const formDataWithId = { ...data, id: uuidv4() }
+      formDataListArray.push(formDataWithId)
+      localStorage.setItem('formDataList', JSON.stringify(formDataListArray))
+
+      toast.success('Formulário criado com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+    }
   }
 
   return (
@@ -130,7 +121,7 @@ export function Update() {
           alignItems: 'center',
         }}
       >
-        <Title>Edição</Title>
+        <Title>Registro</Title>
         <BackLink href="/list">Página de Listagem</BackLink>
       </div>
 
@@ -158,6 +149,7 @@ export function Update() {
             <Select
               {...field}
               options={genderOptions}
+              isSearchable={false}
               styles={{
                 container: (base) => ({
                   ...base,
@@ -200,7 +192,7 @@ export function Update() {
           Mensagem:
         </Label>
         <TextArea id="message" rows={4} {...register('message')} />
-        <Button type="submit">Salvar</Button>
+        <Button type="submit">Registrar</Button>
       </Form>
     </FormWrapper>
   )

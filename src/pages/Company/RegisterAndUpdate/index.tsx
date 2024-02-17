@@ -8,26 +8,33 @@ import {
   Input,
   Label,
   Button,
-  StyledErrorMessage,
 } from '../stylesForRegisterAndUpdate.ts'
-import { useEffect } from 'react'
 import {
   SubmitHandler,
   useForm,
   Controller,
   UseFormSetValue,
 } from 'react-hook-form'
+
+import { useParams } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import { AddressInfo, ICompanyFormData } from '../interface.ts'
-import { useNavigate, useParams } from 'react-router-dom'
+import {
+  ICompanyRegister,
+  AddressInfo,
+  ICompanyFormData,
+} from '../interface.ts'
+import { useNavigate } from 'react-router'
 import Select from 'react-select'
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { validationUpdateCompany } from './schema.ts'
+import { validationRegister } from './schema.ts'
+import { useEffect } from 'react'
+import { ErrorMessage } from '../../../components/ErrorMessage'
 
-export function UpdateCompany() {
-  const navigate = useNavigate()
+export function CompanyRegisterAndUpdate() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const {
     handleSubmit,
     register,
@@ -35,8 +42,8 @@ export function UpdateCompany() {
     formState: { errors },
     setValue,
     reset,
-  } = useForm<ICompanyFormData>({
-    resolver: yupResolver(validationUpdateCompany),
+  } = useForm<ICompanyRegister>({
+    resolver: yupResolver(validationRegister),
   })
 
   const companyTypeOptions = [
@@ -46,20 +53,28 @@ export function UpdateCompany() {
     { value: 'ASS', label: 'Associação' },
   ]
 
-  useEffect(() => {
-    const jsonFormDataList = localStorage.getItem(`companyData`)
-    if (jsonFormDataList && id !== undefined) {
-      const parsedFormData = JSON.parse(jsonFormDataList)
-      const itemById = parsedFormData.find(
-        (item: ICompanyFormData) => item.id === id,
-      )
+  const onSubmit: SubmitHandler<ICompanyFormData> = async (
+    data: ICompanyFormData,
+  ) => {
+    navigate('/company')
 
-      if (itemById) {
-        reset(itemById)
-      } else {
-        toast.error(
-          'Erro ao carregar os dados do formulário. Por favor, tente novamente.',
-          {
+    if (id !== undefined) {
+      const listStorage = localStorage.getItem('companyData')
+
+      if (listStorage) {
+        const parsedListStorage = JSON.parse(listStorage)
+
+        const index = parsedListStorage.findIndex(
+          (item: ICompanyFormData) => item.id === id,
+        )
+
+        if (index !== -1) {
+          const foundItem = parsedListStorage[index]
+          const updatedItem = { ...foundItem, ...data }
+          parsedListStorage[index] = updatedItem
+          localStorage.setItem('companyData', JSON.stringify(parsedListStorage))
+
+          toast.success('Formulário alterado com sucesso!', {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
@@ -68,24 +83,41 @@ export function UpdateCompany() {
             draggable: true,
             progress: undefined,
             theme: 'light',
-          },
-        )
-        navigate('/company')
+          })
+        }
       }
-    }
-  }, [id, reset])
+    } else {
+      const currentDate = new Date()
+      const formattedDate = `${currentDate.getDate()}/${
+        currentDate.getMonth() + 1
+      }/${currentDate.getFullYear()}`
 
-  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => {
-    return (
-      <StyledErrorMessage
-        style={{ visibility: children ? 'visible' : 'hidden' }}
-      >
-        {children}
-      </StyledErrorMessage>
-    )
+      const companyDataWithDate = {
+        ...data,
+        id: uuidv4(),
+        dateRegister: formattedDate,
+      }
+
+      const existingData = localStorage.getItem('companyData')
+      const companyDataListArray = existingData ? JSON.parse(existingData) : []
+
+      companyDataListArray.push(companyDataWithDate)
+
+      localStorage.setItem('companyData', JSON.stringify(companyDataListArray))
+
+      toast.success('Formulário criado com sucesso!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
+    }
   }
+
   const formatCNPJ = (cnpj: string) => {
     cnpj = cnpj.replace(/\D/g, '')
     return cnpj.replace(
@@ -131,7 +163,7 @@ export function UpdateCompany() {
 
   const fillAddressFields = (
     addressInfo: AddressInfo,
-    setValue: UseFormSetValue<ICompanyFormData>,
+    setValue: UseFormSetValue<ICompanyRegister>,
   ) => {
     const { uf, localidade, bairro, logradouro } = addressInfo
     setValue('country', 'Brasil')
@@ -142,7 +174,7 @@ export function UpdateCompany() {
   }
 
   const handleCEPChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cep = e.target.value
+    const cep = e.target.value.replace(/\D/g, '') // Remove todos os caracteres não numéricos
     if (cep.length === 8) {
       try {
         const addressInfo = await getAddressInfo(cep)
@@ -153,49 +185,20 @@ export function UpdateCompany() {
     }
   }
 
-  const onSubmit: SubmitHandler<ICompanyFormData> = async (
-    data: ICompanyFormData,
-  ) => {
-    navigate('/company') // redirecionamento
-
-    // LÓGICA DA ALTERAÇÃO DO OBJETO ANTIGO PARA O NOVO
-
-    // Pegando a lista do storage em JSON
-    const listStorage = localStorage.getItem('companyData')
-
-    if (listStorage) {
-      const parsedListStorage = JSON.parse(listStorage)
-
-      const index = parsedListStorage.findIndex(
-        (item: ICompanyFormData) => item.id === id,
-      )
-
-      if (index !== -1) {
-        // obtenha o objeto encontrado
-        const foundItem = parsedListStorage[index]
-
-        // atualizar o objeto com os novos dados
-        const updatedItem = { ...foundItem, ...data }
-
-        // substituir o objeto no array original
-        parsedListStorage[index] = updatedItem
-
-        // fazer a atualização do localStorage com a lista atualizada
-        localStorage.setItem('companyData', JSON.stringify(parsedListStorage))
+  useEffect(() => {
+    if (id) {
+      const storageData = localStorage.getItem('companyData')
+      if (storageData) {
+        const parsedData = JSON.parse(storageData)
+        const itemToEdit = parsedData.find(
+          (item: ICompanyFormData) => item.id === id,
+        )
+        if (itemToEdit) {
+          reset(itemToEdit)
+        }
       }
     }
-
-    toast.success('Formulário alterado com sucesso!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    })
-  }
+  }, [id, reset])
 
   return (
     <ContainerForAll>
@@ -433,7 +436,7 @@ export function UpdateCompany() {
           </InputBox>
         </InputGroup>
 
-        <Button type="submit">Salvar</Button>
+        <Button type="submit">Registrar</Button>
       </Form>
     </ContainerForAll>
   )

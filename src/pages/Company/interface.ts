@@ -19,7 +19,7 @@ export interface ICompanyRegister {
 }
 
 export interface ICompanyFormData {
-  id: string
+  id?: string
   type: string
   cnpj: string
   stateRegistration: string
@@ -36,7 +36,7 @@ export interface ICompanyFormData {
   state: string
   city: string
   country: string
-  dateRegister: Date
+  dateRegister?: Date
 }
 
 export interface AddressInfo {

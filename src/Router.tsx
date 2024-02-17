@@ -3,8 +3,7 @@ import { Signin } from './pages/Signin'
 import useAuth from './hooks/useAuth'
 import { Signup } from './pages/Signup'
 import { Error404 } from './pages/Error404'
-import { Register } from './pages/User/Register'
-import { Update } from './pages/User/Update'
+import { RegisterAndUpdate } from './pages/User/RegisterAndUpdate'
 import { Menu } from './pages/Menu'
 import { List } from './pages/User/List'
 import { User } from './pages/MyPersonalData/interface.ts'
@@ -24,8 +23,7 @@ import { FC, useState } from 'react'
 import { Home } from './pages/Home'
 import { MyPersonalData } from './pages/MyPersonalData'
 import { Company } from './pages/Company/List'
-import { CompanyRegister } from './pages/Company/Register'
-import { UpdateCompany } from './pages/Company/Update'
+import { CompanyRegisterAndUpdate } from './pages/Company/RegisterAndUpdate'
 
 export interface Root {
   name: string
@@ -173,14 +171,26 @@ export function Router() {
         <Menu />
         <Routes>
           <Route path="/list" element={<Private Item={List} />} />
-          <Route path="/register" element={<Private Item={Register} />} />
+          <Route
+            path="/register"
+            element={<Private Item={RegisterAndUpdate} />}
+          />
           <Route path="/home" element={<Home />} />
           <Route path="/myPersonalData" element={<MyPersonalData />} />
-          <Route path="/update/:id" element={<Private Item={Update} />} />
+          <Route
+            path="/update/:id"
+            element={<Private Item={RegisterAndUpdate} />}
+          />
           <Route path="/error404" element={<Error404 />} />
           <Route path="/company" element={<Company />} />
-          <Route path="/company/register" element={<CompanyRegister />} />
-          <Route path="/company/update/:id" element={<UpdateCompany />} />
+          <Route
+            path="/company/register"
+            element={<Private Item={CompanyRegisterAndUpdate} />}
+          />
+          <Route
+            path="/company/update/:id"
+            element={<Private Item={CompanyRegisterAndUpdate} />}
+          />
         </Routes>
       </ContainerMiddle>
     </ContainerApp>
