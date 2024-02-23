@@ -5,32 +5,31 @@ import {
   Form,
   InputGroup,
   InputBox,
-  Input,
   Label,
-  Button,
+  // Button,
 } from '../stylesForRegisterAndUpdate.ts'
-import {
-  SubmitHandler,
-  useForm,
-  Controller,
-  UseFormSetValue,
-} from 'react-hook-form'
+import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+
+import { Input } from '../../../components/Input'
+import { Button } from '../../../components/Button'
 
 import { useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import {
-  ICompanyRegister,
-  AddressInfo,
-  ICompanyFormData,
-} from '../interface.ts'
+import { ICompanyRegister, ICompanyFormData } from '../interface.ts'
 import { useNavigate } from 'react-router'
 import Select from 'react-select'
-import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { validationRegister } from './schema.ts'
 import { useEffect } from 'react'
 import { ErrorMessage } from '../../../components/ErrorMessage'
+import { formatCep } from '../../../utils/FormatCep'
+import { formatCNPJ } from '../../../utils/FormatCNPJ'
+import { formatPhoneNumber } from '../../../utils/FormatPhoneNumber'
+import {
+  fillAddressFields,
+  getAddressInfo,
+} from '../../../utils/GetInformationsFromCEPApi'
 
 export function CompanyRegisterAndUpdate() {
   const { id } = useParams()
@@ -116,61 +115,6 @@ export function CompanyRegisterAndUpdate() {
         theme: 'light',
       })
     }
-  }
-
-  const formatCNPJ = (cnpj: string) => {
-    cnpj = cnpj.replace(/\D/g, '')
-    return cnpj.replace(
-      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-      '$1.$2.$3/$4-$5',
-    )
-  }
-
-  const formatCep = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    if (numericValue.length <= 5) {
-      return numericValue
-    } else if (numericValue.length <= 8) {
-      return `${numericValue.slice(0, 5)}-${numericValue.slice(5)}`
-    } else {
-      return `${numericValue.slice(0, 5)}-${numericValue.slice(5, 8)}`
-    }
-  }
-
-  const formatPhoneNumber = (phoneNumber: string) => {
-    const removeNotNumerics = phoneNumber.replace(/\D/g, '')
-
-    if (removeNotNumerics.length === 11) {
-      return removeNotNumerics.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
-    } else if (removeNotNumerics.length === 10) {
-      return removeNotNumerics.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3')
-    } else {
-      return removeNotNumerics
-    }
-  }
-
-  const getAddressInfo = async (cep: string) => {
-    try {
-      const response = await axios.get<AddressInfo>(
-        `https://viacep.com.br/ws/${cep}/json/`,
-      )
-      return response.data
-    } catch (error) {
-      console.error('Erro ao obter informações de endereço:', error)
-      return {} as AddressInfo
-    }
-  }
-
-  const fillAddressFields = (
-    addressInfo: AddressInfo,
-    setValue: UseFormSetValue<ICompanyRegister>,
-  ) => {
-    const { uf, localidade, bairro, logradouro } = addressInfo
-    setValue('country', 'Brasil')
-    setValue('state', uf)
-    setValue('city', localidade)
-    setValue('neighborhood', bairro)
-    setValue('address', logradouro)
   }
 
   const handleCEPChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -436,7 +380,9 @@ export function CompanyRegisterAndUpdate() {
           </InputBox>
         </InputGroup>
 
-        <Button type="submit">Registrar</Button>
+        <Button type="submit" style={{ marginTop: '-0.8rem' }}>
+          Registrar
+        </Button>
       </Form>
     </ContainerForAll>
   )

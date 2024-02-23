@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { Container, ContainerUnderScreen, FormImage } from './styles.ts'
 import SigninImage from '../../assets/SigninImage.svg'
+import { Input } from '../../components/Input'
 
 import useAuth from '../../hooks/useAuth'
 import { LoginFormFields } from './interface'
@@ -18,17 +19,16 @@ import {
   IconPassword,
   InputContainerForPassword,
   InputGroup,
-  Input,
   InputBox,
-  Button,
   RegisterButton,
   FormHeader,
   Title,
   TitleUnderline,
   Strong,
   Img,
-  StyledErrorMessage,
 } from './styles'
+import { ErrorMessage } from '../../components/ErrorMessage'
+import { Button } from '../../components/Button'
 
 export function Signin() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -66,18 +66,6 @@ export function Signin() {
       })
       navigate('/home')
     }
-  }
-
-  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => {
-    return (
-      <StyledErrorMessage
-        style={{ visibility: children ? 'visible' : 'hidden' }}
-      >
-        {children}
-      </StyledErrorMessage>
-    )
   }
 
   const togglePasswordVisibility = () => {

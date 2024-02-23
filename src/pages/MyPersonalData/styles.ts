@@ -49,6 +49,12 @@ export const ContainerInputs = styled.div`
 export const LabelFields = styled.label`
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  margin-top: 12px;
   margin-left: 10px;
-  margin-bottom: 8px;
+`
+
+export const Img = styled.img`
+  width: 9.5rem;
+  border: 2px solid #ffffff;
+  margin-bottom: 20px;
 `

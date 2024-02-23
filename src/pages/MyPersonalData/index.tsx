@@ -1,13 +1,15 @@
 import {
   Container,
   ContainerInputs,
-  Input,
   LabelFields,
   Title,
+  Img,
 } from './styles.ts'
 import { useEffect } from 'react'
 import { User } from './interface.ts'
 import { useForm } from 'react-hook-form'
+import { Input } from '../../components/Input'
+import MyPersonalDataImg from '../../assets/MyPersonalDataImg.svg'
 export interface Root {
   email: string
   cpf: string
@@ -87,6 +89,7 @@ export function MyPersonalData() {
         <Title>Dados Pessoais</Title>
       </div>
       <ContainerInputs>
+        <Img src={MyPersonalDataImg} />
         <LabelFields>CPF</LabelFields>
         <Input {...register('cpf')} readOnly />
         <LabelFields>Nome</LabelFields>

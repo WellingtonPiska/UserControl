@@ -12,7 +12,7 @@ export const ContainerForAll = styled.div`
 
 export const Container = styled.div`
   width: 80%;
-  height: 80vh;
+  height: 70vh;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
 `
@@ -115,7 +115,6 @@ export const Button = styled.button`
 
 export const ContainerUnderScreen = styled.div`
   display: flex;
-  margin-top: 20px;
   margin-bottom: 10px;
   justify-content: center;
 `

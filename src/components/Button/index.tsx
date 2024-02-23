@@ -1,12 +1,6 @@
-import * as C from './styles'
-import { ButtonProps } from './interface'
+import { StyledButton } from './styles'
+import { ButtonProps } from './interface.ts'
 
-const Button = ({ Text, onClick, Type = 'button' }: ButtonProps) => {
-  return (
-    <C.Button type={Type} onClick={onClick}>
-      {Text}
-    </C.Button>
-  )
+export const Button: React.FC<ButtonProps> = (props, style) => {
+  return <StyledButton style={style} {...props} />
 }
-
-export default Button

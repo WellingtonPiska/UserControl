@@ -5,17 +5,16 @@ import {
   FormHeader,
   InputBox,
   InputGroup,
-  Input,
   Title,
   Strong,
   TitleUnderline,
-  Button,
   RegisterButton,
   ContainerUnderScreen,
-  StyledErrorMessage,
   IconPassword,
   InputContainerForPassword,
 } from './styles'
+import { Input } from '../../components/Input'
+import { Button } from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import useAuth from '../../hooks/useAuth'
@@ -26,6 +25,8 @@ import { SignupFormFields, SignupFormFieldsScreen } from './interface'
 import { validationSignup } from './schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
+import { ErrorMessage } from '../../components/ErrorMessage'
+import { formatCPF } from '../../utils/FormatCPF'
 
 export function Signup() {
   const navigate = useNavigate()
@@ -66,27 +67,6 @@ export function Signup() {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
-  const cpfMask = (value: string) => {
-    return value
-      .replace(/\D/g, '') // Remove tudo o que não é dígito
-      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três primeiros dígitos
-      .replace(/(\d{3})(\d)/, '$1.$2') // Coloca ponto após os três dígitos seguintes
-      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Coloca hífen antes dos dois últimos dígitos
-      .replace(/(-\d{2})\d+?$/, '$1') // Permite apenas dois dígitos após o hífen
-  }
-
-  const ErrorMessage: React.FC<{ children: React.ReactNode }> = ({
-    children,
-  }) => {
-    return (
-      <StyledErrorMessage
-        style={{ visibility: children ? 'visible' : 'hidden' }}
-      >
-        {children}
-      </StyledErrorMessage>
-    )
-  }
-
   return (
     <ContainerForAll>
       <Container>
@@ -108,7 +88,7 @@ export function Signup() {
                   {...register('cpf')}
                   maxLength={14}
                   onChange={(e) => {
-                    e.target.value = cpfMask(e.target.value)
+                    e.target.value = formatCPF(e.target.value)
                   }}
                 />
                 <ErrorMessage>{errors.cpf && errors.cpf.message}</ErrorMessage>
@@ -224,7 +204,7 @@ export function Signup() {
                 </ErrorMessage>
               </InputBox>
 
-              <RegisterButton style={{ marginTop: '60px' }}>
+              <RegisterButton style={{ marginBottom: '20px' }}>
                 <Button>Registrar</Button>
               </RegisterButton>
             </InputGroup>

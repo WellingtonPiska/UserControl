@@ -28,28 +28,10 @@ export const Form = styled.form`
 `
 
 export const Label = styled.label`
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   margin-left: 10px;
-`
-
-export const Input = styled.input`
-  margin: 0.6rem 0;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 1px 1px 6px #0000001c;
-  font-size: 0.8rem;
-  width: 100%;
-
-  &:hover {
-    background-color: #eeeeee75;
-  }
-
-  &:focus-visible {
-    outline: 1px solid #6c63ff;
-  }
 `
 
 export const TextArea = styled.textarea`
@@ -106,16 +88,4 @@ export const BackLink = styled.a`
   &:hover {
     background-color: #0056b3;
   }
-`
-
-export const StyledErrorMessage = styled.p`
-  color: red;
-  font-size: 13px;
-  height: 15px;
-  margin-top: 2px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  visibility: hidden; // Invisível por padrão
-  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
 `

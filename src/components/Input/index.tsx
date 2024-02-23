@@ -1,15 +1,11 @@
-import * as C from './styles'
+import React from 'react'
+import { StyledInput } from './styles'
 import { InputProps } from './interface'
 
-const Input = ({ type, placeholder, value, onChange }: InputProps) => {
-  return (
-    <C.Input
-      value={value}
-      onChange={onChange}
-      type={type}
-      placeholder={placeholder}
-    />
-  )
-}
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ style, ...props }, ref) => {
+    return <StyledInput ref={ref} style={style} {...props} />
+  },
+)
 
-export default Input
+Input.displayName = 'Input'

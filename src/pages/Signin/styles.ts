@@ -8,7 +8,7 @@ export const InputContainerForPassword = styled.div`
 export const IconPassword = styled.span`
   position: absolute;
   top: 50%;
-  right: 10px; /* Ajuste baseado no tamanho do seu input e ícone */
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
 
@@ -30,7 +30,7 @@ export const ContainerForAll = styled.div`
 `
 export const Container = styled.div`
   width: 80%;
-  height: 80vh;
+  height: 70vh;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
 `
@@ -86,26 +86,8 @@ export const InputGroup = styled.div`
 export const InputBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1rem;
   position: relative;
-`
-
-export const Input = styled.input`
-  margin: 0.6rem 0;
-  padding: 0.8rem 4.4rem 0.8rem 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 1px 1px 6px #0000001c;
-  font-size: 0.8rem;
-  width: 100%;
-
-  &:hover {
-    background-color: #eeeeee75;
-  }
-
-  &:focus-visible {
-    outline: 1px solid #6c63ff;
-  }
 `
 
 export const RegisterButton = styled.div`
@@ -161,15 +143,4 @@ export const Strong = styled.strong`
       color: #00050a;
     }
   }
-`
-export const StyledErrorMessage = styled.p`
-  color: red;
-  font-size: 13px;
-  height: 15px;
-  margin-top: 2px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  visibility: hidden; // Invisível por padrão
-  margin-bottom: 10px; // Espaço reservado, ajuste conforme necessário
 `

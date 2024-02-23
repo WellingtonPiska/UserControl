@@ -1,5 +1,4 @@
-export interface ButtonProps {
-  Text: string
-  onClick: () => void
-  Type?: 'button' | 'submit' | 'reset'
-}
+// interface.ts
+import { ButtonHTMLAttributes } from 'react'
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}

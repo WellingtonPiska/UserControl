@@ -1,6 +1,8 @@
 import Select from 'react-select'
 import { v4 as uuidv4 } from 'uuid'
 import { useEffect } from 'react'
+import { Input } from '../../../components/Input'
+import { Button } from '../../../components/Button'
 
 import {
   FormWrapper,
@@ -8,9 +10,7 @@ import {
   Title,
   Form,
   Label,
-  Input,
   TextArea,
-  Button,
 } from '../stylesForRegisterAndUpdate.ts'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'

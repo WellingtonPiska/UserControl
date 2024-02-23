@@ -59,53 +59,7 @@ export const InputGroup = styled.div`
 
 export const InputBox = styled.div`
   display: flex;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.5rem;
   width: 21%;
   flex-direction: column;
-`
-
-export const Input = styled.input`
-  margin: 0.6rem 0;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 1px 1px 6px #0000001c;
-  font-size: 0.8rem;
-  width: 100%;
-
-  &:hover {
-    background-color: #eeeeee75;
-  }
-
-  &:focus-visible {
-    outline: 1px solid #6c63ff;
-  }
-`
-
-export const Button = styled.button`
-  margin-top: -0.5rem;
-  border: none;
-  background-color: #046ee5;
-  padding: 0.62rem;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.93rem;
-  color: #fff;
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-export const StyledErrorMessage = styled.p`
-  color: red;
-  font-size: 13px;
-  height: 15px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  visibility: hidden; // Invisível por padrão
 `
