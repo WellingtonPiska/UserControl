@@ -196,7 +196,7 @@ export function Company() {
           style={{
             padding: '4px',
             border: '1px solid #ccc',
-            borderRadius: '4px',
+            borderRadius: '10px',
             backgroundColor: 'white',
             cursor: 'pointer',
             outline: 'none',
@@ -212,7 +212,7 @@ export function Company() {
           Itens por página{' '}
         </label>
 
-        <div style={{ marginLeft: '1150px', position: 'relative' }}>
+        <div style={{ marginLeft: '1308px', position: 'relative' }}>
           <form
             onSubmit={handleSearchSubmit}
             style={{ display: 'flex', alignItems: 'center' }}
@@ -255,13 +255,23 @@ export function Company() {
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
                     <TableCell>
-                      {formData.dateRegister.toLocaleString()}
+                      {formData.dateRegister
+                        ? formData.dateRegister.toLocaleString()
+                        : undefined}
                     </TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <RxUpdate
+                          onClick={() =>
+                            formData.id !== undefined &&
+                            handleUpdate(formData.id)
+                          }
+                        />
                         <MdDeleteForever
-                          onClick={() => openDeleteModal(formData.id)}
+                          onClick={() =>
+                            formData.id !== undefined &&
+                            openDeleteModal(formData.id)
+                          }
                         />
                       </IconContainer>
                     </TableCell>
@@ -273,13 +283,23 @@ export function Company() {
                     <TableCell>{formData.corporateReason}</TableCell>
                     <TableCell>{formData.fantasyName}</TableCell>
                     <TableCell>
-                      {formData.dateRegister.toLocaleString()}
+                      {formData.dateRegister
+                        ? formData.dateRegister.toLocaleString()
+                        : undefined}
                     </TableCell>
                     <TableCell>
                       <IconContainer>
-                        <RxUpdate onClick={() => handleUpdate(formData.id)} />
+                        <RxUpdate
+                          onClick={() =>
+                            formData.id !== undefined &&
+                            handleUpdate(formData.id)
+                          }
+                        />
                         <MdDeleteForever
-                          onClick={() => openDeleteModal(formData.id)}
+                          onClick={() =>
+                            formData.id !== undefined &&
+                            openDeleteModal(formData.id)
+                          }
                         />
                       </IconContainer>
                     </TableCell>

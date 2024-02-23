@@ -144,3 +144,14 @@ export const Strong = styled.strong`
     }
   }
 `
+
+export const ContainerForIcon = styled.div`
+  position: absolute;
+  top: 35%;
+  left: 8px;
+  transform: translateY(10%);
+  border-right: 1px solid lightgray;
+  padding-right: 4px;
+  color: gray;
+  box-sizing: border-box;
+`

@@ -192,10 +192,10 @@ export function List() {
           style={{
             padding: '4px',
             border: '1px solid #ccc',
-            borderRadius: '4px',
             backgroundColor: 'white',
             cursor: 'pointer',
             outline: 'none',
+            borderRadius: '10px',
             transition: 'border-color 0.3s ease-in-out',
           }}
         >
@@ -208,7 +208,7 @@ export function List() {
           Itens por página{' '}
         </label>
 
-        <div style={{ marginLeft: '1150px', position: 'relative' }}>
+        <div style={{ marginLeft: '1308px', position: 'relative' }}>
           <form
             onSubmit={handleSearchSubmit}
             style={{ display: 'flex', alignItems: 'center' }}

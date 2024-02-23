@@ -4,7 +4,12 @@ import { HiOutlineKey } from 'react-icons/hi'
 import { AiOutlineUser } from 'react-icons/ai'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import { Container, ContainerUnderScreen, FormImage } from './styles.ts'
+import {
+  Container,
+  ContainerForIcon,
+  ContainerUnderScreen,
+  FormImage,
+} from './styles.ts'
 import SigninImage from '../../assets/SigninImage.svg'
 import { Input } from '../../components/Input'
 
@@ -91,22 +96,14 @@ export function Signin() {
               <InputBox>
                 <label>E-mail</label>
 
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '35%',
-                    left: '10px',
-                    color: 'gray',
-                    transform: 'translateY(20%)',
-                  }}
-                >
+                <ContainerForIcon>
                   <AiOutlineUser />
-                </div>
+                </ContainerForIcon>
                 <Input
                   type="email"
                   placeholder="Digite o seu E-mail"
                   {...register('email')}
-                  style={{ paddingLeft: '34px' }}
+                  style={{ paddingLeft: '36px' }}
                 />
                 <ErrorMessage>
                   {errors.email && errors.email.message}
@@ -122,23 +119,15 @@ export function Signin() {
                     position: 'relative',
                   }}
                 >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '35%',
-                      left: '10px',
-                      color: 'gray',
-                      transform: 'translateY(10%)',
-                    }}
-                  >
+                  <ContainerForIcon>
                     <HiOutlineKey />
-                  </div>
+                  </ContainerForIcon>
 
                   <Input
                     type={isPasswordVisible ? 'text' : 'password'}
                     placeholder="Digite a sua Senha"
                     {...register('password')}
-                    style={{ paddingLeft: '34px' }}
+                    style={{ paddingLeft: '36px' }}
                   />
 
                   <InputContainerForPassword>

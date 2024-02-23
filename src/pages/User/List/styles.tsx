@@ -16,7 +16,7 @@ export const ListContainer = styled.div`
 `
 
 export const ListTitle = styled.h2`
-  text-align: center; /* Centralizar o título */
+  text-align: center;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
   font-size: 30px;
@@ -27,16 +27,12 @@ export const Table = styled.table`
   border-collapse: collapse;
 `
 
-export const TableHeadContainer = styled.div`
-  width: 100%;
-  overflow-y: hidden; // Evita rolagem no cabeçalho
-`
 export const TableContainer = styled.div`
   height: 532px;
   overflow-y: auto;
   width: 100%;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   ::-webkit-scrollbar {
@@ -234,7 +230,7 @@ export const ButtonPaginationNumber = styled.button<ButtonPaginationNumberProps>
 export const InputForSearch = styled.input`
   padding: 0.4rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 1px 1px 6px #0000001c;
   font-size: 0.8rem;
   width: 100%;
